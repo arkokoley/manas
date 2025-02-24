@@ -1,0 +1,67 @@
+[tool.poetry]
+name = "mas"
+version = "0.1.0"
+description = "A framework for building LLM-powered applications with intelligent agents, task decomposition, and RAG"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+packages = [{include = "mas"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+asyncio = "^3.4.3"
+typing-extensions = "^4.5.0"
+tiktoken = "^0.5.2"
+numpy = "^1.24.0"  # Moved to main dependencies since it's required by faiss
+
+# Core optional dependencies
+openai = { version = "^1.0.0", optional = true }
+transformers = { version = "^4.30.0", optional = true }
+torch = { version = "^2.0.0", optional = true }
+anthropic = { version = "^0.3.0", optional = true }
+google-cloud-aiplatform = { version = "^1.25.0", optional = true }
+
+# Vector store dependencies with specific requirements
+faiss-cpu = { version = "^1.7.0", optional = true, python = ">=3.9" }
+faiss-gpu = { version = "^1.7.0", optional = true, python = ">=3.9" }
+chromadb = { version = "^0.4.0", optional = true }
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.3.1"
+pytest-asyncio = "^0.21.0"
+black = "^23.7.0"
+isort = "^5.12.0"
+
+[tool.poetry.extras]
+openai = ["openai", "tiktoken"]
+huggingface = ["transformers", "torch"]
+anthropic = ["anthropic"]
+vertexai = ["google-cloud-aiplatform"]
+faiss = ["faiss-cpu"]  # Removed numpy since it's now a main dependency
+faiss-gpu = ["faiss-gpu"]
+chroma = ["chromadb"]
+vector-stores = ["faiss-cpu", "chromadb"]
+vector-stores-gpu = ["faiss-gpu", "chromadb"]
+minimal = ["openai", "tiktoken", "faiss-cpu"]
+all-cpu = ["openai", "transformers", "torch", "anthropic", "google-cloud-aiplatform", "faiss-cpu", "chromadb", "tiktoken"]
+all-gpu = ["openai", "transformers", "torch", "anthropic", "google-cloud-aiplatform", "faiss-gpu", "chromadb", "tiktoken"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+asyncio_mode = "strict"
+
+[tool.pytest.ini_options]
+addopts = "-v --strict-markers"
+markers = [
+    "slow: marks tests as slow",
+    "integration: marks tests as integration tests",
+    "llm: marks tests related to LLM functionality",
+    "rag: marks tests related to RAG functionality",
+    "agent: marks tests related to agent functionality",
+]
