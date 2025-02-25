@@ -2,36 +2,41 @@
 from typing import Any, Dict, List, Optional, Union, Literal
 from datetime import datetime
 from uuid import UUID, uuid4
+from abc import ABC, abstractmethod
+from dataclasses import dataclass, field
 
+
+@dataclass
 class FunctionCall:
     """Represents a function call in chat messages."""
-    def __init__(self, name: str, arguments: Dict[str, Any]):
-        self.name = name
-        self.arguments = arguments
+    name: str
+    arguments: Dict[str, Any] = field(default_factory=dict)
 
+
+@dataclass
 class FunctionDefinition:
     """Defines a function that can be called by the LLM."""
-    def __init__(self, name: str, description: str, parameters: Dict[str, Any]):
-        self.name = name
-        self.description = description
-        self.parameters = parameters
+    name: str
+    description: str
+    parameters: Dict[str, Any]
 
+
+@dataclass
 class Message:
     """Base message class for chat interactions."""
-    def __init__(self, role: str = "user", content: Optional[str] = None,
-                 name: Optional[str] = None, function_call: Optional[FunctionCall] = None):
-        self.id = uuid4()
-        self.role = role
-        self.content = content
-        self.name = name
-        self.function_call = function_call
-        self.timestamp = datetime.utcnow()
-        self.metadata: Dict[str, Any] = {}
+    role: str = "user"
+    content: Optional[str] = None
+    name: Optional[str] = None
+    function_call: Optional[FunctionCall] = None
+    id: UUID = field(default_factory=uuid4)
+    timestamp: datetime = field(default_factory=datetime.utcnow)
+    metadata: Dict[str, Any] = field(default_factory=dict)
+
 
 class ChatSession:
     """Represents a chat session with history."""
     def __init__(self):
-        self.id = uuid4()
+        self.id: UUID = uuid4()
         self.messages: List[Message] = []
         self.functions: List[FunctionDefinition] = []
         self.metadata: Dict[str, Any] = {}
@@ -59,23 +64,29 @@ class ChatSession:
         """Clear chat history while preserving functions and metadata."""
         self.messages = []
 
-class Memory:
+
+class Memory(ABC):
     """Base class for memory implementations."""
+    @abstractmethod
     async def add(self, key: str, value: Any):
         """Add an item to memory."""
-        raise NotImplementedError
+        pass
     
+    @abstractmethod
     async def get(self, key: str) -> Optional[Any]:
         """Retrieve an item from memory."""
-        raise NotImplementedError
+        pass
     
+    @abstractmethod
     async def remove(self, key: str):
         """Remove an item from memory."""
-        raise NotImplementedError
+        pass
     
+    @abstractmethod
     async def clear(self):
         """Clear all items from memory."""
-        raise NotImplementedError
+        pass
+
 
 class SimpleMemory(Memory):
     """Simple in-memory implementation."""
@@ -94,15 +105,19 @@ class SimpleMemory(Memory):
     async def clear(self):
         self._store.clear()
 
-class Middleware:
+
+class Middleware(ABC):
     """Base class for chat middleware."""
+    @abstractmethod
     async def pre_process(self, session: ChatSession, message: Message) -> Message:
         """Process message before sending to LLM."""
-        return message
+        pass
     
+    @abstractmethod
     async def post_process(self, session: ChatSession, message: Message) -> Message:
         """Process message after receiving from LLM."""
-        return message
+        pass
+
 
 class MemoryMiddleware(Middleware):
     """Middleware that handles memory operations."""
@@ -141,3 +156,16 @@ class MemoryMiddleware(Middleware):
                             await self.memory.add(memory_key, value)
         
         return message
+
+
+# Export classes
+__all__ = [
+    "FunctionCall",
+    "FunctionDefinition",
+    "Message", 
+    "ChatSession",
+    "Memory",
+    "SimpleMemory",
+    "Middleware",
+    "MemoryMiddleware"
+]
