@@ -1,18 +1,19 @@
 # MAS - Multi-Agent System Framework for LLM Applications
 
-A powerful framework for building LLM-powered applications with intelligent agents, tool integration, task decomposition, and dynamic workflows.
+A robust, modular, and extensible framework for building LLM-powered applications with intelligent agents, tool integration, task decomposition, and dynamic workflows.
 
 ## Features
 
-- 🤖 **Intelligent Agents** - Create autonomous agents with think-act-observe cycle
-- 🛠️ **Tool-Using Agents** - Agents that can use tools to solve complex tasks
+- 🤖 **Intelligent Agents** - Create autonomous agents with think-act-observe cycle and built-in state management
+- 🛠️ **Tool System** - Flexible registry for tools with automatic parameter discovery and documentation
 - 🧩 **Task Decomposition** - Break down complex tasks into manageable subtasks
-- 📚 **Retrieval Augmented Generation (RAG)** - Enhance LLM responses with relevant context
-- 🔄 **Dynamic Flows** - Create and modify workflows at runtime
-- 🔌 **Multiple LLM Providers** - Support for OpenAI, HuggingFace, Ollama, and more
-- 💾 **Vector Store Integration** - FAISS and Chroma support for efficient similarity search
-- 🧠 **Memory and Context Management** - Built-in support for maintaining conversation state
-- ⚡ **Async First** - Built for high-performance async operations
+- 📚 **Retrieval Augmented Generation (RAG)** - Enhance LLM responses with relevant context and document chunking
+- 🔄 **Dynamic Flows** - Create and modify workflows with visualization and dependency management
+- 🔌 **Provider Architecture** - Modular support for OpenAI, HuggingFace, Ollama, and custom providers
+- 💾 **Vector Store Integration** - FAISS and Chroma support with consistent interfaces
+- 🧠 **Memory and Middleware** - Built-in memory middleware and extensible middleware architecture
+- ⚡ **Async First** - Fully asynchronous architecture with proper error handling
+- ✅ **Formally Verified** - Core flow execution logic validated through formal verification
 
 ## Installation
 
@@ -63,33 +64,56 @@ Here's a simple example using a tool-using agent with Ollama:
 
 ```python
 import asyncio
-from mas.core.agent import Agent
+from mas.core.agent import Agent, AgentRegistry, Tool
 from mas.core.llm import LLMNode, LLMConfig
-from tool_using_agent import ToolUsingAgent, Tool
+
+# Define a custom agent
+@AgentRegistry.register
+class ResearchAgent(Agent):
+    async def think(self, context):
+        # Process input and plan next steps
+        query = context.get("query", "")
+        return {"plan": f"Research information about {query}"}
+    
+    async def act(self, decision):
+        # Execute the research plan
+        plan = decision.get("plan", "")
+        result = await self.tools["search"](plan)
+        return {"search_results": result}
+    
+    async def observe(self, result):
+        # Process and summarize the results
+        search_results = result.get("search_results", "")
+        return {"summary": f"Based on research: {search_results}"}
 
 async def main():
-    # Initialize tool-using agent with Ollama
-    agent = ToolUsingAgent(
-        name="research_assistant",
-        provider="ollama",
+    # Create LLM configuration
+    config = LLMConfig(
+        provider_name="ollama",
         provider_config={
-            "model": "llama2",
+            "model": "llama3",
             "base_url": "http://localhost:11434/v1"
-        }
+        },
+        temperature=0.7
     )
     
-    # Add tools
-    agent.add_tool(Tool(
-        name="read_file",
-        description="Read content from a file",
-        func=lambda path: open(path).read()
-    ))
+    # Create LLM node for the agent
+    llm_node = LLMNode("llm", config)
     
-    # Process a task
-    result = await agent.process({
-        "task": "Read README.md and summarize its contents"
-    })
+    # Create agent
+    agent = ResearchAgent("researcher")
     
+    # Register tools
+    @AgentRegistry.register_tool(name="search", description="Search for information")
+    async def search(query):
+        # In a real application, this would perform an actual search
+        return f"Search results for {query}"
+    
+    # Add tool to agent
+    agent.add_capability("search")
+    
+    # Process a query
+    result = await agent.process({"query": "quantum computing"})
     print(result["observation"]["summary"])
 
 if __name__ == "__main__":
@@ -98,83 +122,66 @@ if __name__ == "__main__":
 
 ## Core Components
 
-### Tool-Using Agents
+### Agent System
 
-Agents that can use tools to solve complex tasks:
-
-```python
-from mas.core.agent import Agent
-from tool_using_agent import ToolUsingAgent, Tool
-
-# Create an agent
-agent = ToolUsingAgent(name="file_processor")
-
-# Add tools
-agent.add_tool(Tool(
-    name="read_file",
-    description="Read file content",
-    func=read_file_function
-))
-
-agent.add_tool(Tool(
-    name="analyze_text",
-    description="Analyze text content",
-    func=analyze_text_function
-))
-
-# Process a complex task
-result = await agent.process({
-    "task": "Read config.json and analyze its structure"
-})
-```
-
-### Dynamic Flows
-
-Create and modify workflows at runtime:
+Agents follow a think-act-observe cycle with improved state management:
 
 ```python
-from mas.core.flow import Flow
-from ollama_tool_test import DynamicOllamaFlow
+from mas.core.agent import Agent, AgentRegistry, Tool
 
-# Create a dynamic flow
-flow = DynamicOllamaFlow(model="llama2")
-
-# Execute a complex task
-result = await flow.execute_plan(
-    "Research quantum computing concepts and summarize findings"
-)
-
-print(result["final_analysis"])
-```
-
-### Agents
-
-Agents are the building blocks of autonomous behavior:
-
-```python
-from mas.core.agent import Agent
-
-class MyAgent(Agent):
+@AgentRegistry.register
+class AnalysisAgent(Agent):
     async def think(self, context):
         # Process information and make decisions
-        return {"decision": "next_action"}
+        return {"decision": "analyze_data"}
     
     async def act(self, decision):
         # Execute actions based on decisions
-        return {"result": "action_outcome"}
+        if decision["decision"] == "analyze_data":
+            # Use registered tools
+            result = await self.tools["data_analysis"](context["data"])
+            return {"result": result}
     
     async def observe(self, result):
         # Process results and update state
-        return {"observation": "updated_state"}
+        self.set_state({"last_analysis": result["result"]})
+        return {"observation": "Analysis complete"}
+
+# Register a tool
+@AgentRegistry.register_tool(name="data_analysis", description="Analyze data")
+async def analyze_data(data):
+    # Analysis implementation
+    return {"insights": "Data analysis results"}
 ```
 
 ### RAG Integration
 
-Add context to your LLM responses:
+Enhanced RAG with document chunking and reranking:
 
 ```python
-from mas.core.rag import RAGNode, RAGConfig
+from mas.core.rag import RAGNode, RAGConfig, DocumentLoader, chunk_document
 from mas.core.models import Document
+from mas.core.llm import LLMNode, LLMConfig
+
+# Create embedding model
+embedding_config = LLMConfig(
+    provider_name="openai",
+    provider_config={"model": "text-embedding-ada-002"},
+)
+embedding_node = LLMNode("embeddings", embedding_config)
+
+# Create LLM for generation
+llm_config = LLMConfig(
+    provider_name="openai",
+    provider_config={"model": "gpt-4o-mini"},
+)
+llm_node = LLMNode("llm", llm_config)
+
+# Create document loader with chunking preprocessor
+document_loader = DocumentLoader(
+    name="loader",
+    preprocessors=[chunk_document(max_length=500, overlap=50)]
+)
 
 # Initialize RAG node
 rag = RAGNode(
@@ -182,112 +189,181 @@ rag = RAGNode(
     config=RAGConfig(
         vectorstore_type="faiss",
         vectorstore_config={
-            "dimension": 384,
-            "index_type": "Cosine"
-        }
+            "dimension": 1536,
+            "similarity_metric": "cosine"
+        },
+        num_results=5,
+        rerank_results=True
     ),
-    embedding_node=llm_node
+    embedding_node=embedding_node,
+    llm_node=llm_node
 )
 
-# Add documents
-await rag.add_documents([
-    Document(
-        content="Your document content here",
-        metadata={"source": "document.txt"}
-    )
-])
-
-# Query with context
-result = await rag.process({
-    "query": "Your question here"
+# Load and add documents
+documents = await document_loader.process({
+    "documents": ["Document 1 content", "Document 2 content"]
 })
+await rag.add_documents(documents["documents"])
+
+# Query with RAG
+result = await rag.process({
+    "query": "What are the key concepts?"
+})
+
+print(result["response"])
 ```
 
 ### Flow Orchestration
 
-Create complex, dynamic workflows:
+Create complex, dynamic workflows with dependency management and validation:
 
 ```python
 from mas.core.flow import Flow
-from mas.core.base import Edge
+from mas.core.llm import LLMNode, LLMConfig
+from mas.core.rag import RAGNode, RAGConfig
 
 # Create a flow
-flow = Flow(name="research_flow")
+flow = Flow(name="research_flow", description="Research and analysis flow")
 
-# Dynamically add nodes based on task requirements
-for subtask in subtasks:
-    node = create_node_for_subtask(subtask)
-    flow.add_node(node)
+# Add nodes
+reader = DocumentLoader(name="reader")
+flow.add_node(reader)
 
-# Connect nodes based on dependencies
-for i in range(len(nodes) - 1):
-    flow.add_edge(Edge(
-        source_node=nodes[i].id,
-        target_node=nodes[i + 1].id,
-        name=f"step_{i}_to_{i+1}"
-    ))
+embedder = LLMNode("embedder", embedding_config)
+flow.add_node(embedder)
+
+rag = RAGNode(name="rag", config=rag_config, embedding_node=embedder)
+flow.add_node(rag)
+
+analyzer = LLMNode("analyzer", llm_config)
+flow.add_node(analyzer)
+
+# Connect nodes by name (simplified API)
+flow.connect_nodes("reader", "rag", "docs_to_rag")
+flow.connect_nodes("rag", "analyzer", "context_to_analyzer")
 
 # Process flow
 result = await flow.process({
-    "input": "Your query here"
+    "documents": ["Document 1", "Document 2"],
+    "query": "Analyze the trend in these documents"
 })
+
+# Visualize flow
+flow_viz = flow.visualize()
 ```
 
 ## Advanced Features
 
-### Tool Integration
+### Middleware System
 
-Create custom tools for agents:
-
-```python
-from tool_using_agent import Tool
-
-# Create a custom tool
-async def custom_tool(arg1: str, arg2: int) -> str:
-    # Tool implementation
-    return result
-
-# Add tool to agent
-agent.add_tool(Tool(
-    name="custom_tool",
-    description="Description of what the tool does",
-    func=custom_tool
-))
-```
-
-### Memory Management
-
-Use built-in memory middleware:
+Use middleware to enhance provider capabilities:
 
 ```python
 from mas.core.chat import MemoryMiddleware, SimpleMemory
+from mas.core.providers.middleware import MiddlewareProvider
 
-# Create memory middleware
+# Create memory and middleware
 memory = SimpleMemory()
 middleware = MemoryMiddleware(memory)
 
 # Add to provider
 provider.add_middleware(middleware)
+
+# Configure memory operations in message metadata
+message = Message(
+    role="user",
+    content="Recall what I told you about preferences",
+    metadata={
+        "requires_memory": ["user_preferences"]
+    }
+)
+
+# Memory will be automatically injected into prompt
 ```
 
-### Batch Processing
+### Provider Registration
 
-Process multiple inputs efficiently:
+Create and register custom LLM providers:
 
 ```python
+from mas.core.providers.base import BaseLLMProvider, register_provider
+
+@register_provider
+class CustomProvider(BaseLLMProvider):
+    provider_name = "custom"
+    supports_streaming = True
+    supports_embeddings = True
+    default_embedding_dimension = 768
+    
+    async def initialize(self):
+        # Initialize resources
+        self._client = await setup_client(self.config)
+        self._initialized = True
+    
+    async def cleanup(self):
+        # Clean up resources
+        await self._client.close()
+        self._initialized = False
+    
+    async def generate(self, prompt, temperature=0.7, **kwargs):
+        # Generate completion
+        response = await self._client.complete(prompt, temperature)
+        return response.text
+    
+    async def stream_generate(self, prompt, **kwargs):
+        # Stream completion
+        async for chunk in self._client.stream(prompt):
+            yield chunk
+    
+    async def embed(self, text):
+        # Generate embeddings
+        embedding = await self._client.embed(text)
+        return embedding
+```
+
+### Batch and Stream Processing
+
+Efficient batch processing and streaming:
+
+```python
+# Batch processing
 results = await flow.batch_process([
-    {"input": "Query 1"},
-    {"input": "Query 2"},
+    {"query": "Question 1", "documents": ["Doc A", "Doc B"]},
+    {"query": "Question 2", "documents": ["Doc C", "Doc D"]},
 ], batch_size=5)
+
+# Streaming
+async for chunk in llm_node.stream_generate("Explain quantum computing"):
+    print(chunk, end="", flush=True)
 ```
 
-### Streaming Support
+## Formal Verification
 
-Stream LLM responses:
+The flow execution engine has been formally verified to guarantee several critical properties:
+
+- **✓ acyclic**: All flows are guaranteed to be acyclic, preventing infinite execution loops
+- **✓ reachability**: All nodes in the flow can be reached from input nodes
+- **✓ deterministic_execution**: Flow execution is deterministic given the same inputs
+- **✓ resource_safety**: All resources are properly initialized and cleaned up
+- **✓ parallel_safety**: Parallel node execution is safe and properly synchronized
+
+## Error Handling
+
+Improved error handling with custom exceptions:
 
 ```python
-async for chunk in llm.stream_generate("Your prompt here"):
-    print(chunk, end="", flush=True)
+try:
+    result = await flow.process(inputs)
+except FlowExecutionError as e:
+    print(f"Error in flow: {e}")
+    print(f"Failed node: {e.node_name}")
+    print(f"Details: {e.details}")
+except RAGError as e:
+    print(f"RAG error: {e}")
+except AgentError as e:
+    print(f"Agent error: {e}")
+except ProviderError as e:
+    print(f"Provider error: {e}")
 ```
 
 ## Contributing
