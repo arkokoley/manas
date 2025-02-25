@@ -3,19 +3,7 @@ import asyncio
 from typing import Dict, Any, List, Callable, Optional
 from mas.core.agent import Agent
 from mas.core.llm import LLMNode, LLMConfig
-
-class Tool:
-    """Represents a tool that the agent can use."""
-    def __init__(self, name: str, description: str, func: Callable):
-        self.name = name
-        self.description = description
-        self.func = func
-    
-    async def execute(self, **kwargs) -> Any:
-        """Execute the tool with given arguments."""
-        if asyncio.iscoroutinefunction(self.func):
-            return await self.func(**kwargs)
-        return self.func(**kwargs)
+from examples.utils import Tool, logger, create_ollama_node, get_common_tools
 
 class ToolUsingAgent(Agent):
     """Agent that can use tools to solve tasks."""
@@ -31,13 +19,10 @@ class ToolUsingAgent(Agent):
             }
         
         # Initialize LLM
-        self.llm = LLMNode(
+        self.llm = create_ollama_node(
             name=f"{name}_llm",
-            config=LLMConfig(
-                provider_name=provider,
-                provider_config=provider_config,
-                temperature=0.7
-            )
+            model=provider_config.get("model", "llama2"),
+            base_url=provider_config.get("base_url", "http://localhost:11434/v1")
         )
         
         # Initialize tools registry
@@ -51,6 +36,11 @@ class ToolUsingAgent(Agent):
     def add_tool(self, tool: Tool):
         """Register a new tool."""
         self.tools[tool.name] = tool
+    
+    def add_common_tools(self):
+        """Add common file and text operation tools."""
+        for tool in get_common_tools():
+            self.add_tool(tool)
     
     def _get_tools_description(self) -> str:
         """Get formatted description of available tools."""
@@ -224,127 +214,45 @@ Provide:
             "remaining_plan": result.get("plan", [])[1:] if result.get("plan") else []
         }
 
-# Example usage with practical tools
+
 async def main():
+    """Example usage of the ToolUsingAgent."""
     # Create an agent
     agent = ToolUsingAgent(
         name="research_assistant",
         provider="ollama",
         provider_config={
-            "model": "llama2",
+            "model": "llama3.2",
             "base_url": "http://localhost:11434/v1"
         }
     )
     
-    # File reading tool
-    async def read_file_tool(path: str) -> str:
-        try:
-            with open(path, 'r') as f:
-                return f.read()
-        except Exception as e:
-            return f"Error reading file: {str(e)}"
-    
-    # File writing tool
-    async def write_file_tool(path: str, content: str) -> str:
-        try:
-            with open(path, 'w') as f:
-                f.write(content)
-            return f"Successfully wrote to {path}"
-        except Exception as e:
-            return f"Error writing file: {str(e)}"
-    
-    # HTTP request tool
-    async def http_get_tool(url: str) -> str:
-        try:
-            import aiohttp
-            async with aiohttp.ClientSession() as session:
-                async with session.get(url) as response:
-                    return await response.text()
-        except Exception as e:
-            return f"Error making HTTP request: {str(e)}"
-    
-    # System command tool
-    async def shell_tool(command: str) -> str:
-        try:
-            import subprocess
-            result = subprocess.run(
-                command, 
-                shell=True, 
-                capture_output=True, 
-                text=True,
-                timeout=30
-            )
-            return f"Exit code: {result.returncode}\nOutput:\n{result.stdout}\nErrors:\n{result.stderr}"
-        except Exception as e:
-            return f"Error executing command: {str(e)}"
-    
-    # Text processing tool
-    def process_text_tool(text: str, operation: str) -> str:
-        ops = {
-            "upper": str.upper,
-            "lower": str.lower,
-            "title": str.title,
-            "words": lambda x: str(len(x.split())),
-            "chars": len,
-            "lines": lambda x: len(x.splitlines())
-        }
-        try:
-            if operation not in ops:
-                return f"Unknown operation. Available: {', '.join(ops.keys())}"
-            return str(ops[operation](text))
-        except Exception as e:
-            return f"Error processing text: {str(e)}"
-    
-    # Add tools to agent
-    agent.add_tool(Tool(
-        name="read_file",
-        description="Read content from a file. Args: path(str)",
-        func=read_file_tool
-    ))
-    
-    agent.add_tool(Tool(
-        name="write_file",
-        description="Write content to a file. Args: path(str), content(str)",
-        func=write_file_tool
-    ))
-    
-    agent.add_tool(Tool(
-        name="http_get",
-        description="Make HTTP GET request to a URL. Args: url(str)",
-        func=http_get_tool
-    ))
-    
-    agent.add_tool(Tool(
-        name="shell_command",
-        description="Execute a shell command. Args: command(str)",
-        func=shell_tool
-    ))
-    
-    agent.add_tool(Tool(
-        name="process_text",
-        description="Process text with operations (upper/lower/title/words/chars/lines). Args: text(str), operation(str)",
-        func=process_text_tool
-    ))
+    # Add common tools
+    agent.add_common_tools()
     
     # Initialize the agent
     await agent.llm.initialize()
     
     try:
-        # Test tasks
-        tasks = [
-            "Read the contents of README.md, count the number of words, and write a summary to summary.txt",
-            "Get the current system time using a shell command and convert it to uppercase",
-            "Make an HTTP GET request to http://example.com and count the number of lines in the response"
-        ]
+        # Process a task
+        task = "Read the README.md file, analyze it to count words and lines, then create a summary in a new file called summary.txt"
+        logger.info(f"Processing task: {task}")
         
-        for task in tasks:
-            print(f"\nExecuting task: {task}")
-            result = await agent.process({"task": task})
-            print("\nObservation:")
-            print(result["observation"]["summary"])
-            print("-" * 50)
-            
+        result = await agent.process({"task": task})
+        
+        # Print the results
+        logger.info("\nExecution Plan:")
+        for i, step in enumerate(result["decision"]["plan"], 1):
+            logger.info(f"  {i}. {step}")
+        
+        logger.info(f"\nSelected Tool: {result['result']['tool']}")
+        logger.info(f"Result: {result['result'].get('result', '')[:100]}...")
+        
+        logger.info("\nAgent's Analysis:")
+        logger.info(result["observation"]["summary"])
+        
     finally:
+        # Always cleanup
         await agent.llm.cleanup()
 
 if __name__ == "__main__":
