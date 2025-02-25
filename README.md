@@ -1,13 +1,14 @@
 # MAS - Multi-Agent System Framework for LLM Applications
 
-A powerful framework for building LLM-powered applications with intelligent agents, task decomposition, and Retrieval Augmented Generation (RAG).
+A powerful framework for building LLM-powered applications with intelligent agents, tool integration, task decomposition, and dynamic workflows.
 
 ## Features
 
 - 🤖 **Intelligent Agents** - Create autonomous agents with think-act-observe cycle
+- 🛠️ **Tool-Using Agents** - Agents that can use tools to solve complex tasks
 - 🧩 **Task Decomposition** - Break down complex tasks into manageable subtasks
 - 📚 **Retrieval Augmented Generation (RAG)** - Enhance LLM responses with relevant context
-- 🔄 **Flow-based Architecture** - Model workflows as nested directed graphs
+- 🔄 **Dynamic Flows** - Create and modify workflows at runtime
 - 🔌 **Multiple LLM Providers** - Support for OpenAI, HuggingFace, Ollama, and more
 - 💾 **Vector Store Integration** - FAISS and Chroma support for efficient similarity search
 - 🧠 **Memory and Context Management** - Built-in support for maintaining conversation state
@@ -58,38 +59,93 @@ poetry install --extras vector-stores
 
 ## Quick Start
 
-Here's a simple example using Ollama:
+Here's a simple example using a tool-using agent with Ollama:
 
 ```python
 import asyncio
 from mas.core.agent import Agent
 from mas.core.llm import LLMNode, LLMConfig
+from tool_using_agent import ToolUsingAgent, Tool
 
 async def main():
-    # Initialize LLM node with Ollama
-    llm = LLMNode(
-        name="ollama_node",
-        config=LLMConfig(
-            provider="ollama",
-            provider_config={
-                "model": "llama2",
-                "base_url": "http://localhost:11434/v1"
-            }
-        )
+    # Initialize tool-using agent with Ollama
+    agent = ToolUsingAgent(
+        name="research_assistant",
+        provider="ollama",
+        provider_config={
+            "model": "llama2",
+            "base_url": "http://localhost:11434/v1"
+        }
     )
     
-    # Process a prompt
-    result = await llm.process({
-        "prompt": "Explain quantum computing in simple terms"
+    # Add tools
+    agent.add_tool(Tool(
+        name="read_file",
+        description="Read content from a file",
+        func=lambda path: open(path).read()
+    ))
+    
+    # Process a task
+    result = await agent.process({
+        "task": "Read README.md and summarize its contents"
     })
     
-    print(result["response"])
+    print(result["observation"]["summary"])
 
 if __name__ == "__main__":
     asyncio.run(main())
 ```
 
 ## Core Components
+
+### Tool-Using Agents
+
+Agents that can use tools to solve complex tasks:
+
+```python
+from mas.core.agent import Agent
+from tool_using_agent import ToolUsingAgent, Tool
+
+# Create an agent
+agent = ToolUsingAgent(name="file_processor")
+
+# Add tools
+agent.add_tool(Tool(
+    name="read_file",
+    description="Read file content",
+    func=read_file_function
+))
+
+agent.add_tool(Tool(
+    name="analyze_text",
+    description="Analyze text content",
+    func=analyze_text_function
+))
+
+# Process a complex task
+result = await agent.process({
+    "task": "Read config.json and analyze its structure"
+})
+```
+
+### Dynamic Flows
+
+Create and modify workflows at runtime:
+
+```python
+from mas.core.flow import Flow
+from ollama_tool_test import DynamicOllamaFlow
+
+# Create a dynamic flow
+flow = DynamicOllamaFlow(model="llama2")
+
+# Execute a complex task
+result = await flow.execute_plan(
+    "Research quantum computing concepts and summarize findings"
+)
+
+print(result["final_analysis"])
+```
 
 ### Agents
 
@@ -149,7 +205,7 @@ result = await rag.process({
 
 ### Flow Orchestration
 
-Create complex workflows:
+Create complex, dynamic workflows:
 
 ```python
 from mas.core.flow import Flow
@@ -158,16 +214,18 @@ from mas.core.base import Edge
 # Create a flow
 flow = Flow(name="research_flow")
 
-# Add nodes
-flow.add_node(rag_node)
-flow.add_node(llm_node)
+# Dynamically add nodes based on task requirements
+for subtask in subtasks:
+    node = create_node_for_subtask(subtask)
+    flow.add_node(node)
 
-# Connect nodes
-flow.add_edge(Edge(
-    source_node=rag_node.id,
-    target_node=llm_node.id,
-    name="rag_to_llm"
-))
+# Connect nodes based on dependencies
+for i in range(len(nodes) - 1):
+    flow.add_edge(Edge(
+        source_node=nodes[i].id,
+        target_node=nodes[i + 1].id,
+        name=f"step_{i}_to_{i+1}"
+    ))
 
 # Process flow
 result = await flow.process({
@@ -176,6 +234,26 @@ result = await flow.process({
 ```
 
 ## Advanced Features
+
+### Tool Integration
+
+Create custom tools for agents:
+
+```python
+from tool_using_agent import Tool
+
+# Create a custom tool
+async def custom_tool(arg1: str, arg2: int) -> str:
+    # Tool implementation
+    return result
+
+# Add tool to agent
+agent.add_tool(Tool(
+    name="custom_tool",
+    description="Description of what the tool does",
+    func=custom_tool
+))
+```
 
 ### Memory Management
 

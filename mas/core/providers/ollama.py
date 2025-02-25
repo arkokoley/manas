@@ -19,7 +19,7 @@ class OllamaProvider(BaseLLMProvider):
     
     EMBEDDING_DIMENSIONS = {
         "deepseek-r1": 3584,
-        "llama2": 4096,
+        "llama3.2": 4096,
         "default": 384
     }
     
