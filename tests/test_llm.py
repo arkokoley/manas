@@ -9,7 +9,7 @@ def mock_provider_config():
     return {
         "provider": "ollama",
         "provider_config": {
-            "model": "llama2",
+            "model": "llama3.2",
             "base_url": "http://localhost:11434/v1"
         },
         "temperature": 0.7
@@ -68,7 +68,7 @@ async def test_llm_config_validation():
     # Test valid config
     config = LLMConfig(
         provider="ollama",
-        provider_config={"model": "llama2"},
+        provider_config={"model": "llama3.2"},
         temperature=0.7
     )
     assert config.temperature == 0.7
@@ -77,7 +77,7 @@ async def test_llm_config_validation():
     with pytest.raises(ValidationError):
         LLMConfig(
             provider="ollama",
-            provider_config={"model": "llama2"},
+            provider_config={"model": "llama3.2"},
             temperature=2.0
         )
 
