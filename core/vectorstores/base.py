@@ -1,21 +1,38 @@
-"""Base interface for vector store providers."""
+"""Base implementation for vector store providers."""
 from typing import Any, Dict, List, Optional
 from abc import ABC, abstractmethod
+import logging
+from contextlib import asynccontextmanager
 
-from ..models import Document
+from core.models import Document
+from core.llm import LLMNode
+from .protocol import VectorStoreError
+
+# Set up logging
+logger = logging.getLogger(__name__)
 
 class VectorStoreProvider(ABC):
-    """Abstract base class for vector store providers."""
+    """Abstract base class for vector store providers with common functionality."""
     
-    @abstractmethod
+    def __init__(self, config: Dict[str, Any], embedding_node: LLMNode):
+        """
+        Initialize vector store provider.
+        
+        Args:
+            config: Configuration dictionary
+            embedding_node: Node for generating embeddings
+        """
+        self.config = config
+        self.embedding_node = embedding_node
+        self._initialized = False
+    
     async def initialize(self):
         """Initialize the vector store."""
-        pass
+        self._initialized = True
     
-    @abstractmethod
     async def cleanup(self):
         """Cleanup vector store resources."""
-        pass
+        self._initialized = False
     
     async def __aenter__(self):
         """Async context manager entry."""
@@ -25,6 +42,20 @@ class VectorStoreProvider(ABC):
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         """Async context manager exit."""
         await self.cleanup()
+    
+    @asynccontextmanager
+    async def session(self):
+        """Create a managed vector store session."""
+        await self.initialize()
+        try:
+            yield self
+        finally:
+            await self.cleanup()
+    
+    async def _ensure_initialized(self):
+        """Ensure the vector store is initialized before use."""
+        if not self._initialized:
+            await self.initialize()
     
     @abstractmethod
     async def add_documents(self, documents: List[Document]):

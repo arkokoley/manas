@@ -1,9 +1,9 @@
 """Example implementation of a tool-using agent."""
 import asyncio
 from typing import Dict, Any, List, Callable, Optional
-from mas.core.agent import Agent
-from mas.core.llm import LLMNode, LLMConfig
-from examples.utils import Tool, logger, create_ollama_node, get_common_tools
+from core.agent import Agent
+from core.llm import LLMNode, LLMConfig
+from .utils import Tool, logger, create_ollama_node, get_common_tools
 
 class ToolUsingAgent(Agent):
     """Agent that can use tools to solve tasks."""
@@ -14,14 +14,14 @@ class ToolUsingAgent(Agent):
         # Default to ollama if no provider config
         if provider_config is None:
             provider_config = {
-                "model": "llama2",
+                "model": "llama3.2",
                 "base_url": "http://localhost:11434/v1"
             }
         
         # Initialize LLM
         self.llm = create_ollama_node(
             name=f"{name}_llm",
-            model=provider_config.get("model", "llama2"),
+            model=provider_config.get("model", "llama3.2"),
             base_url=provider_config.get("base_url", "http://localhost:11434/v1")
         )
         

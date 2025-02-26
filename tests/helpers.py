@@ -2,9 +2,9 @@
 import pytest
 import asyncio
 from typing import Dict, Any, Optional
-from mas.core.models import Document
-from mas.core.llm import LLMNode, LLMConfig
-from mas.core.providers.base import BaseLLMProvider
+from core.models import Document
+from core.llm import LLMNode, LLMConfig
+from core.providers.base import BaseLLMProvider
 
 class MockLLMProvider(BaseLLMProvider):
     """Mock LLM provider for testing."""

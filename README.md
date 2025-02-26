@@ -92,7 +92,7 @@ async def main():
         provider_name="ollama",
         provider_config={
             "model": "llama3",
-            "host": "http://localhost:11434/v1"
+            "base_url": "http://localhost:11434/v1"
         },
         temperature=0.7
     )
@@ -162,6 +162,7 @@ Enhanced RAG with document chunking and reranking:
 from mas.core.rag import RAGNode, RAGConfig, DocumentLoader, chunk_document
 from mas.core.models import Document
 from mas.core.llm import LLMNode, LLMConfig
+from mas.core.vectorstores.factory import create_vectorstore
 
 # Create embedding model
 embedding_config = LLMConfig(
@@ -286,10 +287,12 @@ message = Message(
 Create and register custom LLM providers:
 
 ```python
-from mas.core.providers.base import BaseLLMProvider, register_provider
+from mas.core.providers.factory import register_provider
+from mas.core.providers.base import BaseLLMProvider
 
-@register_provider
+@register_provider("custom")
 class CustomProvider(BaseLLMProvider):
+    """Custom provider implementation."""
     provider_name = "custom"
     supports_streaming = True
     supports_embeddings = True
@@ -298,27 +301,76 @@ class CustomProvider(BaseLLMProvider):
     async def initialize(self):
         # Initialize resources
         self._client = await setup_client(self.config)
-        self._initialized = True
+        await super().initialize()  # Set _initialized flag
     
     async def cleanup(self):
         # Clean up resources
         await self._client.close()
-        self._initialized = False
+        await super().cleanup()  # Clear _initialized flag
     
     async def generate(self, prompt, temperature=0.7, **kwargs):
+        await self._ensure_initialized()
         # Generate completion
         response = await self._client.complete(prompt, temperature)
         return response.text
     
     async def stream_generate(self, prompt, **kwargs):
+        await self._ensure_initialized()
         # Stream completion
         async for chunk in self._client.stream(prompt):
             yield chunk
     
     async def embed(self, text):
+        await self._ensure_initialized()
         # Generate embeddings
         embedding = await self._client.embed(text)
         return embedding
+```
+
+### Vector Store Registration
+
+Create and register custom vector stores:
+
+```python
+from mas.core.vectorstores.factory import register_vectorstore
+from mas.core.vectorstores.base import VectorStoreProvider
+from mas.core.models import Document
+from mas.core.llm import LLMNode
+
+@register_vectorstore("custom_store")
+class CustomVectorStore(VectorStoreProvider):
+    """Custom vector store implementation."""
+    
+    def __init__(self, config: Dict[str, Any], embedding_node: LLMNode):
+        super().__init__(config, embedding_node)
+        # Initialize your vector store-specific attributes
+        
+    async def initialize(self):
+        # Initialize the vector store
+        # Your initialization logic here
+        await super().initialize()
+    
+    async def cleanup(self):
+        # Cleanup resources
+        # Your cleanup logic here
+        await super().cleanup()
+    
+    async def add_documents(self, documents: List[Document]) -> int:
+        await self._ensure_initialized()
+        # Add documents to the vector store
+        # Return number of documents added
+        return len(documents)
+    
+    async def similarity_search(self, query: str, k: int = 4,
+                              filter: Optional[Dict[str, Any]] = None) -> List[Document]:
+        await self._ensure_initialized()
+        # Perform similarity search
+        # Return list of matching documents
+        
+    async def delete(self, ids_or_filter: Any) -> int:
+        await self._ensure_initialized()
+        # Delete documents
+        # Return number of documents deleted
 ```
 
 ### Batch and Stream Processing

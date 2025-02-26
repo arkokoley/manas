@@ -3,25 +3,19 @@ import asyncio
 import json
 from pathlib import Path
 
-from examples.utils import (
+from .utils import (
     logger, ensure_ollama_available, AsyncContext,
     get_common_tools, analyze_text, transform_text
 )
-from examples.tool_using_agent import ToolUsingAgent, Tool
+from .tool_using_agent import ToolUsingAgent, Tool
 
-async def main():
-    # Check if Ollama is available
-    ollama_available = await ensure_ollama_available()
-    if not ollama_available:
-        logger.error("Ollama service not available. Please ensure Ollama is running.")
-        return
-    
+async def main():    
     # Initialize agent with Ollama
     agent = ToolUsingAgent(
         name="file_processor",
         provider="ollama",
         provider_config={
-            "model": "llama2",
+            "model": "llama3.2",
             "base_url": "http://localhost:11434/v1"
         }
     )

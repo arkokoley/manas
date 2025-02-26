@@ -2,10 +2,10 @@
 from typing import Any, Dict, List, Optional, Type, Union, Callable
 from uuid import UUID
 import logging
-from .base import Node
-from .llm import LLMNode
-from .vectorstores import VECTORSTORES, VectorStoreProvider
-from .models import Document
+from core.base import Node
+from core.llm import LLMNode
+from core.vectorstores import VECTORSTORES
+from core.models import Document
 
 # Set up logging
 logger = logging.getLogger(__name__)

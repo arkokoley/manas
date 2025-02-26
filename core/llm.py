@@ -3,8 +3,9 @@ from typing import Any, Dict, List, Optional, Union, AsyncIterator
 from uuid import UUID
 import logging
 import asyncio
-from .base import Node
-from .providers.base import BaseLLMProvider, PROVIDERS, ProviderError, GenerationError
+from core.base import Node
+from core.providers.factory import create_provider, list_providers
+from core.providers.protocol import GenerationError
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -19,8 +20,9 @@ class LLMConfig:
                  max_tokens: Optional[int] = None, embedding_dimension: Optional[int] = None):
         
         # Validate provider exists
-        if provider_name not in PROVIDERS:
-            raise ValueError(f"Unknown provider: {provider_name}. Available providers: {list(PROVIDERS.keys())}")
+        available_providers = list_providers()
+        if provider_name not in available_providers:
+            raise ValueError(f"Unknown provider: {provider_name}. Available providers: {available_providers}")
             
         self.provider_name = provider_name
         self.provider_config = provider_config
@@ -33,12 +35,6 @@ class LLMConfig:
         if not 0 <= temperature <= 1:
             raise ValueError("Temperature must be between 0 and 1")
         self.temperature = temperature
-        
-        # Check if provider supports streaming if requested
-        provider_cls = PROVIDERS[provider_name]
-        if streaming and not getattr(provider_cls, 'supports_streaming', False):
-            logger.warning(f"Provider {provider_name} does not support streaming, but streaming was requested")
-            
         self.streaming = streaming
         self.max_tokens = max_tokens
         self.embedding_dimension = embedding_dimension
@@ -49,13 +45,17 @@ class LLMNode(Node):
     def __init__(self, name: str, config: LLMConfig):
         super().__init__(name=name)
         self.config = config
-        provider_cls = PROVIDERS.get(config.provider_name)
-        self._provider: Optional[BaseLLMProvider] = provider_cls(config.provider_config)
+        
+        # Create provider with the provider configuration dict
+        self._provider = create_provider(
+            config.provider_name, 
+            config.provider_config
+        )
         self._initialized = False
         
         # Get embedding dimension from provider if not specified in config
         if self.config.embedding_dimension is None:
-            self.config.embedding_dimension = self._provider.embedding_dimension
+            self.config.embedding_dimension = getattr(self._provider, 'embedding_dimension', None)
     
     async def initialize(self):
         """Initialize the LLM provider."""

@@ -1,8 +1,8 @@
 """Example demonstrating a two-node flow using Ollama."""
 import asyncio
-from mas.core.llm import LLMNode, LLMConfig
-from mas.core.flow import Flow
-from mas.core.base import Edge
+from core.llm import LLMNode, LLMConfig
+from core.flow import Flow
+from core.base import Edge
 
 async def main():
     # Create first LLM node for question answering

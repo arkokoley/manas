@@ -4,7 +4,7 @@ from uuid import UUID
 import asyncio
 import logging
 from collections import defaultdict
-from .base import Node, Edge
+from core.base import Node, Edge
 
 # Set up logging
 logger = logging.getLogger(__name__)

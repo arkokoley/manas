@@ -2,8 +2,8 @@
 from typing import Any, Dict, List, Optional, Union, AsyncIterator
 from abc import ABC, abstractmethod
 import logging
-from ..chat import Message, ChatSession, Middleware, FunctionDefinition
-from .base import BaseLLMProvider
+from core.chat import Message, ChatSession, Middleware, FunctionDefinition
+from core.providers.base import BaseLLMProvider
 
 # Set up logging
 logger = logging.getLogger(__name__)

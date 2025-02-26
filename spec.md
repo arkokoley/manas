@@ -4,9 +4,9 @@
 
 1. **Modular Architecture**
    - Each component is independently usable and testable
-   - Clear interfaces between components via abstract base classes
+   - Clear interfaces between components via protocols
    - No tight coupling between modules
-   - Plugin-based extension system
+   - Factory-based extension system
 
 2. **Clean Code Practices**
    - Follow DRY (Don't Repeat Yourself) principle
@@ -30,25 +30,43 @@
 
 ### Base Components
 
-1. **Node System**
+1. **Protocol System**
+   - Clear protocol definitions using Python's Protocol type
+   - Runtime protocol validation
+   - Separation of interface from implementation
+   - Type-safe interactions between components
+
+2. **Factory System**
+   - Centralized component creation
+   - Runtime component registration
+   - Explicit dependency injection
+   - Configurable implementations
+
+3. **Provider System**
+   - Protocol-based provider interface
+   - Decorator-based provider registration
+   - Common base functionality
+   - Configurable behavior
+
+4. **Vector Store System**
+   - Protocol-based vector store interface 
+   - Factory-based vector store creation
+   - Consistent embedding integration
+   - Pluggable backends
+
+5. **Node System**
    - Abstract Node base class
    - Standardized input/output validation
    - Resource lifecycle management
    - Error propagation
 
-2. **Provider System**
-   - Abstract BaseLLMProvider
-   - Plugin-based registration
-   - Middleware support
-   - Configurable behavior
-
-3. **Flow System**
+6. **Flow System**
    - Directed acyclic graph (DAG) processing
    - Multiple execution modes
    - Event-based progress tracking
    - Error recovery
 
-4. **Error Management**
+7. **Error Management**
    - Centralized error handling
    - Contextual error information
    - Severity levels
@@ -58,20 +76,43 @@
 
 1. **Custom Providers**
 ```python
+from mas.core.providers.factory import register_provider
+from mas.core.providers.base import BaseLLMProvider
+
+@register_provider("custom")
 class CustomProvider(BaseLLMProvider):
     provider_name = "custom"
     supports_streaming = True
     
     async def initialize(self):
         # Setup
-        pass
-
+        await super().initialize()
+        
     async def generate(self, prompt: str, **kwargs) -> str:
+        await self._ensure_initialized()
         # Implementation
         pass
 ```
 
-2. **Custom Nodes**
+2. **Custom Vector Stores**
+```python
+from mas.core.vectorstores.factory import register_vectorstore
+from mas.core.vectorstores.base import VectorStoreProvider
+
+@register_vectorstore("custom_store")
+class CustomVectorStore(VectorStoreProvider):
+    async def add_documents(self, documents: List[Document]) -> int:
+        await self._ensure_initialized()
+        # Implementation
+        return len(documents)
+    
+    async def similarity_search(self, query: str, k: int = 4) -> List[Document]:
+        await self._ensure_initialized()
+        # Implementation
+        pass
+```
+
+3. **Custom Nodes**
 ```python
 class CustomNode(Node):
     async def _process_impl(self, inputs: Dict[str, Any]) -> Dict[str, Any]:
@@ -79,7 +120,7 @@ class CustomNode(Node):
         pass
 ```
 
-3. **Custom Middleware**
+4. **Custom Middleware**
 ```python
 class CustomMiddleware(BaseMiddleware):
     async def pre_process(self, msg: Message) -> Message:
@@ -134,18 +175,24 @@ The following diagram represents the dependencies between core modules:
 11. **middleware**: Provider middleware system
 
 ### Circular Import Resolution
-The framework has several circular import issues that need to be resolved:
+The framework uses several techniques to resolve circular import issues:
 
-1. **llm.py ↔ providers/base.py**: The main circular dependency is between LLMNode needing 
-   provider registration and providers needing BaseLLMProvider
-   
-2. **providers/base.py ↔ providers/provider.py**: Separating provider interface from registration
+1. **Protocol-Based Architecture**: Using Protocol classes to define interfaces separate from implementations.
 
-To resolve these issues:
-1. Extract BaseLLMProvider into providers/provider.py
-2. Keep provider registration in providers/base.py
-3. Have specific providers import from provider.py, not base.py
-4. Import PROVIDERS registry at runtime in LLMNode initialization
+2. **Factory Pattern**: Centralizing component creation in factory modules that import specific implementations.
+
+3. **Runtime Imports**: Deferring imports to runtime when necessary.
+
+4. **Registration System**: Using decorator-based registration to decouple component definition from use.
+
+Implementation details:
+- `LLMProviderProtocol` in `providers/protocol.py` defines provider interface
+- `register_provider` decorator in `providers/factory.py` handles registration
+- `create_provider` function in `providers/factory.py` creates instances
+- `BaseLLMProvider` in `providers/base.py` provides common functionality
+- Specific providers import from `protocol.py` and `factory.py`, not vice versa
+
+This pattern is also applied to vector stores and other extensible components.
 
 ## Validation & Configuration
 
@@ -224,13 +271,28 @@ To resolve these issues:
    - Batch operations
    - Caching strategies
 
+5. **Clean Provider Implementation**
+   - Inherit from `BaseLLMProvider`
+   - Register with `@register_provider("name")`
+   - Call parent class methods with `await super().method()`
+   - Always use `await self._ensure_initialized()` before operations
+   - Handle errors gracefully
+
+6. **Clean Vector Store Implementation**
+   - Inherit from `VectorStoreProvider`
+   - Register with `@register_vectorstore("name")`
+   - Use explicit initialization and cleanup
+   - Call parent class methods when extending behavior
+   - Properly handle async operations
+
 ## Extension Guidelines
 
 1. **Provider Extensions**
-   - Implement required methods
-   - Handle rate limits
-   - Support streaming
-   - Error handling
+   - Implement required protocol methods
+   - Register using decorator pattern
+   - Validate configuration early
+   - Support both sync and async contexts
+   - Clear error handling
 
 2. **Node Extensions**
    - Clear input/output contract

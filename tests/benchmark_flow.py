@@ -9,9 +9,9 @@ from pathlib import Path
 import json
 from uuid import UUID
 
-from mas.core.flow import Flow
-from mas.core.base import Node, Edge
-from mas.core.llm import LLMNode, LLMConfig
+from core.flow import Flow
+from core.base import Node, Edge
+from core.llm import LLMNode, LLMConfig
 
 from tests.utils import (
     logger, check_dependencies, check_ollama_availability,
@@ -36,7 +36,7 @@ class FlowBenchmark:
     """Benchmark framework for testing flow scalability."""
     
     def __init__(self, 
-                 base_model: str = "llama2",
+                 base_model: str = "llama3.2",
                  base_url: str = "http://localhost:11434/v1",
                  results_dir: str = "benchmark_results"):
         self.base_model = base_model
@@ -311,7 +311,7 @@ async def main():
         logger.error("Ollama is not accessible. Please ensure Ollama is running.")
         return
     
-    benchmark = FlowBenchmark(base_model="llama2")
+    benchmark = FlowBenchmark(base_model="llama3.2")
     
     # Test horizontal scaling
     await benchmark.run_horizontal_scaling_test(

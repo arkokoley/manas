@@ -6,8 +6,8 @@ from torch import cuda, float32
 import torch
 from pydantic import Field
 
-from .base import BaseLLMProvider
-from ..models import ModelProviderConfig
+from core.providers.base import BaseLLMProvider
+from core.models import ModelProviderConfig
 
 class HuggingFaceConfig(ModelProviderConfig):
     """Configuration for Hugging Face provider."""

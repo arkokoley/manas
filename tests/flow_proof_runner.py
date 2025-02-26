@@ -9,9 +9,9 @@ from pathlib import Path
 
 import networkx as nx
 
-from mas.core.flow import Flow
-from mas.core.base import Node, Edge
-from mas.core.llm import LLMNode, LLMConfig
+from core.flow import Flow
+from core.base import Node, Edge
+from core.llm import LLMNode, LLMConfig
 
 from tests.utils import (
     logger, check_dependencies, create_llm_node, TimingContext
@@ -346,9 +346,9 @@ async def main():
     logger.info("Starting flow proof validation...")
     
     try:
-        from mas.core.llm import LLMNode, LLMConfig
-        from mas.core.flow import Flow
-        from mas.core.base import Edge
+        from core.llm import LLMNode, LLMConfig
+        from core.flow import Flow
+        from core.base import Edge
         
         # Create a test flow
         flow = Flow(name="test_flow")

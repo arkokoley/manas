@@ -6,10 +6,10 @@ from typing import Dict, Any, List
 from pathlib import Path
 import json
 
-from mas.core.flow import Flow
-from mas.core.base import Node, Edge
-from mas.core.llm import LLMNode, LLMConfig
-from mas.core.rag import RAGNode, RAGConfig
+from core.flow import Flow
+from core.base import Node, Edge
+from core.llm import LLMNode, LLMConfig
+from core.rag import RAGNode, RAGConfig
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

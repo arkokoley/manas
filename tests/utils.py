@@ -8,9 +8,9 @@ import importlib.util
 from typing import Dict, Any, List, Optional, Callable, Union, Type
 from pathlib import Path
 
-from mas.core.flow import Flow
-from mas.core.base import Node, Edge
-from mas.core.llm import LLMNode, LLMConfig
+from core.flow import Flow
+from core.base import Node, Edge
+from core.llm import LLMNode, LLMConfig
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -55,7 +55,7 @@ async def check_ollama_availability(url: str = "http://localhost:11434/v1") -> b
         return False
 
 def create_llm_node(name: str, 
-                   model: str = "llama2", 
+                   model: str = "llama3.2", 
                    base_url: str = "http://localhost:11434/v1",
                    temperature: float = 0.7) -> LLMNode:
     """Create an LLM node with standard configuration.

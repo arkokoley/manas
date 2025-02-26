@@ -3,8 +3,8 @@ from typing import Any, Dict, Optional, Union, AsyncIterator, List
 import anthropic
 from anthropic import Anthropic, AsyncAnthropic
 
-from .base import BaseLLMProvider, register_provider
-from ..models import ModelProviderConfig
+from core.providers.base import BaseLLMProvider, register_provider
+from core.models import ModelProviderConfig
 
 class AnthropicConfig(ModelProviderConfig):
     """Configuration for Anthropic provider."""
@@ -23,11 +23,11 @@ class AnthropicConfig(ModelProviderConfig):
 @register_provider
 class AnthropicProvider(BaseLLMProvider):
     """Anthropic Claude API provider implementation."""
-    
+
     provider_name = "anthropic"
     supports_streaming = True
     supports_embeddings = False
-    
+
     def __init__(self, config: AnthropicConfig):
         super().__init__(config)
         self.config = config

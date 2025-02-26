@@ -1,8 +1,8 @@
 """Tests for core LLM components."""
 import pytest
 from pydantic import ValidationError
-from mas.core.llm import LLMNode, LLMConfig, PromptTemplate, ChainNode
-from mas.core.models import ModelProviderConfig
+from core.llm import LLMNode, LLMConfig, PromptTemplate, ChainNode
+from core.models import ModelProviderConfig
 
 @pytest.fixture
 def mock_provider_config():
