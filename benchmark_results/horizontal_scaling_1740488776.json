@@ -1,0 +1,66 @@
+{
+  "test_name": "horizontal_scaling",
+  "timestamp": 1740488776.205922,
+  "metrics": [
+    {
+      "execution_time": 86.43117213249207,
+      "memory_usage": 1.3359375,
+      "node_count": 2,
+      "edge_count": 1,
+      "max_depth": 1,
+      "total_tokens": 0,
+      "concurrent_tasks": 2,
+      "success_rate": 1.0,
+      "errors": [],
+      "throughput": 0.11569899786469169
+    },
+    {
+      "execution_time": 407.87001276016235,
+      "memory_usage": 0.7734375,
+      "node_count": 4,
+      "edge_count": 3,
+      "max_depth": 3,
+      "total_tokens": 0,
+      "concurrent_tasks": 2,
+      "success_rate": 1.0,
+      "errors": [],
+      "throughput": 0.0490352302799973
+    },
+    {
+      "execution_time": 1584.906986951828,
+      "memory_usage": 6.921875,
+      "node_count": 8,
+      "edge_count": 7,
+      "max_depth": 7,
+      "total_tokens": 0,
+      "concurrent_tasks": 2,
+      "success_rate": 1.0,
+      "errors": [],
+      "throughput": 0.025238074113692936
+    },
+    {
+      "execution_time": 7978.188720941544,
+      "memory_usage": 2.15625,
+      "node_count": 16,
+      "edge_count": 15,
+      "max_depth": 15,
+      "total_tokens": 0,
+      "concurrent_tasks": 2,
+      "success_rate": 1.0,
+      "errors": [],
+      "throughput": 0.010027338635148108
+    },
+    {
+      "execution_time": 26904.875999689102,
+      "memory_usage": 9.00390625,
+      "node_count": 32,
+      "edge_count": 31,
+      "max_depth": 31,
+      "total_tokens": 0,
+      "concurrent_tasks": 2,
+      "success_rate": 1.0,
+      "errors": [],
+      "throughput": 0.005946877435965468
+    }
+  ]
+}

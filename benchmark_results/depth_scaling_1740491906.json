@@ -1,0 +1,54 @@
+{
+  "test_name": "depth_scaling",
+  "timestamp": 1740491906.71243,
+  "metrics": [
+    {
+      "execution_time": 96.03721332550049,
+      "memory_usage": 0.2578125,
+      "node_count": 7,
+      "edge_count": 6,
+      "max_depth": 2,
+      "total_tokens": 0,
+      "concurrent_tasks": 2,
+      "success_rate": 1.0,
+      "errors": [],
+      "throughput": 0.10412630327065861
+    },
+    {
+      "execution_time": 273.52927923202515,
+      "memory_usage": 0.76953125,
+      "node_count": 15,
+      "edge_count": 14,
+      "max_depth": 3,
+      "total_tokens": 0,
+      "concurrent_tasks": 2,
+      "success_rate": 1.0,
+      "errors": [],
+      "throughput": 0.05483873624832695
+    },
+    {
+      "execution_time": 960.412211894989,
+      "memory_usage": 6.73828125,
+      "node_count": 31,
+      "edge_count": 30,
+      "max_depth": 4,
+      "total_tokens": 0,
+      "concurrent_tasks": 2,
+      "success_rate": 1.0,
+      "errors": [],
+      "throughput": 0.020824391602162165
+    },
+    {
+      "execution_time": 1793.716665506363,
+      "memory_usage": 7.3359375,
+      "node_count": 63,
+      "edge_count": 62,
+      "max_depth": 5,
+      "total_tokens": 0,
+      "concurrent_tasks": 2,
+      "success_rate": 1.0,
+      "errors": [],
+      "throughput": 0.013937541240908605
+    }
+  ]
+}

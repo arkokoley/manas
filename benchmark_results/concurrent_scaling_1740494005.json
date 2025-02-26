@@ -1,0 +1,54 @@
+{
+  "test_name": "concurrent_scaling",
+  "timestamp": 1740494005.0175486,
+  "metrics": [
+    {
+      "execution_time": 858.9716975688934,
+      "memory_usage": 0.0,
+      "node_count": 5,
+      "edge_count": 4,
+      "max_depth": 4,
+      "total_tokens": 0,
+      "concurrent_tasks": 1,
+      "success_rate": 1.0,
+      "errors": [],
+      "throughput": 0.029104567788154494
+    },
+    {
+      "execution_time": 521.3349843025208,
+      "memory_usage": 0.0,
+      "node_count": 5,
+      "edge_count": 4,
+      "max_depth": 4,
+      "total_tokens": 0,
+      "concurrent_tasks": 2,
+      "success_rate": 1.0,
+      "errors": [],
+      "throughput": 0.04795381233324825
+    },
+    {
+      "execution_time": 384.795951128006,
+      "memory_usage": 0.0,
+      "node_count": 5,
+      "edge_count": 4,
+      "max_depth": 4,
+      "total_tokens": 0,
+      "concurrent_tasks": 4,
+      "success_rate": 1.0,
+      "errors": [],
+      "throughput": 0.06496949857895858
+    },
+    {
+      "execution_time": 332.4361958503723,
+      "memory_usage": 0.0,
+      "node_count": 5,
+      "edge_count": 4,
+      "max_depth": 4,
+      "total_tokens": 0,
+      "concurrent_tasks": 8,
+      "success_rate": 1.0,
+      "errors": [],
+      "throughput": 0.07520240067736897
+    }
+  ]
+}

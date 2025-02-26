@@ -92,7 +92,7 @@ async def main():
         provider_name="ollama",
         provider_config={
             "model": "llama3",
-            "base_url": "http://localhost:11434/v1"
+            "host": "http://localhost:11434/v1"
         },
         temperature=0.7
     )

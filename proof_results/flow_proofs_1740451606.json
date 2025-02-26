@@ -1,0 +1,32 @@
+[
+  {
+    "property": "acyclic",
+    "valid": true,
+    "counterexample": null,
+    "proof_time": 0.0014524459838867188
+  },
+  {
+    "property": "reachability",
+    "valid": true,
+    "counterexample": null,
+    "proof_time": 0.0008482933044433594
+  },
+  {
+    "property": "deterministic_execution",
+    "valid": true,
+    "counterexample": null,
+    "proof_time": 7.653236389160156e-05
+  },
+  {
+    "property": "resource_safety",
+    "valid": true,
+    "counterexample": null,
+    "proof_time": 5.7220458984375e-06
+  },
+  {
+    "property": "parallel_safety",
+    "valid": true,
+    "counterexample": null,
+    "proof_time": 0.0010075569152832031
+  }
+]
