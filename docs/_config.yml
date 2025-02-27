@@ -3,13 +3,54 @@ description: A framework for building LLM-powered applications with intelligent 
 url: https://arkokoley.github.io
 baseurl: /manas
 
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
 # Theme settings
+theme: null
 remote_theme: pmarsceill/just-the-docs
 color_scheme: light
+
+# Search settings
 search_enabled: true
+search:
+  # Split pages into sections that can be searched individually
+  # Supports 1 - 6, default: 2
+  heading_level: 2
+  # Maximum amount of previews per search result
+  # Default: 3
+  previews: 3
+  # Maximum amount of words to display before a matched word in the preview
+  # Default: 5
+  preview_words_before: 5
+  # Maximum amount of words to display after a matched word in the preview
+  # Default: 10
+  preview_words_after: 10
+
+# Enable or disable heading anchors
+heading_anchors: true
+
+# Sort order for navigation links
+nav_sort: case_sensitive
+
+# External navigation links
 aux_links:
   "Manas on GitHub":
     - "https://github.com/arkokoley/manas"
+
+# Back to top link
+back_to_top: true
+back_to_top_text: "Back to top"
 
 # Collections
 collections:
@@ -35,21 +76,11 @@ defaults:
     values:
       layout: tutorial
 
-# Markdown processing
-markdown: kramdown
-kramdown:
-  input: GFM
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    css_class: highlight
-    default_lang: python
-
-# Exclude from processing
+# Exclude files from processing
 exclude:
   - Gemfile
   - Gemfile.lock
-  - vendor
+  - node_modules/
+  - vendor/
   - .sass-cache/
   - .jekyll-cache/
-  - gemfiles/
-  - node_modules/

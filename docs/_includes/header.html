@@ -6,6 +6,12 @@
       </a>
     </div>
     
+    <button class="mobile-menu-button" aria-label="Toggle navigation menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    
     <nav class="site-nav">
       <a href="{{ site.baseurl }}/" class="nav-link {% if page.url == '/' %}active{% endif %}">Home</a>
       <a href="{{ site.baseurl }}/getting-started/" class="nav-link {% if page.url contains 'getting-started' %}active{% endif %}">Getting Started</a>

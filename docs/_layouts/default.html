@@ -4,30 +4,67 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title }} - {{ site.title }}</title>
-  <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+  
+  <!-- Just the Docs Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/just-the-docs@0.5.0/dist/just-the-docs.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/syntax.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/responsive.css' | relative_url }}">
+  
   {% if page.custom_css %}
     {% for stylesheet in page.custom_css %}
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/{{ stylesheet }}.css">
     {% endfor %}
   {% endif %}
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ '/assets/images/favicon.png' | relative_url }}">
+
+  <!-- SEO meta tags -->
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <meta name="keywords" content="LLM, AI, agents, RAG, Python, framework">
+  
+  <!-- Open Graph meta tags -->
+  <meta property="og:title" content="{{ page.title }} - {{ site.title }}">
+  <meta property="og:description" content="{{ page.description | default: site.description }}">
+  <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}">
+  <meta property="og:type" content="website">
 </head>
 <body>
   <div class="main-content">
     {% include header.html %}
     
     <div class="page-content">
-      <h1>{{ page.title }}</h1>
-      {{ content }}
+      <div class="wrapper">
+        {% if page.title %}
+          <h1 class="page-title">{{ page.title }}</h1>
+        {% endif %}
+        
+        {{ content }}
+      </div>
     </div>
     
     {% include footer.html %}
   </div>
   
-  <script src="{{ "/assets/js/main.js" | relative_url }}"></script>
+  <!-- Just the Docs JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/just-the-docs@0.5.0/dist/just-the-docs.min.js"></script>
+  
+  <!-- Custom JavaScript -->
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
   {% if page.custom_js %}
     {% for js_file in page.custom_js %}
     <script src="{{ site.baseurl }}/assets/js/{{ js_file }}.js"></script>
     {% endfor %}
-  {% endif %}
+  
+  <!-- Initialize Just the Docs theme -->
+  <script>
+    window.jtd = {
+      baseurl: "{{ site.baseurl }}",
+      title: "{{ site.title }}"
+    };
+  </script>
 </body>
 </html>

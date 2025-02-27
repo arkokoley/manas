@@ -1,0 +1,121 @@
+/* Mobile and responsive styles */
+@media screen and (max-width: 768px) {
+  .site-header-content {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+  }
+
+  .site-nav {
+    display: none;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .site-nav.show {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .mobile-menu-button {
+    display: block;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem;
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .page-content {
+    padding: 1rem;
+  }
+
+  .footer-column {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .reference-content {
+    grid-template-columns: 1fr;
+  }
+
+  .reference-sidebar {
+    position: relative;
+    top: 0;
+    margin-bottom: 2rem;
+  }
+
+  pre {
+    margin: 1rem -1rem;
+    border-radius: 0;
+    padding: 1rem;
+  }
+
+  .copy-button {
+    opacity: 1;
+  }
+}
+
+/* Table responsiveness */
+@media screen and (max-width: 600px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .tutorial-nav {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #6c63ff;
+    --secondary-color: #8f8aff;
+    --background-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --light-gray: #2d2d2d;
+    --border-color: #404040;
+    --code-background: #2d2d2d;
+    --sidebar-color: #242424;
+  }
+
+  body {
+    color: var(--text-color);
+    background-color: var(--background-color);
+  }
+
+  pre, code {
+    background-color: var(--code-background);
+  }
+
+  .site-header {
+    background-color: var(--background-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-link {
+    color: var(--text-color);
+  }
+
+  table th {
+    background-color: var(--light-gray);
+  }
+
+  table td, table th {
+    border-color: var(--border-color);
+  }
+
+  blockquote {
+    color: #999;
+  }
+}
