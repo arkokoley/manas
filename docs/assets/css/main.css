@@ -1,0 +1,331 @@
+/* Main stylesheet for Manas documentation */
+
+:root {
+  --primary-color: #4a56e2;
+  --secondary-color: #6c63ff;
+  --accent-color: #ff6b6b;
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --light-gray: #f5f7fa;
+  --border-color: #e4e6eb;
+  --code-background: #f7f9fc;
+  --sidebar-color: #f8f9fa;
+  --header-height: 64px;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 2.25rem;
+  border-bottom: 2px solid var(--light-gray);
+  padding-bottom: 0.5em;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 1.85rem;
+  border-bottom: 1px solid var(--light-gray);
+  padding-bottom: 0.3em;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+/* Code blocks */
+pre {
+  background-color: var(--code-background);
+  border-radius: 4px;
+  padding: 1rem;
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  margin: 1.5em 0;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background-color: var(--code-background);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+pre code {
+  padding: 0;
+  background-color: transparent;
+}
+
+/* Layout */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .page-content {
+    padding: 3rem;
+  }
+}
+
+/* Header */
+.site-header {
+  background-color: var(--background-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.site-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  height: var(--header-height);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.site-logo {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.logo-text {
+  color: var(--primary-color);
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  color: var(--text-color);
+  font-weight: 500;
+  position: relative;
+  padding: 0.5em 0;
+}
+
+.nav-link.active {
+  color: var(--primary-color);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Footer */
+.site-footer {
+  background-color: var(--light-gray);
+  padding: 3rem 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.site-footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-column h3 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  color: var(--text-color);
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column li {
+  margin-bottom: 0.5rem;
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 2rem;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+/* Reference content styling */
+.reference-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .reference-content {
+    grid-template-columns: 250px 1fr;
+  }
+}
+
+.reference-sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 2rem);
+  height: fit-content;
+  padding: 1rem;
+  background-color: var(--sidebar-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+.toc-sub-item {
+  margin-left: 1rem;
+}
+
+/* Tutorial content styling */
+.tutorial-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tutorial-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tutorial-difficulty,
+.tutorial-time {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  background-color: var(--light-gray);
+  border-radius: 4px;
+  margin-right: 1rem;
+}
+
+.tutorial-complete {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background-color: var(--light-gray);
+  border-radius: 4px;
+  border-left: 4px solid var(--primary-color);
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5em 0;
+}
+
+th {
+  background-color: var(--light-gray);
+  text-align: left;
+}
+
+td, th {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--light-gray);
+}
+
+/* Utilities */
+.highlight {
+  background-color: #fff8c5;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+blockquote {
+  border-left: 4px solid var(--primary-color);
+  margin-left: 0;
+  padding-left: 1rem;
+  color: #555;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 2rem 0;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.5em 1em;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn:hover {
+  background-color: var(--secondary-color);
+  color: white;
+  text-decoration: none;
+}
