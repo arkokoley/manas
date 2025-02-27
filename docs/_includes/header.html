@@ -1,0 +1,19 @@
+<header class="site-header">
+  <div class="site-header-content">
+    <div class="site-logo">
+      <a href="{{ site.baseurl }}/">
+        <span class="logo-text">{{ site.title }}</span>
+      </a>
+    </div>
+    
+    <nav class="site-nav">
+      <a href="{{ site.baseurl }}/" class="nav-link {% if page.url == '/' %}active{% endif %}">Home</a>
+      <a href="{{ site.baseurl }}/getting-started/" class="nav-link {% if page.url contains 'getting-started' %}active{% endif %}">Getting Started</a>
+      <a href="{{ site.baseurl }}/concepts/" class="nav-link {% if page.url contains 'concepts' %}active{% endif %}">Concepts</a>
+      <a href="{{ site.baseurl }}/api/" class="nav-link {% if page.url contains 'api' %}active{% endif %}">API</a>
+      <a href="{{ site.baseurl }}/examples/" class="nav-link {% if page.url contains 'examples' %}active{% endif %}">Examples</a>
+      <a href="{{ site.baseurl }}/faq/" class="nav-link {% if page.url contains 'faq' %}active{% endif %}">FAQ</a>
+      <a href="https://github.com/arkokoley/manas" class="nav-link github-link">GitHub</a>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,55 @@
+title: Manas
+description: A framework for building LLM-powered applications with intelligent agents, task decomposition, and RAG
+url: https://arkokoley.github.io
+baseurl: /manas
+
+# Theme settings
+remote_theme: pmarsceill/just-the-docs
+color_scheme: light
+search_enabled: true
+aux_links:
+  "Manas on GitHub":
+    - "https://github.com/arkokoley/manas"
+
+# Collections
+collections:
+  api:
+    output: true
+    permalink: /api/:path/
+  examples:
+    output: true
+    permalink: /examples/:path/
+
+# Default front matter settings
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+  - scope:
+      path: "_api"
+    values:
+      layout: reference
+  - scope:
+      path: "_examples"
+    values:
+      layout: tutorial
+
+# Markdown processing
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+    default_lang: python
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - node_modules/

@@ -1,0 +1,46 @@
+---
+layout: default
+---
+
+<div class="reference-content">
+  <div class="reference-sidebar">
+    <h3>On This Page</h3>
+    <div id="toc"></div>
+  </div>
+
+  <div class="reference-body">
+    {{ content }}
+  </div>
+
+  <div class="reference-footer">
+    <p>Have questions about this API? Join our <a href="https://github.com/arkokoley/manas/discussions">community discussions</a>.</p>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Generate table of contents
+  const headings = document.querySelectorAll('.reference-body h2, .reference-body h3');
+  const toc = document.getElementById('toc');
+  const tocList = document.createElement('ul');
+  
+  headings.forEach(function(heading) {
+    const id = heading.textContent.toLowerCase().replace(/[^\w]+/g, '-');
+    heading.id = id;
+    
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = '#' + id;
+    a.textContent = heading.textContent;
+    
+    if (heading.tagName === 'H3') {
+      li.classList.add('toc-sub-item');
+    }
+    
+    li.appendChild(a);
+    tocList.appendChild(li);
+  });
+  
+  toc.appendChild(tocList);
+});
+</script>

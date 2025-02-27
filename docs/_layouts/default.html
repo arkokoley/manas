@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+  {% if page.custom_css %}
+    {% for stylesheet in page.custom_css %}
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/{{ stylesheet }}.css">
+    {% endfor %}
+  {% endif %}
+</head>
+<body>
+  <div class="main-content">
+    {% include header.html %}
+    
+    <div class="page-content">
+      <h1>{{ page.title }}</h1>
+      {{ content }}
+    </div>
+    
+    {% include footer.html %}
+  </div>
+  
+  <script src="{{ "/assets/js/main.js" | relative_url }}"></script>
+  {% if page.custom_js %}
+    {% for js_file in page.custom_js %}
+    <script src="{{ site.baseurl }}/assets/js/{{ js_file }}.js"></script>
+    {% endfor %}
+  {% endif %}
+</body>
+</html>

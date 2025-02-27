@@ -1,0 +1,38 @@
+---
+layout: default
+---
+
+<div class="tutorial-content">
+  <div class="tutorial-nav">
+    {% if page.prev_tutorial %}
+      <a href="{{ site.baseurl }}{{ page.prev_tutorial.url }}" class="prev-link">
+        &laquo; {{ page.prev_tutorial.title }}
+      </a>
+    {% endif %}
+    
+    {% if page.next_tutorial %}
+      <a href="{{ site.baseurl }}{{ page.next_tutorial.url }}" class="next-link">
+        {{ page.next_tutorial.title }} &raquo;
+      </a>
+    {% endif %}
+  </div>
+
+  <div class="tutorial-difficulty">
+    Difficulty: {{ page.difficulty | default: "Beginner" }}
+  </div>
+
+  <div class="tutorial-time">
+    Estimated time: {{ page.time | default: "15 minutes" }}
+  </div>
+
+  {{ content }}
+
+  <div class="tutorial-complete">
+    <h3>Next Steps</h3>
+    {% if page.next_tutorial %}
+      <p>Continue to <a href="{{ site.baseurl }}{{ page.next_tutorial.url }}">{{ page.next_tutorial.title }}</a></p>
+    {% else %}
+      <p>You've completed this tutorial series! Return to the <a href="{{ site.baseurl }}/examples/">Examples</a> page to explore more.</p>
+    {% endif %}
+  </div>
+</div>

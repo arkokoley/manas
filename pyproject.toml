@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "manas"
+name = "manas-ai"
 version = "0.1.0"
 description = "A framework for building LLM-powered applications with intelligent agents, task decomposition, and RAG"
 authors = ["Your Name <your.email@example.com>"]
