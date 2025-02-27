@@ -2,37 +2,43 @@
 layout: default
 ---
 
-<div class="tutorial-content">
-  <div class="tutorial-nav">
-    {% if page.prev_tutorial %}
-      <a href="{{ site.baseurl }}{{ page.prev_tutorial.url }}" class="prev-link">
-        &laquo; {{ page.prev_tutorial.title }}
-      </a>
+<article class="tutorial-content">
+  <div class="tutorial-header">
+    {% if page.difficulty %}
+    <span class="tutorial-difficulty">
+      Difficulty: {{ page.difficulty }}
+    </span>
     {% endif %}
     
-    {% if page.next_tutorial %}
-      <a href="{{ site.baseurl }}{{ page.next_tutorial.url }}" class="next-link">
-        {{ page.next_tutorial.title }} &raquo;
-      </a>
+    {% if page.time %}
+    <span class="tutorial-time">
+      Time: {{ page.time }}
+    </span>
     {% endif %}
-  </div>
-
-  <div class="tutorial-difficulty">
-    Difficulty: {{ page.difficulty | default: "Beginner" }}
-  </div>
-
-  <div class="tutorial-time">
-    Estimated time: {{ page.time | default: "15 minutes" }}
   </div>
 
   {{ content }}
 
-  <div class="tutorial-complete">
-    <h3>Next Steps</h3>
-    {% if page.next_tutorial %}
-      <p>Continue to <a href="{{ site.baseurl }}{{ page.next_tutorial.url }}">{{ page.next_tutorial.title }}</a></p>
-    {% else %}
-      <p>You've completed this tutorial series! Return to the <a href="{{ site.baseurl }}/examples/">Examples</a> page to explore more.</p>
+  <div class="tutorial-nav">
+    {% if page.previous %}
+    <a href="{{ page.previous.url | relative_url }}" class="tutorial-prev">
+      ← Previous: {{ page.previous.title }}
+    </a>
+    {% endif %}
+    
+    {% if page.next %}
+    <a href="{{ page.next.url | relative_url }}" class="tutorial-next">
+      Next: {{ page.next.title }} →
+    </a>
     {% endif %}
   </div>
-</div>
+
+  <div class="tutorial-complete">
+    <h3>What's Next?</h3>
+    <ul>
+      <li><a href="{{ site.baseurl }}/examples/">Browse more examples</a></li>
+      <li><a href="{{ site.baseurl }}/api/">Check the API reference</a></li>
+      <li><a href="https://github.com/arkokoley/manas/issues">Report issues or suggest improvements</a></li>
+    </ul>
+  </div>
+</article>

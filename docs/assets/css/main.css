@@ -1,5 +1,10 @@
-/* Main stylesheet for Manas documentation */
+/* Import other stylesheets */
+@import "syntax.css";
+@import "api.css";
+@import "tutorial.css";
+@import "responsive.css";
 
+/* CSS Variables */
 :root {
   --primary-color: #4a56e2;
   --secondary-color: #6c63ff;
@@ -328,4 +333,27 @@ hr {
   background-color: var(--secondary-color);
   color: white;
   text-decoration: none;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #6c63ff;
+    --secondary-color: #8f8aff;
+    --background-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --light-gray: #2d2d2d;
+    --border-color: #404040;
+    --code-background: #2d2d2d;
+    --sidebar-color: #242424;
+  }
+
+  .site-header {
+    background: var(--background-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .copyright {
+    color: #999;
+  }
 }

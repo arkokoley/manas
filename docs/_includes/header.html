@@ -1,8 +1,9 @@
 <header class="site-header">
   <div class="site-header-content">
     <div class="site-logo">
-      <a href="{{ site.baseurl }}/">
-        <span class="logo-text">{{ site.title }}</span>
+      <a href="{{ site.baseurl }}/" class="logo-link">
+        <span class="logo-text">Manas</span>
+        <span class="logo-version">v{{ site.version }}</span>
       </a>
     </div>
     
@@ -13,13 +14,36 @@
     </button>
     
     <nav class="site-nav">
-      <a href="{{ site.baseurl }}/" class="nav-link {% if page.url == '/' %}active{% endif %}">Home</a>
-      <a href="{{ site.baseurl }}/getting-started/" class="nav-link {% if page.url contains 'getting-started' %}active{% endif %}">Getting Started</a>
-      <a href="{{ site.baseurl }}/concepts/" class="nav-link {% if page.url contains 'concepts' %}active{% endif %}">Concepts</a>
-      <a href="{{ site.baseurl }}/api/" class="nav-link {% if page.url contains 'api' %}active{% endif %}">API</a>
-      <a href="{{ site.baseurl }}/examples/" class="nav-link {% if page.url contains 'examples' %}active{% endif %}">Examples</a>
-      <a href="{{ site.baseurl }}/faq/" class="nav-link {% if page.url contains 'faq' %}active{% endif %}">FAQ</a>
-      <a href="https://github.com/arkokoley/manas" class="nav-link github-link">GitHub</a>
+      <div class="nav-section">
+        <a href="{{ site.baseurl }}/getting-started/" class="nav-link {% if page.url contains 'getting-started' %}active{% endif %}">Getting Started</a>
+        <a href="{{ site.baseurl }}/concepts/" class="nav-link {% if page.url contains 'concepts' %}active{% endif %}">Concepts</a>
+        <a href="{{ site.baseurl }}/api/" class="nav-link {% if page.url contains 'api' %}active{% endif %}">API</a>
+        <a href="{{ site.baseurl }}/examples/" class="nav-link {% if page.url contains 'examples' %}active{% endif %}">Examples</a>
+      </div>
+      
+      <div class="nav-section nav-section-secondary">
+        <a href="{{ site.baseurl }}/benchmarking/" class="nav-link {% if page.url contains 'benchmarking' %}active{% endif %}">Benchmarks</a>
+        <a href="{{ site.baseurl }}/faq/" class="nav-link {% if page.url contains 'faq' %}active{% endif %}">FAQ</a>
+        <a href="{{ site.baseurl }}/contributing/" class="nav-link {% if page.url contains 'contributing' %}active{% endif %}">Contributing</a>
+        <a href="https://github.com/arkokoley/manas" class="nav-link github-link" target="_blank" rel="noopener">
+          <svg class="github-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.11.82-.26.82-.58 0-.287-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.333-1.755-1.333-1.755-1.09-.745.083-.729.083-.729 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/>
+          </svg>
+          GitHub
+        </a>
+      </div>
+
+      <div class="nav-section nav-section-search">
+        <div class="search-box">
+          <input type="search" id="search-input" placeholder="Search documentation..." aria-label="Search documentation">
+          <button type="button" class="search-button" aria-label="Search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35"/>
+            </svg>
+          </button>
+        </div>
+      </div>
     </nav>
   </div>
 </header>

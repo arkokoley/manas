@@ -1,0 +1,221 @@
+/* API Reference Styles */
+
+/* API badges */
+.api-badge {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-weight: 500;
+  margin-right: 0.5em;
+}
+
+.api-badge.experimental {
+  background-color: #fff3dc;
+  color: #b25000;
+  border: 1px solid #ffe0b2;
+}
+
+.api-badge.stable {
+  background-color: #e3f9e5;
+  color: #0a7d33;
+  border: 1px solid #b7dfb9;
+}
+
+.api-badge.deprecated {
+  background-color: #fde7e9;
+  color: #bf0711;
+  border: 1px solid #ffa3a3;
+}
+
+/* API content layout */
+.reference-content {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+@media (max-width: 768px) {
+  .reference-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sidebar */
+.reference-sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 2rem);
+  height: fit-content;
+  padding: 1rem;
+  background: var(--sidebar-color);
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+}
+
+.api-toc {
+  margin-bottom: 2rem;
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-list li {
+  margin: 0.5em 0;
+}
+
+.toc-list a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.toc-list a:hover {
+  color: var(--primary-color);
+}
+
+/* API main content */
+.reference-main {
+  min-width: 0;
+}
+
+.api-metadata {
+  margin-bottom: 2rem;
+}
+
+/* API examples */
+.api-examples .example {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: var(--code-background);
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+}
+
+.example h3 {
+  margin-top: 0;
+  color: var(--primary-color);
+}
+
+/* API tables */
+.api-parameters table,
+.api-returns table,
+.api-exceptions table,
+.api-versions table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.api-parameters th,
+.api-returns th,
+.api-exceptions th,
+.api-versions th {
+  background: var(--light-gray);
+  text-align: left;
+  font-weight: 600;
+}
+
+.api-parameters td,
+.api-parameters th,
+.api-returns td,
+.api-returns th,
+.api-exceptions td,
+.api-exceptions th,
+.api-versions td,
+.api-versions th {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+}
+
+.api-parameters td code,
+.api-returns td code,
+.api-exceptions td code {
+  background: var(--code-background);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+/* API notes */
+.api-notes {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: var(--light-gray);
+  border-radius: 4px;
+}
+
+.api-notes ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.api-notes li {
+  margin: 0.5rem 0;
+}
+
+/* API feedback section */
+.api-feedback {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.9em;
+  color: #666;
+}
+
+/* Related APIs */
+.related-apis {
+  margin-top: 2rem;
+}
+
+.related-apis ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.related-apis li {
+  margin: 0.5rem 0;
+}
+
+.related-apis a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.related-apis a:hover {
+  text-decoration: underline;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .api-badge.experimental {
+    background-color: #4d3000;
+    color: #ffb84d;
+    border-color: #995c00;
+  }
+
+  .api-badge.stable {
+    background-color: #0a4d1c;
+    color: #7aeb98;
+    border-color: #0f8c33;
+  }
+
+  .api-badge.deprecated {
+    background-color: #4d0f0f;
+    color: #ff8080;
+    border-color: #992626;
+  }
+
+  .api-examples .example {
+    background: var(--code-background);
+  }
+
+  .api-feedback {
+    color: #999;
+  }
+}
