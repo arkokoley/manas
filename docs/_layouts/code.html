@@ -1,0 +1,28 @@
+---
+layout: default
+---
+
+<div class="code-block-wrapper md-card">
+  <div class="code-block-header">
+    {% if page.title %}
+      <h2 class="code-block-title">{{ page.title }}</h2>
+    {% endif %}
+    {% if page.language %}
+      <div class="code-language">{{ page.language }}</div>
+    {% endif %}
+  </div>
+
+  <div class="code-block-content">
+    {{ content }}
+  </div>
+
+  {% if page.annotations %}
+    <div class="code-annotations">
+      {% for annotation in page.annotations %}
+        <div class="code-annotation" data-line="{{ annotation.line }}">
+          <div class="annotation-content">{{ annotation.content }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>

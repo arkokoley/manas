@@ -114,4 +114,158 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 50);
     });
   }
+  
+  // Theme handling with transition smoothing
+  const TRANSITION_DURATION = 300;
+  const root = document.documentElement;
+  const themeToggle = document.querySelector('.theme-toggle');
+  
+  const setTheme = (theme) => {
+    root.classList.add('theme-transitioning');
+    root.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('theme', theme);
+    
+    setTimeout(() => {
+      root.classList.remove('theme-transitioning');
+    }, TRANSITION_DURATION);
+  };
+
+  // Theme toggle click handler
+  themeToggle?.addEventListener('click', () => {
+    const newTheme = root.classList.contains('dark') ? 'light' : 'dark';
+    setTheme(newTheme);
+  });
+
+  // System theme change handler
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      setTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+
+  // Code block enhancements
+  document.querySelectorAll('pre.highlight').forEach(block => {
+    // Create wrapper if not exists
+    let wrapper = block.closest('.code-block-wrapper');
+    if (!wrapper) {
+      wrapper = document.createElement('div');
+      wrapper.className = 'code-block-wrapper';
+      block.parentNode.insertBefore(wrapper, block);
+      wrapper.appendChild(block);
+    }
+
+    // Add copy button if not exists
+    if (!wrapper.querySelector('.copy-button')) {
+      const button = document.createElement('button');
+      button.className = 'md-button-icon copy-button';
+      button.innerHTML = '<span class="material-icons">content_copy</span>';
+      button.setAttribute('aria-label', 'Copy code');
+      wrapper.appendChild(button);
+
+      // Copy functionality
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(block.textContent);
+          button.innerHTML = '<span class="material-icons">check</span>';
+          button.classList.add('copied');
+          
+          setTimeout(() => {
+            button.innerHTML = '<span class="material-icons">content_copy</span>';
+            button.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy code:', err);
+        }
+      });
+    }
+  });
+
+  // Add ripple effect to buttons
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest('.md-button, .md-button-icon, .nav-link');
+    if (!target) return;
+
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    target.appendChild(ripple);
+
+    const rect = target.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size/2;
+    const y = e.clientY - rect.top - size/2;
+
+    ripple.style.width = ripple.style.height = `${size}px`;
+    ripple.style.left = `${x}px`;
+    ripple.style.top = `${y}px`;
+
+    ripple.addEventListener('animationend', () => ripple.remove());
+  });
+
+  // Mobile menu handling
+  const mobileMenuButton = document.querySelector('.mobile-menu-button');
+  const sidebar = document.querySelector('.site-sidebar');
+  const scrim = document.querySelector('.md-scrim');
+
+  const toggleMobileMenu = (show) => {
+    sidebar?.classList.toggle('show', show);
+    scrim?.classList.toggle('show', show);
+    document.body.style.overflow = show ? 'hidden' : '';
+    mobileMenuButton?.setAttribute('aria-expanded', show);
+  };
+
+  mobileMenuButton?.addEventListener('click', () => {
+    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+    toggleMobileMenu(!isExpanded);
+  });
+
+  scrim?.addEventListener('click', () => toggleMobileMenu(false));
+
+  // TOC highlighting
+  const tocLinks = document.querySelectorAll('.table-of-contents a');
+  const headings = Array.from(document.querySelectorAll('h2[id], h3[id]'));
+
+  if (headings.length && tocLinks.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            tocLinks.forEach(link => {
+              link.classList.toggle(
+                'active',
+                link.getAttribute('href') === `#${entry.target.id}`
+              );
+            });
+          }
+        });
+      },
+      { rootMargin: '-100px 0px -70% 0px' }
+    );
+
+    headings.forEach(heading => observer.observe(heading));
+  }
+
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const targetId = anchor.getAttribute('href').slice(1);
+      const target = document.getElementById(targetId);
+      
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+        history.pushState(null, null, `#${targetId}`);
+      }
+    });
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    // Close mobile menu on ESC
+    if (e.key === 'Escape' && sidebar?.classList.contains('show')) {
+      toggleMobileMenu(false);
+    }
+  });
 });

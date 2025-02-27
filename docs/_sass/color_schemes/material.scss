@@ -1,0 +1,88 @@
+@use "sass:map";
+
+$deep-purple-light: (
+  "primary": #6750A4,
+  "on-primary": #FFFFFF,
+  "primary-container": #EADDFF,
+  "on-primary-container": #21005E,
+  "secondary": #625B71,
+  "on-secondary": #FFFFFF,
+  "secondary-container": #E8DEF8,
+  "on-secondary-container": #1D192B,
+  "surface": #FFFBFE,
+  "on-surface": #1C1B1F,
+  "surface-variant": #E7E0EC,
+  "on-surface-variant": #49454F,
+  "background": #FFFBFE,
+  "on-background": #1C1B1F,
+  "error": #B3261E,
+  "on-error": #FFFFFF,
+  "outline": #79747E
+);
+
+$deep-purple-dark: (
+  "primary": #D0BCFF,
+  "on-primary": #381E72,
+  "primary-container": #4F378B,
+  "on-primary-container": #EADDFF,
+  "secondary": #CCC2DC,
+  "on-secondary": #332D41,
+  "secondary-container": #4A4458,
+  "on-secondary-container": #E8DEF8,
+  "surface": #1C1B1F,
+  "on-surface": #E6E1E5,
+  "surface-variant": #49454F,
+  "on-surface-variant": #CAC4D0,
+  "background": #1C1B1F,
+  "on-background": #E6E1E5,
+  "error": #F2B8B5,
+  "on-error": #601410,
+  "outline": #938F99
+);
+
+// Light theme variables
+@each $name, $color in $deep-purple-light {
+  $theme-colors: map.merge(
+    $theme-colors,
+    (
+      "md-#{$name}": $color
+    )
+  ) !global;
+}
+
+:root {
+  @each $name, $color in $deep-purple-light {
+    --md-#{$name}: #{$color};
+  }
+
+  // Elevation shadows
+  --md-elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+  --md-elevation-2: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
+  --md-elevation-3: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10);
+  --md-elevation-4: 0 15px 25px rgba(0,0,0,0.15), 0 5px 10px rgba(0,0,0,0.05);
+  
+  // Transitions
+  --md-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Dark theme overrides
+@media (prefers-color-scheme: dark) {
+  :root {
+    @each $name, $color in $deep-purple-dark {
+      --md-#{$name}: #{$color};
+    }
+
+    // Adjusted elevation for dark theme
+    --md-elevation-1: 0 1px 3px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.22);
+    --md-elevation-2: 0 3px 6px rgba(0,0,0,0.25), 0 2px 4px rgba(0,0,0,0.2);
+    --md-elevation-3: 0 10px 20px rgba(0,0,0,0.25), 0 3px 6px rgba(0,0,0,0.18);
+    --md-elevation-4: 0 15px 25px rgba(0,0,0,0.25), 0 5px 10px rgba(0,0,0,0.15);
+  }
+}
+
+// Force dark theme when .dark class is present
+:root.dark {
+  @each $name, $color in $deep-purple-dark {
+    --md-#{$name}: #{$color};
+  }
+}

@@ -1,21 +1,24 @@
-title: Manas
-description: A framework for building LLM-powered applications with intelligent agents, task decomposition, and RAG
-url: https://arkokoley.github.io
-baseurl: /manas
+# Site settings
+title: Manas Documentation
+description: Documentation for the Manas Multi-Agent System Framework
+baseurl: "/"
+url: "https://manas.koley.in"
 
-# Build settings
-markdown: GFM
+# Theme settings
+theme: null
+markdown: kramdown
+highlighter: rouge
+
 kramdown:
   input: GFM
   syntax_highlighter: rouge
-
-# Theme settings - no theme, we'll use our own custom Material theme
-plugins:
-  - jekyll-seo-tag
-  - jekyll-github-metadata
-
-# Custom settings
-search_enabled: true
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
 
 # Collections
 collections:
@@ -26,32 +29,61 @@ collections:
     output: true
     permalink: /examples/:path/
 
-# Default front matter settings
 defaults:
   - scope:
       path: ""
+      type: "api"
     values:
-      layout: default
+      layout: "reference"
+      nav_section: "api"
   - scope:
-      path: "_api"
+      path: ""
+      type: "examples"
     values:
-      layout: default
-      parent: "API Reference"
+      layout: "tutorial"
+      nav_section: "examples"
   - scope:
-      path: "_examples"
+      path: ""
     values:
-      layout: default
-      parent: "Examples"
+      layout: "default"
 
-# Exclude files from processing
+# Material Design settings
+material_theme:
+  primary: "#6750A4"
+  on-primary: "#FFFFFF"
+  primary-container: "#EADDFF"
+  on-primary-container: "#21005E"
+  secondary: "#625B71"
+  on-secondary: "#FFFFFF"
+  surface: "#FFFBFE"
+  on-surface: "#1C1B1F"
+  background: "#FFFBFE"
+  on-background: "#1C1B1F"
+
+# Build settings
 exclude:
   - Gemfile
   - Gemfile.lock
-  - node_modules/
-  - vendor/
+  - node_modules
+  - vendor
   - .sass-cache/
   - .jekyll-cache/
+  - gemfiles/
+  - package.json
+  - package-lock.json
 
-# GitHub metadata
-repository: arkokoley/manas
-github_username: arkokoley
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# Navigation
+nav_sections:
+  - Getting Started
+  - Core Concepts
+  - API Reference
+  - Examples
+  - FAQ

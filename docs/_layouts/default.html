@@ -13,31 +13,42 @@
     </aside>
 
     <main class="site-content">
-      <div class="content-wrapper">
+      <div class="content-wrapper md-surface">
         {% unless page.hide_title %}
         <header class="page-header">
           <h1 class="page-title">{{ page.title }}</h1>
           {% if page.description %}
-            <p class="page-description">{{ page.description }}</p>
+            <p class="page-description md-on-surface-variant">{{ page.description }}</p>
           {% endif %}
         </header>
         {% endunless %}
 
-        <div class="page-content md-card">
+        <div class="page-content">
           {% if page.hide_title != true %}
-            {{ content | replace_first: page.title, "" | replace_first: "<h1[^>]*>[^<]*</h1>", "" }}
+            {% assign content_without_title = content | replace_first: '<h1>' | split: '</h1>' %}
+            {% if content_without_title.size > 1 %}
+              {{ content_without_title[1] }}
+            {% else %}
+              {{ content }}
+            {% endif %}
           {% else %}
             {{ content }}
           {% endif %}
         </div>
-
-        <footer class="site-footer">
-          {% include footer.html %}
-        </footer>
       </div>
+
+      {% if page.has_toc != false %}
+        <div class="table-of-contents md-card">
+          {% include toc.html html=content h_min=2 h_max=3 %}
+        </div>
+      {% endif %}
+
+      <footer class="site-footer">
+        {% include footer.html %}
+      </footer>
     </main>
   </div>
 
-  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  <script src="{{ 'assets/js/material-docs.js' | relative_url }}"></script>
 </body>
 </html>
