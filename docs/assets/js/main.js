@@ -1,4 +1,128 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Theme handling
+    const root = document.documentElement;
+    const themeToggle = document.querySelector('.theme-toggle');
+    const TRANSITION_DURATION = 300;
+
+    const setTheme = (theme, withTransition = true) => {
+        if (withTransition) {
+            root.classList.add('theme-transition');
+            root.classList.toggle('dark', theme === 'dark');
+            setTimeout(() => root.classList.remove('theme-transition'), TRANSITION_DURATION);
+        } else {
+            root.classList.toggle('dark', theme === 'dark');
+        }
+        localStorage.setItem('theme', theme);
+    };
+
+    // Listen for theme toggle clicks
+    themeToggle?.addEventListener('click', () => {
+        const newTheme = root.classList.contains('dark') ? 'light' : 'dark';
+        setTheme(newTheme);
+    });
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            setTheme(e.matches ? 'dark' : 'light');
+        }
+    });
+
+    // Material Design ripple effect
+    document.addEventListener('click', (e) => {
+        const target = e.target.closest('button, .nav-link');
+        if (!target) return;
+
+        const ripple = document.createElement('div');
+        ripple.classList.add('ripple');
+        target.appendChild(ripple);
+
+        const rect = target.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size/2;
+        const y = e.clientY - rect.top - size/2;
+
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+
+        ripple.addEventListener('animationend', () => ripple.remove());
+    });
+
+    // Mobile menu handling
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const sidebar = document.querySelector('.site-sidebar');
+    const scrim = document.querySelector('.md-scrim');
+
+    const toggleMobileMenu = (show) => {
+        sidebar?.classList.toggle('show', show);
+        scrim?.classList.toggle('show', show);
+        document.body.style.overflow = show ? 'hidden' : '';
+        mobileMenuButton?.setAttribute('aria-expanded', show);
+    };
+
+    mobileMenuButton?.addEventListener('click', () => {
+        const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+        toggleMobileMenu(!isExpanded);
+    });
+
+    scrim?.addEventListener('click', () => toggleMobileMenu(false));
+
+    // Code block copy functionality
+    document.querySelectorAll('pre.highlight').forEach(block => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+        block.parentNode.insertBefore(wrapper, block);
+        wrapper.appendChild(block);
+
+        const button = document.createElement('button');
+        button.className = 'md-copy-button';
+        button.innerHTML = '<span class="material-icons">content_copy</span>';
+        button.setAttribute('aria-label', 'Copy code');
+        
+        wrapper.appendChild(button);
+        
+        button.addEventListener('click', async () => {
+            const code = block.textContent;
+            try {
+                await navigator.clipboard.writeText(code);
+                button.classList.add('copied');
+                button.innerHTML = '<span class="material-icons">check</span>';
+                
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.innerHTML = '<span class="material-icons">content_copy</span>';
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy code:', err);
+            }
+        });
+    });
+
+    // Close mobile menu on ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            toggleMobileMenu(false);
+        }
+    });
+
+    // Handle smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+            const targetId = anchor.getAttribute('href').slice(1);
+            const target = document.getElementById(targetId);
+            
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                history.pushState(null, null, `#${targetId}`);
+            }
+        });
+    });
+
     // Add active class to current nav item
     const currentPath = window.location.pathname;
     document.querySelectorAll('.nav-link').forEach(link => {
@@ -8,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Handle mobile menu toggle
-    const mobileMenuButton = document.querySelector('.mobile-menu-button');
     const siteNav = document.querySelector('.site-nav');
     
     if (mobileMenuButton && siteNav) {
@@ -140,7 +263,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Material Design 3 inspired interactions
     // Mobile navigation menu toggle
-    const sidebar = document.querySelector('.site-sidebar');
     
     if (mobileMenuButton && sidebar) {
         mobileMenuButton.addEventListener('click', function() {

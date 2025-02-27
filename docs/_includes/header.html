@@ -1,8 +1,8 @@
 <!-- Site header with dark mode toggle -->
-<header class="site-header">
+<header class="site-header md-elevation-1">
   <div class="site-header-content">
     <div class="site-logo">
-      <a href="{{ site.baseurl }}/" class="logo-text">Manas</a>
+      {% include title.html %}
     </div>
     
     <nav class="site-nav">
@@ -11,15 +11,23 @@
           {{ item.name }}
         </a>
       {% endfor %}
-      
-      <button class="theme-toggle" aria-label="Toggle dark mode">
-        <span class="material-icons light-icon">light_mode</span>
-        <span class="material-icons dark-icon">dark_mode</span>
-      </button>
     </nav>
 
-    <button class="mobile-menu-button" aria-label="Toggle mobile menu">
-      <span class="material-icons">menu</span>
-    </button>
+    <div class="header-actions">
+      <button class="theme-toggle md-button-icon" aria-label="Toggle theme">
+        <svg class="theme-toggle-icon light-mode-icon">
+          <use href="#svg-sun"></use>
+        </svg>
+        <svg class="theme-toggle-icon dark-mode-icon">
+          <use href="#svg-moon"></use>
+        </svg>
+        <div class="state-layer"></div>
+      </button>
+
+      <button class="mobile-menu-button md-button-icon" aria-label="Toggle menu" aria-expanded="false">
+        <span class="material-icons">menu</span>
+        <div class="state-layer"></div>
+      </button>
+    </div>
   </div>
 </header>
