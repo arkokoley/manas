@@ -2,18 +2,14 @@
 layout: default
 ---
 
-<article class="example-content">
+<div class="example-container">
   <div class="example-header">
     {% if page.difficulty %}
-    <span class="example-badge {{ page.difficulty | downcase }}">
-      {{ page.difficulty }}
-    </span>
+    <span class="label label-{{ page.difficulty | downcase }}">{{ page.difficulty }}</span>
     {% endif %}
     
     {% if page.time %}
-    <span class="example-badge time">
-      {{ page.time }}
-    </span>
+    <span class="label">{{ page.time }}</span>
     {% endif %}
   </div>
 
@@ -36,23 +32,22 @@ layout: default
         {% assign prevIndex = currentIndex | minus: 1 %}
         {% assign nextIndex = currentIndex | plus: 1 %}
         
-        {% if prevIndex >= 0 %}
-          {% assign prevExample = examples[prevIndex] %}
-          <a href="{{ site.baseurl }}{{ prevExample.url }}" class="example-prev">
-            ← Previous: {{ prevExample.title }}
-          </a>
-        {% endif %}
-        
-        {% if nextIndex < examples.size %}
-          {% assign nextExample = examples[nextIndex] %}
-          <a href="{{ site.baseurl }}{{ nextExample.url }}" class="example-next">
-            Next: {{ nextExample.title }} →
-          </a>
-        {% endif %}
+        <div class="navigation-section">
+          {% if prevIndex >= 0 %}
+            {% assign prevExample = examples[prevIndex] %}
+            <a href="{{ site.baseurl }}{{ prevExample.url }}" class="btn btn-purple">← Previous: {{ prevExample.title }}</a>
+          {% endif %}
+          
+          {% if nextIndex < examples.size %}
+            {% assign nextExample = examples[nextIndex] %}
+            <a href="{{ site.baseurl }}{{ nextExample.url }}" class="btn btn-purple float-right">Next: {{ nextExample.title }} →</a>
+          {% endif %}
+        </div>
       {% endif %}
     {% endfor %}
   </div>
 
+  {% if page.related_docs %}
   <div class="example-related">
     <h2>Related Documentation</h2>
     <ul>
@@ -61,4 +56,5 @@ layout: default
       {% endfor %}
     </ul>
   </div>
-</article>
+  {% endif %}
+</div>

@@ -1,8 +1,9 @@
 ---
-layout: default
+layout: page
 title: Core Concepts
 nav_order: 3
 permalink: /concepts/
+has_toc: true
 ---
 
 # Core Concepts

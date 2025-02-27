@@ -10,13 +10,15 @@ kramdown:
   syntax_highlighter: rouge
 
 # Theme settings
-remote_theme: pages-themes/primer
+theme: just-the-docs
+remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-remote-theme
   - jekyll-seo-tag
   - jekyll-github-metadata
 
-# Search settings
+# Just the Docs settings
+color_scheme: light
 search_enabled: true
 search:
   heading_level: 2
@@ -30,7 +32,7 @@ heading_anchors: true
 # Sort order for navigation links
 nav_sort: case_sensitive
 
-# External navigation links
+# Auxiliary links
 aux_links:
   "Manas on GitHub":
     - "https://github.com/arkokoley/manas"
@@ -38,6 +40,9 @@ aux_links:
 # Back to top link
 back_to_top: true
 back_to_top_text: "Back to top"
+
+# Footer content
+footer_content: "Copyright &copy; Manas Contributors. Distributed under an MIT license."
 
 # Collections
 collections:
@@ -57,11 +62,13 @@ defaults:
   - scope:
       path: "_api"
     values:
-      layout: reference
+      layout: default
+      parent: "API Reference"
   - scope:
       path: "_examples"
     values:
-      layout: tutorial
+      layout: default
+      parent: "Examples"
 
 # Exclude files from processing
 exclude:

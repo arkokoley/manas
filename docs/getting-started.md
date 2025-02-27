@@ -1,8 +1,9 @@
 ---
-layout: default
+layout: page
 title: Getting Started with Manas
 nav_order: 2
 permalink: /getting-started/
+has_toc: true
 ---
 
 # Getting Started with Manas

@@ -1,9 +1,10 @@
 ---
-layout: default
+layout: page
 title: API Reference
 nav_order: 4
 permalink: /api/
 has_children: true
+has_toc: true
 ---
 
 # API Reference
@@ -28,7 +29,7 @@ This section provides detailed documentation for all major components of the Man
 ### LLM Integration
 
 - [LLM]({{ site.baseurl }}/api/llm/) - Language model interface
-- [LLMConfig]({{ site.baseurl }}/api/llm_config/) - LLM configuration
+- [LLMConfig]({{ site.baseurl }}/api/config/) - LLM configuration
 - [LLMNode]({{ site.baseurl }}/api/llm_node/) - Base LLM node
 
 ### Provider System

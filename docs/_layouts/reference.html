@@ -2,165 +2,33 @@
 layout: default
 ---
 
-<div class="reference-content">
-  <div class="reference-sidebar">
-    <div class="api-toc">
-      <h4>On This Page</h4>
-      {% include toc.html html=content h_min=2 h_max=3 class="toc-list" %}
-    </div>
-
-    {% if page.related_apis %}
-    <div class="related-apis">
-      <h4>Related APIs</h4>
-      <ul>
-        {% for api in page.related_apis %}
-        <li><a href="{{ site.baseurl }}/api/{{ api.link }}">{{ api.name }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
+<div class="reference-container">
+  {% if page.api_metadata %}
+  <div class="api-metadata">
+    {% if page.api_metadata.since %}
+    <span class="label label-green">Since v{{ page.api_metadata.since }}</span>
+    {% endif %}
+    
+    {% if page.api_metadata.status %}
+    <span class="label label-{{ page.api_metadata.status | downcase }}">{{ page.api_metadata.status }}</span>
+    {% endif %}
+    
+    {% if page.api_metadata.type %}
+    <span class="label">{{ page.api_metadata.type }}</span>
     {% endif %}
   </div>
+  {% endif %}
 
-  <div class="reference-main">
-    <div class="api-metadata">
-      {% if page.experimental %}
-      <span class="api-badge experimental">Experimental</span>
-      {% endif %}
-      
-      {% if page.stable %}
-      <span class="api-badge stable">Stable</span>
-      {% endif %}
-      
-      {% if page.deprecated %}
-      <span class="api-badge deprecated">Deprecated</span>
-      {% endif %}
-    </div>
-
-    {{ content }}
-
-    {% if page.examples %}
-    <div class="api-examples">
-      <h2>Examples</h2>
-      {% for example in page.examples %}
-        <div class="example">
-          <h3>{{ example.title }}</h3>
-          <p>{{ example.description }}</p>
-          {% highlight python %}
-{{ example.code }}
-          {% endhighlight %}
-        </div>
+  {{ content }}
+  
+  {% if page.see_also %}
+  <div class="reference-see-also">
+    <h2>See Also</h2>
+    <ul>
+      {% for item in page.see_also %}
+      <li><a href="{{ site.baseurl }}{{ item.url }}">{{ item.title }}</a></li>
       {% endfor %}
-    </div>
-    {% endif %}
-
-    {% if page.parameters %}
-    <div class="api-parameters">
-      <h2>Parameters</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Default</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for param in page.parameters %}
-          <tr>
-            <td><code>{{ param.name }}</code></td>
-            <td><code>{{ param.type }}</code></td>
-            <td>{% if param.default %}<code>{{ param.default }}</code>{% else %}-{% endif %}</td>
-            <td>{{ param.description }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    {% endif %}
-
-    {% if page.returns %}
-    <div class="api-returns">
-      <h2>Returns</h2>
-      <table>
-        <tr>
-          <th>Type</th>
-          <td><code>{{ page.returns.type }}</code></td>
-        </tr>
-        <tr>
-          <th>Description</th>
-          <td>{{ page.returns.description }}</td>
-        </tr>
-      </table>
-    </div>
-    {% endif %}
-
-    {% if page.exceptions %}
-    <div class="api-exceptions">
-      <h2>Exceptions</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for exception in page.exceptions %}
-          <tr>
-            <td><code>{{ exception.type }}</code></td>
-            <td>{{ exception.description }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    {% endif %}
-
-    {% if page.notes %}
-    <div class="api-notes">
-      <h2>Notes</h2>
-      <ul>
-        {% for note in page.notes %}
-        <li>{{ note }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
-
-    {% if page.version_history %}
-    <div class="api-versions">
-      <h2>Version History</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Version</th>
-            <th>Changes</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for version in page.version_history %}
-          <tr>
-            <td>{{ version.version }}</td>
-            <td>{{ version.changes }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    {% endif %}
-
-    <div class="api-feedback">
-      <hr>
-      <p>
-        Have feedback about this API? 
-        <a href="https://github.com/arkokoley/manas/issues/new?title=API%20Feedback:%20{{ page.title | url_encode }}">
-          Open an issue
-        </a> or 
-        <a href="https://github.com/arkokoley/manas/edit/main/docs/{{ page.path }}">
-          Edit this page
-        </a>
-      </p>
-    </div>
+    </ul>
   </div>
+  {% endif %}
 </div>

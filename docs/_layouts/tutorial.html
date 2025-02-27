@@ -2,43 +2,28 @@
 layout: default
 ---
 
-<article class="tutorial-content">
+<div class="tutorial-container">
   <div class="tutorial-header">
     {% if page.difficulty %}
-    <span class="tutorial-difficulty">
-      Difficulty: {{ page.difficulty }}
-    </span>
+    <span class="label label-{{ page.difficulty | downcase }}">{{ page.difficulty }}</span>
     {% endif %}
     
     {% if page.time %}
-    <span class="tutorial-time">
-      Time: {{ page.time }}
-    </span>
+    <span class="label">{{ page.time }}</span>
     {% endif %}
   </div>
-
+  
   {{ content }}
-
+  
+  {% if page.next_tutorial or page.prev_tutorial %}
   <div class="tutorial-nav">
-    {% if page.previous %}
-    <a href="{{ page.previous.url | relative_url }}" class="tutorial-prev">
-      ← Previous: {{ page.previous.title }}
-    </a>
+    {% if page.prev_tutorial %}
+    <a href="{{ site.baseurl }}{{ page.prev_tutorial.url }}" class="btn btn-outline">← {{ page.prev_tutorial.title }}</a>
     {% endif %}
     
-    {% if page.next %}
-    <a href="{{ page.next.url | relative_url }}" class="tutorial-next">
-      Next: {{ page.next.title }} →
-    </a>
+    {% if page.next_tutorial %}
+    <a href="{{ site.baseurl }}{{ page.next_tutorial.url }}" class="btn btn-outline">{{ page.next_tutorial.title }} →</a>
     {% endif %}
   </div>
-
-  <div class="tutorial-complete">
-    <h3>What's Next?</h3>
-    <ul>
-      <li><a href="{{ site.baseurl }}/examples/">Browse more examples</a></li>
-      <li><a href="{{ site.baseurl }}/api/">Check the API reference</a></li>
-      <li><a href="https://github.com/arkokoley/manas/issues">Report issues or suggest improvements</a></li>
-    </ul>
-  </div>
-</article>
+  {% endif %}
+</div>

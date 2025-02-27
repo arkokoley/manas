@@ -1,55 +1,79 @@
 ---
-layout: default
+layout: page
 title: Examples
 nav_order: 5
 permalink: /examples/
 has_children: true
+has_toc: false
 ---
 
 # Examples
 
-This section provides practical examples of using the Manas framework for various applications. Each example includes fully documented code and explanations.
+This section contains a variety of practical examples showing how to build applications with Manas. Each example demonstrates specific features of the framework and includes complete code that you can run and adapt.
 
-## Basic Examples
+## Getting Started Examples
 
-- [Simple Q&A](/examples/simple-qa/) - Basic question-answering with a single agent
-- [Multi-Agent Conversation](/examples/multi-agent-conversation/) - Creating conversational agents that interact with each other
-- [Tool Usage](/examples/tool-usage/) - Integrating tools with agents
+- [RAG Usage]({{ site.baseurl }}/examples/rag-usage)
+  Learn how to use the Retrieval-Augmented Generation (RAG) capabilities to enhance LLM outputs with relevant information.
 
-## Flow Examples
-
-- [Research Assistant](/examples/research-assistant/) - A flow that researches, analyzes, and summarizes information
-- [Code Generator](/examples/code-generator/) - Using multiple agents to design, implement, and test code
-- [Content Creation](/examples/content-creation/) - A workflow for creating and refining content
-
-## RAG Examples
-
-- [Knowledge Base Q&A](/examples/knowledge-base-qa/) - Answering questions based on a knowledge base
-- [Document Analysis](/examples/document-analysis/) - Analyzing and extracting insights from documents
-- [Multi-Source RAG](/examples/multi-source-rag/) - Using multiple data sources in a RAG system
+- [Tool Usage]({{ site.baseurl }}/examples/tool-usage)
+  Build an agent that can use external tools to solve problems and answer questions by interacting with APIs and services.
 
 ## Advanced Examples
 
-- [Complex Workflows](/examples/complex-workflows/) - Building and managing complex multi-agent workflows
-- [Custom Vector Stores](/examples/custom-vector-stores/) - Implementing and using custom vector stores
-- [Integration Examples](/examples/integrations/) - Integrating Manas with external services and APIs
+- [Research Assistant]({{ site.baseurl }}/examples/research-assistant)
+  Implement a multi-agent system that can research topics, synthesize information, and generate reports.
 
-Each example can be run directly from the provided code and serves as a practical reference for implementing similar functionality in your own applications.
+- [Knowledge Base QA]({{ site.baseurl }}/examples/knowledge-base-qa)
+  Create a question-answering system over your own documents and knowledge bases.
 
-## Example Structure
+## By Feature
 
-Each example follows this structure:
+### Agent Examples
 
-1. **Objective** - What the example demonstrates
-2. **Prerequisites** - Required dependencies and setup
-3. **Code** - Well-documented implementation
-4. **Explanation** - Detailed explanation of how it works
-5. **Variations** - Alternative approaches and customizations
+- [Simple Agent]({{ site.baseurl }}/examples/simple-agent) - Creating and configuring basic agents
+- [Tool-Using Agent]({{ site.baseurl }}/examples/tool-using-agent) - Building agents that use external tools
+- [Memory-Enhanced Agent]({{ site.baseurl }}/examples/memory-agent) - Agents with conversation memory
 
-To run the examples locally, clone the Manas repository:
+### Flow Examples
+
+- [Two-Node Flow]({{ site.baseurl }}/examples/two-node-flow) - Simple sequential flow with two nodes
+- [Research Flow]({{ site.baseurl }}/examples/research-flow) - Complex flow for research tasks
+- [Feedback Flow]({{ site.baseurl }}/examples/feedback-flow) - Flow with feedback loops for refinement
+
+### RAG Examples
+
+- [Basic RAG]({{ site.baseurl }}/examples/basic-rag) - Simple retrieval-augmented generation
+- [Chunking Strategies]({{ site.baseurl }}/examples/chunking-strategies) - Different document chunking approaches
+- [Multi-Vector RAG]({{ site.baseurl }}/examples/multi-vector-rag) - Advanced RAG with multiple vector indices
+
+## Running the Examples
+
+Most examples can be run with:
 
 ```bash
+# Clone the repository
 git clone https://github.com/arkokoley/manas.git
-cd manas/examples
-python example_name.py
+cd manas
+
+# Install dependencies
+pip install -e ".[all-cpu]"  # or .[all-gpu] for GPU support
+
+# Run an example
+python examples/simple_agent.py
 ```
+
+Be sure to set the required environment variables for API keys:
+
+```bash
+export OPENAI_API_KEY=your_api_key_here
+export ANTHROPIC_API_KEY=your_api_key_here
+```
+
+## Next Steps
+
+After exploring these examples, check out:
+
+- [Getting Started Guide]({{ site.baseurl }}/getting-started/) for a proper introduction
+- [Core Concepts]({{ site.baseurl }}/concepts/) to understand the framework architecture
+- [API Reference]({{ site.baseurl }}/api/) for detailed documentation
