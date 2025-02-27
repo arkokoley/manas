@@ -14,6 +14,18 @@ document.addEventListener('DOMContentLoaded', function() {
     if (mobileMenuButton && siteNav) {
         mobileMenuButton.addEventListener('click', () => {
             siteNav.classList.toggle('show');
+            mobileMenuButton.setAttribute(
+                'aria-expanded',
+                siteNav.classList.contains('show')
+            );
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!siteNav.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+                siteNav.classList.remove('show');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+            }
         });
     }
 
@@ -64,4 +76,65 @@ document.addEventListener('DOMContentLoaded', function() {
 
         headings.forEach(heading => observer.observe(heading));
     }
+
+    // Search functionality
+    const searchInput = document.getElementById('search-input');
+    
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            // Implement search functionality here
+            // This would typically integrate with a search service
+            console.log('Search query:', query);
+        });
+
+        // Handle search form submission
+        searchInput.closest('form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = searchInput.value.toLowerCase();
+            // Implement search submission
+            console.log('Search submitted:', query);
+        });
+    }
+
+    // Active link highlighting
+    document.querySelectorAll('.nav-link').forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
+        }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = anchor.getAttribute('href').slice(1);
+            const target = document.getElementById(targetId);
+            
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Dark mode toggle
+    const darkModeToggle = document.querySelector('.dark-mode-toggle');
+    if (!darkModeToggle) return;
+
+    const updateDarkMode = (isDark) => {
+        document.documentElement.classList.toggle('dark', isDark);
+        localStorage.setItem('darkMode', isDark ? 'true' : 'false');
+    };
+
+    // Check for saved dark mode preference
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+    updateDarkMode(savedDarkMode);
+
+    darkModeToggle.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        updateDarkMode(isDark);
+    });
 });

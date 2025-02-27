@@ -8,27 +8,50 @@
 
   .site-nav {
     display: none;
-    width: 100%;
-    margin-top: 1rem;
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background: var(--background-color);
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .site-nav.show {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
   }
 
   .mobile-menu-button {
-    display: block;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 0.5rem;
     background: none;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     cursor: pointer;
+  }
+
+  .nav-section {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-link {
+    padding: 0.75rem;
+    width: 100%;
+    display: block;
+  }
+
+  .nav-section-search {
+    order: -1;
+  }
+
+  .search-box {
+    width: 100%;
   }
 
   .page-content {
@@ -50,6 +73,21 @@
     margin-bottom: 2rem;
   }
 
+  .site-footer-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .wrapper {
+    padding: 0;
+  }
+
+  .api-parameters,
+  .api-returns,
+  .api-exceptions,
+  .api-versions {
+    overflow-x: auto;
+  }
+
   pre {
     margin: 1rem -1rem;
     border-radius: 0;
@@ -58,6 +96,16 @@
 
   .copy-button {
     opacity: 1;
+  }
+
+  .tutorial-nav {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tutorial-prev,
+  .tutorial-next {
+    width: 100%;
   }
 }
 
@@ -117,5 +165,99 @@
 
   blockquote {
     color: #999;
+  }
+}
+
+/* Mobile menu */
+.mobile-menu-button {
+  display: none;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1024px) {
+  .reference-content {
+    grid-template-columns: 1fr;
+  }
+
+  .reference-sidebar {
+    position: static;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Header */
+  .site-logo {
+    font-size: 1.2rem;
+  }
+
+  /* Footer layout */
+  .site-footer-content {
+    grid-template-columns: 1fr;
+  }
+
+  /* Tutorial metadata */
+  .tutorial-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* API badges */
+  .api-metadata {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .api-badge {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Table layout */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* Code copy button */
+  .copy-button {
+    opacity: 1;
+    top: 0.25rem;
+    right: 0.25rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .site-header,
+  .site-footer,
+  .mobile-menu-button,
+  .copy-button {
+    display: none;
+  }
+
+  .reference-content {
+    display: block;
+  }
+
+  .reference-sidebar {
+    display: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .page-content {
+    padding: 0;
   }
 }

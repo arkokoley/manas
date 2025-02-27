@@ -1,0 +1,162 @@
+{% capture tocWorkspace %}
+    {% comment %}
+        Copyright (c) 2017 Vladimir "allejo" Jimenez
+
+        Permission is hereby granted, free of charge, to any person
+        obtaining a copy of this software and associated documentation
+        files (the "Software"), to deal in the Software without
+        restriction, including without limitation the rights to use,
+        copy, modify, merge, publish, distribute, sublicense, and/or
+        sell copies of the Software, and to permit persons to whom the
+        Software is furnished to do so, subject to the following
+        conditions:
+
+        The above copyright notice and this permission notice shall be
+        included in all copies or substantial portions of the Software.
+
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+        EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+        OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+        NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+        HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+        WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+        FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+        OTHER DEALINGS IN THE SOFTWARE.
+    {% endcomment %}
+    {% comment %}
+        Version 1.2.0
+          https://github.com/allejo/jekyll-toc
+    {% endcomment %}
+
+    {% capture newline %}
+    {% endcapture %}
+    {% assign newline = newline | rstrip %}
+
+    {% capture deprecation_warnings %}{% endcapture %}
+
+    {% if include.baseurl %}
+        {% capture deprecation_warnings %}{{ deprecation_warnings }}<!-- jekyll-toc :: "baseurl" has been deprecated, use "base_url" instead -->{{ newline }}{% endcapture %}
+    {% endif %}
+
+    {% if include.skipNoIDs %}
+        {% capture deprecation_warnings %}{{ deprecation_warnings }}<!-- jekyll-toc :: "skipNoIDs" has been deprecated, use "skip_no_ids" instead -->{{ newline }}{% endcapture %}
+    {% endif %}
+
+    {% capture jekyll_toc %}{% endcapture %}
+    {% assign orderedList = include.ordered | default: false %}
+    {% assign baseURL = include.base_url | default: include.baseurl | default: '' %}
+    {% assign skipNoIDs = include.skip_no_ids | default: include.skipNoIDs | default: false %}
+    {% assign minHeader = include.h_min | default: 1 %}
+    {% assign maxHeader = include.h_max | default: 6 %}
+    {% assign nodes = include.html | strip | split: '<h' %}
+
+    {% assign firstHeader = true %}
+    {% assign currLevel = 0 %}
+    {% assign lastLevel = 0 %}
+
+    {% capture listModifier %}{% if orderedList %}ol{% else %}ul{% endif %}{% endcapture %}
+
+    {% for node in nodes %}
+        {% if node == "" %}
+            {% continue %}
+        {% endif %}
+
+        {% assign currLevel = node | replace: '"', '' | slice: 0, 1 | times: 1 %}
+
+        {% if currLevel < minHeader or currLevel > maxHeader %}
+            {% continue %}
+        {% endif %}
+
+        {% assign _workspace = node | split: '</h' %}
+
+        {% assign _idWorkspace = _workspace[0] | split: 'id="' %}
+        {% assign _idWorkspace = _idWorkspace[1] | split: '"' %}
+        {% assign htmlID = _idWorkspace[0] %}
+
+        {% assign _classWorkspace = _workspace[0] | split: 'class="' %}
+        {% assign _classWorkspace = _classWorkspace[1] | split: '"' %}
+        {% assign htmlClass = _classWorkspace[0] %}
+
+        {% if htmlClass contains "no_toc" %}
+            {% continue %}
+        {% endif %}
+
+        {% if firstHeader %}
+            {% assign minHeader = currLevel %}
+        {% endif %}
+
+        {% if htmlID == "" %}
+            {% if skipNoIDs == true %}
+                {% continue %}
+            {% endif %}
+
+            {% capture htmlID %}{{ _workspace[0] | strip | slugify }}{% endcapture %}
+
+            {% if htmlID == "" %}
+                {% continue %}
+            {% endif %}
+        {% endif %}
+
+        {% capture jekyll_toc %}{{ jekyll_toc }}{% if currLevel > lastLevel %}<{{ listModifier }}>{% endif %}{% endcapture %}
+
+        {% if firstHeader and currLevel > minHeader %}
+            {% for i in (minHeader..currLevel) %}
+                {% capture jekyll_toc %}{{ jekyll_toc }}<{{ listModifier }}>{% endcapture %}
+            {% endfor %}
+        {% endif %}
+
+        {% assign space = '' %}
+        {% for i in (1..currLevel) %}
+            {% assign space = space | prepend: '    ' %}
+        {% endfor %}
+
+        {% if include.item_class and include.item_class != blank %}
+            {% capture listItemClass %} class="{{ include.item_class | replace: '%level%', currLevel }}"{% endcapture %}
+        {% endif %}
+
+        {% capture link_text %}{% if include.sanitize %}{{ _workspace[0] | strip_html }}{% else %}{{ _workspace[0] | strip }}{% endif %}{% endcapture %}
+
+        {% capture jekyll_toc %}{{ jekyll_toc }}
+{{ space }}<li{{ listItemClass }}><a href="{{ baseURL }}#{{ htmlID }}">{{ link_text | strip }}</a>{% endcapture %}
+
+        {% if currLevel < lastLevel %}
+            {% assign repeatCount = lastLevel | minus: currLevel %}
+
+            {% for i in (1..repeatCount) %}
+                {% capture jekyll_toc %}{{ jekyll_toc }}</li></{{ listModifier }}>{% endcapture %}
+            {% endfor %}
+
+            {% capture jekyll_toc %}{{ jekyll_toc }}</li>{% endcapture %}
+        {% elsif currLevel == lastLevel %}
+            {% capture jekyll_toc %}{{ jekyll_toc }}</li>{% endcapture %}
+        {% endif %}
+
+        {% assign lastLevel = currLevel %}
+        {% assign firstHeader = false %}
+    {% endfor %}
+
+    {% if lastLevel > 0 %}
+        {% assign repeatCount = lastLevel | minus: minHeader %}
+        {% for i in (1..repeatCount) %}
+            {% capture jekyll_toc %}{{ jekyll_toc }}</li></{{ listModifier }}>{% endcapture %}
+        {% endfor %}
+
+        {% capture jekyll_toc %}{{ jekyll_toc }}</li></{{ listModifier }}>{% endcapture %}
+    {% endif %}
+
+    {% if jekyll_toc != '' %}
+        {% assign rootAttributes = '' %}
+        {% if include.class and include.class != blank %}
+            {% capture rootAttributes %} class="{{ include.class }}"{% endcapture %}
+        {% endif %}
+
+        {% if include.id and include.id != blank %}
+            {% capture rootAttributes %}{{ rootAttributes }} id="{{ include.id }}"{% endcapture %}
+        {% endif %}
+
+        {% if rootAttributes %}
+            {% assign nodes = jekyll_toc | split: '>' %}
+            {% capture jekyll_toc %}<{{ listModifier }}{{ rootAttributes }}>{{ nodes | shift | join: '>' }}{% endcapture %}
+        {% endif %}
+    {% endif %}
+{% endcapture %}{% assign tocWorkspace = '' %}{{ deprecation_warnings }}{{ jekyll_toc }}
