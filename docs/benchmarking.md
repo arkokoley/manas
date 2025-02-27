@@ -3,6 +3,7 @@ layout: default
 title: Performance Benchmarks
 nav_order: 7
 permalink: /benchmarking/
+has_toc: true
 ---
 
 # Performance Benchmarks

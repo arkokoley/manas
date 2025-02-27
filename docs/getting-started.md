@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: Getting Started with Manas
 nav_order: 2
 permalink: /getting-started/

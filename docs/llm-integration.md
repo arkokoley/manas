@@ -3,6 +3,7 @@ layout: default
 title: LLM Integration Guide
 nav_order: 8
 permalink: /llm-integration/
+has_toc: true
 ---
 
 # LLM Integration Guide

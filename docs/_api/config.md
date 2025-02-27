@@ -1,7 +1,12 @@
 ---
 title: Configuration
 description: Configuration options and settings for Manas components
+layout: reference
 parent: API Reference
+api_metadata:
+  since: "0.1.0"
+  status: "stable"
+  type: "Core"
 ---
 
 # Configuration

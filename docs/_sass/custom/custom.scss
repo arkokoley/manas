@@ -1,0 +1,162 @@
+// Custom Material Design 3 theme variables
+:root {
+  // Base spacing unit for consistent spacing
+  --md-spacing-unit: 8px;
+  --md-spacing-xs: var(--md-spacing-unit);
+  --md-spacing-s: calc(var(--md-spacing-unit) * 2);
+  --md-spacing-m: calc(var(--md-spacing-unit) * 3);
+  --md-spacing-l: calc(var(--md-spacing-unit) * 4);
+  --md-spacing-xl: calc(var(--md-spacing-unit) * 6);
+
+  // Layout measurements
+  --header-height: 64px;
+  --sidebar-width: 256px;
+  --toc-width: 240px;
+
+  // Light theme colors
+  --md-primary: #6750A4;
+  --md-on-primary: #FFFFFF;
+  --md-primary-container: #EADDFF;
+  --md-on-primary-container: #21005E;
+  --md-secondary: #625B71;
+  --md-on-secondary: #FFFFFF;
+  --md-secondary-container: #E8DEF8;
+  --md-on-secondary-container: #1D192B;
+  --md-surface: #FFFBFE;
+  --md-on-surface: #1C1B1F;
+  --md-surface-variant: #E7E0EC;
+  --md-on-surface-variant: #49454F;
+  --md-outline: #79747E;
+  --md-outline-variant: #CAC4D0;
+  --md-shadow: #000000;
+
+  // Material elevation shadows
+  --md-elevation-1: 0 1px 3px 0 rgba(0, 0, 0, 0.10),
+                    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --md-elevation-2: 0 4px 6px -1px rgba(0, 0, 0, 0.10),
+                    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --md-elevation-3: 0 10px 15px -3px rgba(0, 0, 0, 0.10),
+                    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  // Animation durations
+  --md-transition-duration: 200ms;
+  --md-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Dark theme colors
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-primary: #D0BCFF;
+    --md-on-primary: #381E72;
+    --md-primary-container: #4F378B;
+    --md-on-primary-container: #EADDFF;
+    --md-secondary: #CCC2DC;
+    --md-on-secondary: #332D41;
+    --md-secondary-container: #4A4458;
+    --md-on-secondary-container: #E8DEF8;
+    --md-surface: #1C1B1F;
+    --md-on-surface: #E6E1E5;
+    --md-surface-variant: #49454F;
+    --md-on-surface-variant: #CAC4D0;
+    --md-outline: #938F99;
+    --md-outline-variant: #49454F;
+    --md-shadow: #000000;
+
+    // Adjusted elevation for dark theme
+    --md-elevation-1: 0 1px 3px 0 rgba(0, 0, 0, 0.20),
+                      0 1px 2px 0 rgba(0, 0, 0, 0.12);
+    --md-elevation-2: 0 4px 6px -1px rgba(0, 0, 0, 0.20),
+                      0 2px 4px -1px rgba(0, 0, 0, 0.12);
+    --md-elevation-3: 0 10px 15px -3px rgba(0, 0, 0, 0.20),
+                      0 4px 6px -2px rgba(0, 0, 0, 0.10);
+  }
+}
+
+// Forced dark theme
+:root.dark {
+  --md-primary: #D0BCFF;
+  --md-on-primary: #381E72;
+  --md-primary-container: #4F378B;
+  --md-on-primary-container: #EADDFF;
+  --md-secondary: #CCC2DC;
+  --md-on-secondary: #332D41;
+  --md-secondary-container: #4A4458;
+  --md-on-secondary-container: #E8DEF8;
+  --md-surface: #1C1B1F;
+  --md-on-surface: #E6E1E5;
+  --md-surface-variant: #49454F;
+  --md-on-surface-variant: #CAC4D0;
+  --md-outline: #938F99;
+  --md-outline-variant: #49454F;
+  --md-shadow: #000000;
+
+  // Adjusted elevation for dark theme
+  --md-elevation-1: 0 1px 3px 0 rgba(0, 0, 0, 0.20),
+                    0 1px 2px 0 rgba(0, 0, 0, 0.12);
+  --md-elevation-2: 0 4px 6px -1px rgba(0, 0, 0, 0.20),
+                    0 2px 4px -1px rgba(0, 0, 0, 0.12);
+  --md-elevation-3: 0 10px 15px -3px rgba(0, 0, 0, 0.20),
+                    0 4px 6px -2px rgba(0, 0, 0, 0.10);
+}
+
+// Theme transition handling
+.theme-transition * {
+  transition: background-color var(--md-transition-duration) var(--md-transition-timing),
+              border-color var(--md-transition-duration) var(--md-transition-timing),
+              color var(--md-transition-duration) var(--md-transition-timing),
+              box-shadow var(--md-transition-duration) var(--md-transition-timing);
+}
+
+// Material Design button styles
+.md-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--md-spacing-m);
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  transition: background var(--md-transition-duration) var(--md-transition-timing);
+
+  &:hover {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+  }
+}
+
+// Material Design card styles
+.md-card {
+  background: var(--md-surface);
+  border-radius: 12px;
+  box-shadow: var(--md-elevation-1);
+  transition: box-shadow var(--md-transition-duration) var(--md-transition-timing);
+
+  &:hover {
+    box-shadow: var(--md-elevation-2);
+  }
+}
+
+// Ripple effect for interactive elements
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 600ms linear;
+  background-color: rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}

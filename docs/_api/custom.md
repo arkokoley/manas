@@ -1,7 +1,12 @@
 ---
 title: Custom Components
 description: Guide to creating custom components and extending Manas
+layout: reference
 parent: API Reference
+api_metadata:
+  since: "0.1.0"
+  status: "stable"
+  type: "Guide"
 ---
 
 # Custom Components

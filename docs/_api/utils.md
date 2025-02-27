@@ -1,7 +1,12 @@
 ---
 title: Utilities
 description: Utility functions and helper classes provided by Manas
+layout: reference
 parent: API Reference
+api_metadata:
+  since: "0.1.0"
+  status: "stable"
+  type: "Core"
 ---
 
 # Utilities

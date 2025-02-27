@@ -3,6 +3,7 @@ layout: default
 title: Project Structure
 nav_order: 10
 permalink: /structure/
+has_toc: true
 ---
 
 # Project Structure

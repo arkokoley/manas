@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: Core Concepts
 nav_order: 3
 permalink: /concepts/

@@ -1,7 +1,7 @@
 # Site settings
 title: Manas Documentation
 description: Documentation for the Manas Multi-Agent System Framework
-baseurl: "/"
+baseurl: ""
 url: "https://manas.koley.in"
 
 # Theme settings

@@ -1,0 +1,27 @@
+<div class="md-scrim" aria-hidden="true"></div>
+
+<style>
+.md-scrim {
+  display: none;
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.md-scrim.show {
+  display: block;
+  opacity: 1;
+}
+
+@media (min-width: 769px) {
+  .md-scrim {
+    display: none !important;
+  }
+}
+</style>

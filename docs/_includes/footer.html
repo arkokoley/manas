@@ -1,2 +1,158 @@
 <!-- Just the Docs will handle the footer through the _config.yml configuration -->
 <!-- If custom footer content is needed beyond what's in _config.yml, it can be added here -->
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3 class="footer-title">Documentation</h3>
+      <ul class="footer-list">
+        <li><a href="{{ '/getting-started/' | relative_url }}">Getting Started</a></li>
+        <li><a href="{{ '/concepts/' | relative_url }}">Core Concepts</a></li>
+        <li><a href="{{ '/api/' | relative_url }}">API Reference</a></li>
+        <li><a href="{{ '/examples/' | relative_url }}">Examples</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h3 class="footer-title">Community</h3>
+      <ul class="footer-list">
+        <li><a href="{{ '/contributing/' | relative_url }}">Contributing</a></li>
+        {% if site.github_url %}
+        <li><a href="{{ site.github_url }}/issues">Issue Tracker</a></li>
+        <li><a href="{{ site.github_url }}/discussions">Discussions</a></li>
+        {% endif %}
+        <li><a href="{{ '/faq/' | relative_url }}">FAQ</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h3 class="footer-title">Resources</h3>
+      <ul class="footer-list">
+        <li><a href="{{ site.github_url }}/releases">Releases</a></li>
+        <li><a href="{{ '/benchmarking/' | relative_url }}">Benchmarks</a></li>
+        <li><a href="{{ '/llm-integration/' | relative_url }}">LLM Integration</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-meta">
+      <p class="copyright">&copy; {{ site.time | date: '%Y' }} {{ site.title }}. Built with Material Design 3.</p>
+      {% if site.license %}
+      <p class="license">Released under the {{ site.license }} license.</p>
+      {% endif %}
+    </div>
+
+    {% if site.footer_links %}
+    <div class="footer-links">
+      {% for link in site.footer_links %}
+      <a href="{{ link.url }}" class="footer-link" target="_blank" rel="noopener">{{ link.title }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</footer>
+
+<style>
+.site-footer {
+  background: var(--md-surface-variant);
+  color: var(--md-on-surface-variant);
+  padding: var(--md-spacing-l) var(--md-spacing-m);
+  margin-top: auto;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--md-spacing-l);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-section {
+  padding-right: var(--md-spacing-l);
+}
+
+.footer-title {
+  color: var(--md-on-surface);
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0 0 var(--md-spacing-m);
+}
+
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-list li {
+  margin-bottom: var(--md-spacing-xs);
+}
+
+.footer-list a {
+  color: var(--md-on-surface-variant);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-list a:hover {
+  color: var(--md-on-surface);
+}
+
+.footer-bottom {
+  margin-top: var(--md-spacing-l);
+  padding-top: var(--md-spacing-m);
+  border-top: 1px solid var(--md-outline-variant);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--md-spacing-m);
+  max-width: 1200px;
+  margin: var(--md-spacing-l) auto 0;
+}
+
+.footer-meta {
+  font-size: 0.875rem;
+}
+
+.copyright, .license {
+  margin: 0;
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--md-spacing-m);
+}
+
+.footer-link {
+  color: var(--md-primary);
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: var(--md-spacing-m);
+  }
+
+  .footer-section {
+    padding-right: 0;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+  }
+}
+</style>

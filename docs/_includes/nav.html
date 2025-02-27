@@ -1,0 +1,252 @@
+{% assign nav_sections = site.nav_sections | default: "" | split: "," %}
+
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-header">
+    <div class="nav-header-content">
+      {% if site.logo %}
+        <img src="{{ site.logo | relative_url }}" alt="{{ site.title }}" class="nav-logo">
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="nav-content">
+    <!-- Documentation sections -->
+    <ul class="nav-list">
+      <!-- Getting Started -->
+      <li class="nav-item">
+        <a href="{{ '/getting-started/' | relative_url }}" class="nav-link {% if page.url == '/getting-started/' %}active{% endif %}">
+          <span class="material-icons">rocket_launch</span>
+          Getting Started
+        </a>
+      </li>
+
+      <!-- Core Concepts -->
+      <li class="nav-item">
+        <a href="{{ '/concepts/' | relative_url }}" class="nav-link {% if page.url == '/concepts/' %}active{% endif %}">
+          <span class="material-icons">architecture</span>
+          Core Concepts
+        </a>
+      </li>
+
+      <!-- API Reference -->
+      <li class="nav-item nav-item-with-children">
+        <a href="{{ '/api/' | relative_url }}" class="nav-link {% if page.url contains '/api/' %}active{% endif %}">
+          <span class="material-icons">code</span>
+          API Reference
+        </a>
+        {% if page.url contains '/api/' %}
+        <ul class="nav-list subnav-list">
+          <li class="nav-item"><a href="{{ '/api/agent/' | relative_url }}" class="nav-link">Agent</a></li>
+          <li class="nav-item"><a href="{{ '/api/flow/' | relative_url }}" class="nav-link">Flow</a></li>
+          <li class="nav-item"><a href="{{ '/api/node/' | relative_url }}" class="nav-link">Node</a></li>
+          <li class="nav-item"><a href="{{ '/api/rag/' | relative_url }}" class="nav-link">RAG</a></li>
+          <li class="nav-item"><a href="{{ '/api/config/' | relative_url }}" class="nav-link">Configuration</a></li>
+          <li class="nav-item"><a href="{{ '/api/errors/' | relative_url }}" class="nav-link">Errors</a></li>
+        </ul>
+        {% endif %}
+      </li>
+
+      <!-- Examples -->
+      <li class="nav-item nav-item-with-children">
+        <a href="{{ '/examples/' | relative_url }}" class="nav-link {% if page.url contains '/examples/' %}active{% endif %}">
+          <span class="material-icons">code_blocks</span>
+          Examples
+        </a>
+        {% if page.url contains '/examples/' %}
+        <ul class="nav-list subnav-list">
+          <li class="nav-item"><a href="{{ '/examples/research-flow/' | relative_url }}" class="nav-link">Research Flow</a></li>
+          <li class="nav-item"><a href="{{ '/examples/tool-usage/' | relative_url }}" class="nav-link">Tool Usage</a></li>
+          <li class="nav-item"><a href="{{ '/examples/rag-usage/' | relative_url }}" class="nav-link">RAG Usage</a></li>
+          <li class="nav-item"><a href="{{ '/examples/knowledge-base-qa/' | relative_url }}" class="nav-link">Knowledge Base QA</a></li>
+        </ul>
+        {% endif %}
+      </li>
+
+      <!-- FAQ -->
+      <li class="nav-item">
+        <a href="{{ '/faq/' | relative_url }}" class="nav-link {% if page.url == '/faq/' %}active{% endif %}">
+          <span class="material-icons">help</span>
+          FAQ
+        </a>
+      </li>
+
+      <!-- Contributing -->
+      <li class="nav-item">
+        <a href="{{ '/contributing/' | relative_url }}" class="nav-link {% if page.url == '/contributing/' %}active{% endif %}">
+          <span class="material-icons">volunteer_activism</span>
+          Contributing
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  {% if site.nav_external_links %}
+  <hr class="nav-divider">
+  <div class="nav-external-links">
+    {% for link in site.nav_external_links %}
+    <a href="{{ link.url }}" class="nav-link external" target="_blank" rel="noopener">
+      {{ link.title }}
+      <span class="material-icons">open_in_new</span>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+</nav>
+
+<style>
+/* Navigation styles with Material Design 3 */
+.site-nav {
+  width: 100%;
+  background: var(--md-surface);
+  border-right: 1px solid var(--md-outline-variant);
+  overflow-y: auto;
+  height: 100%;
+}
+
+.nav-header {
+  padding: var(--md-spacing-m);
+  border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.nav-logo {
+  max-height: 32px;
+  width: auto;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  margin: 2px 0;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  color: var(--md-on-surface-variant);
+  text-decoration: none;
+  border-radius: 100px;
+  transition: all 0.2s ease;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link:hover {
+  background: var(--md-surface-variant);
+  color: var(--md-on-surface);
+  text-decoration: none;
+}
+
+.nav-link.active {
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  font-weight: 500;
+}
+
+.material-icons {
+  font-size: 20px;
+}
+
+.nav-divider {
+  margin: 8px 16px;
+  border: none;
+  border-top: 1px solid var(--md-outline-variant);
+}
+
+.subnav-list {
+  margin-left: 28px;
+  font-size: 0.9em;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out;
+}
+
+.nav-item-with-children.active .subnav-list {
+  max-height: 500px;
+  transition: max-height 0.3s ease-in;
+}
+
+.subnav-list .nav-link {
+  padding: 6px 16px;
+}
+
+.nav-external-links {
+  padding: 16px;
+}
+
+.nav-link.external {
+  color: var(--md-primary);
+  font-size: 0.9em;
+}
+
+/* State layer for Material Design 3 interaction */
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.nav-link:hover::before {
+  opacity: 0.08;
+}
+
+.nav-link:active::before {
+  opacity: 0.12;
+}
+
+@media (max-width: 768px) {
+  .site-nav {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    bottom: 0;
+    width: 256px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 100;
+  }
+
+  .site-nav.show {
+    transform: translateX(0);
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle nav item expansion
+  document.querySelectorAll('.nav-item-with-children').forEach(item => {
+    const link = item.querySelector('.nav-link');
+    if (link.classList.contains('active')) {
+      item.classList.add('active');
+    }
+  });
+
+  // Handle ripple effect
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const rect = link.getBoundingClientRect();
+      const ripple = document.createElement('div');
+      ripple.className = 'ripple';
+      ripple.style.left = `${e.clientX - rect.left}px`;
+      ripple.style.top = `${e.clientY - rect.top}px`;
+      link.appendChild(ripple);
+      
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    });
+  });
+});
+</script>

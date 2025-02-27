@@ -1,7 +1,12 @@
 ---
 title: Flow
 description: Flow orchestration and execution engine
+layout: reference
 parent: API Reference
+api_metadata:
+  since: "0.1.0"
+  status: "stable"
+  type: "Core"
 ---
 
 # Flow

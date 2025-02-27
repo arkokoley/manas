@@ -3,6 +3,7 @@ layout: default
 title: Contributing to Manas
 nav_order: 9
 permalink: /contributing/
+has_toc: true
 ---
 
 # Contributing to Manas

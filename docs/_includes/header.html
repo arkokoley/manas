@@ -1,33 +1,161 @@
 <!-- Site header with dark mode toggle -->
 <header class="site-header md-elevation-1">
-  <div class="site-header-content">
-    <div class="site-logo">
-      {% include title.html %}
-    </div>
-    
-    <nav class="site-nav">
-      {% for item in site.data.navigation %}
-        <a href="{{ site.baseurl }}{{ item.link }}" class="nav-link {% if page.url == item.link %}active{% endif %}">
-          {{ item.name }}
-        </a>
-      {% endfor %}
-    </nav>
+  <div class="header-content">
+    <!-- Mobile menu button -->
+    <button class="mobile-menu-button md-button-icon" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="material-icons">menu</span>
+    </button>
 
+    <!-- Site title -->
+    <a href="{{ '/' | relative_url }}" class="site-title">
+      {% if site.logo %}
+        <img src="{{ site.logo | relative_url }}" alt="{{ site.title }}" class="site-logo">
+      {% else %}
+        {{ site.title }}
+      {% endif %}
+    </a>
+
+    <!-- Right-aligned items -->
     <div class="header-actions">
+      <!-- Theme toggle -->
       <button class="theme-toggle md-button-icon" aria-label="Toggle theme">
-        <svg class="theme-toggle-icon light-mode-icon">
-          <use href="#svg-sun"></use>
-        </svg>
-        <svg class="theme-toggle-icon dark-mode-icon">
-          <use href="#svg-moon"></use>
-        </svg>
-        <div class="state-layer"></div>
+        <span class="material-icons light-icon">light_mode</span>
+        <span class="material-icons dark-icon">dark_mode</span>
       </button>
 
-      <button class="mobile-menu-button md-button-icon" aria-label="Toggle menu" aria-expanded="false">
-        <span class="material-icons">menu</span>
-        <div class="state-layer"></div>
-      </button>
+      <!-- GitHub link if configured -->
+      {% if site.github_url %}
+      <a href="{{ site.github_url }}" class="github-link md-button" target="_blank" rel="noopener">
+        <span class="material-icons">code</span>
+        GitHub
+      </a>
+      {% endif %}
     </div>
   </div>
 </header>
+
+<style>
+/* Header styles */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: var(--md-surface);
+  z-index: 100;
+  border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 var(--md-spacing-m);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mobile-menu-button {
+  display: none;
+}
+
+.site-title {
+  display: flex;
+  align-items: center;
+  color: var(--md-on-surface);
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.site-logo {
+  height: 32px;
+  width: auto;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--md-spacing-s);
+}
+
+.theme-toggle {
+  position: relative;
+}
+
+.theme-toggle .light-icon {
+  display: none;
+}
+
+:root.dark .theme-toggle .light-icon {
+  display: block;
+}
+
+:root.dark .theme-toggle .dark-icon {
+  display: none;
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 100px;
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.github-link:hover {
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .mobile-menu-button {
+    display: flex;
+    margin-right: var(--md-spacing-s);
+  }
+
+  .header-content {
+    padding: 0 var(--md-spacing-s);
+  }
+
+  .github-link span:not(.material-icons) {
+    display: none;
+  }
+}
+
+/* Material Design button styles */
+.md-button-icon {
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border: none;
+  border-radius: 20px;
+  background: transparent;
+  color: var(--md-on-surface-variant);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.md-button-icon:hover {
+  background: var(--md-surface-variant);
+  color: var(--md-on-surface);
+}
+
+.md-button-icon:active {
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+}
+</style>

@@ -1,7 +1,12 @@
 ---
 title: Error Handling
-description: Guide to error handling and custom exceptions in Manas
+description: Error types and handling in Manas
+layout: reference
 parent: API Reference
+api_metadata:
+  since: "0.1.0"
+  status: "stable"
+  type: "Core"
 ---
 
 # Error Handling

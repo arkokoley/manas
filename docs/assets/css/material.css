@@ -35,6 +35,22 @@
   --md-font-weight-regular: 400;
   --md-font-weight-medium: 500;
   --md-font-weight-bold: 700;
+
+  /* Material Design 3 base variables and utilities */
+  --md-font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", 
+                    "Helvetica Neue", Arial, sans-serif;
+  --md-font-family-mono: "Roboto Mono", "SFMono-Regular", Consolas, "Liberation Mono",
+                        Menlo, Courier, monospace;
+
+  /* Base measurements */
+  --md-unit: 8px;
+  --md-border-radius: 12px;
+  --md-header-height: 64px;
+
+  /* Light theme elevation tints */
+  --md-surface-tint-1: rgba(103, 80, 164, 0.05);
+  --md-surface-tint-2: rgba(103, 80, 164, 0.08);
+  --md-surface-tint-3: rgba(103, 80, 164, 0.11);
 }
 
 /* Dark theme colors */
@@ -76,6 +92,9 @@ body {
   background-color: var(--md-background);
   margin: 0;
   line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Typography */
@@ -166,11 +185,25 @@ pre, code {
   text-decoration: none;
   position: relative;
   overflow: hidden;
+  min-width: 64px;
+  height: 40px;
+  padding: 0 24px;
+  font-size: 0.875rem;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+  user-select: none;
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .md-button:hover {
   background: var(--md-primary-container);
   color: var(--md-on-primary-container);
+  box-shadow: var(--md-elevation-2);
+}
+
+.md-button:active {
   box-shadow: var(--md-elevation-2);
 }
 
@@ -185,6 +218,8 @@ pre, code {
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  min-width: 40px;
+  border-radius: 20px;
 }
 
 .md-button-icon:hover {
@@ -248,4 +283,238 @@ pre, code {
     box-shadow: var(--md-elevation-2);
     z-index: 100;
   }
+}
+
+/* Base styles */
+html {
+  font-family: var(--md-font-family);
+  line-height: 1.5;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* State layers */
+.state-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: background-color var(--md-transition-duration) var(--md-transition-timing);
+}
+
+/* Material elevation */
+.md-surface {
+  background: var(--md-surface);
+  border-radius: var(--md-border-radius);
+  overflow: hidden;
+  position: relative;
+}
+
+.md-elevation-0 {
+  box-shadow: none;
+}
+
+.md-elevation-1 {
+  box-shadow: var(--md-elevation-1);
+}
+
+.md-elevation-2 {
+  box-shadow: var(--md-elevation-2);
+}
+
+.md-elevation-3 {
+  box-shadow: var(--md-elevation-3);
+}
+
+/* Material cards */
+.md-card {
+  background: var(--md-surface);
+  border-radius: var(--md-border-radius);
+  overflow: hidden;
+  position: relative;
+}
+
+.md-card-elevated {
+  box-shadow: var(--md-elevation-1);
+  transition: box-shadow var(--md-transition-duration) var(--md-transition-timing);
+}
+
+.md-card-elevated:hover {
+  box-shadow: var(--md-elevation-2);
+}
+
+/* Material lists */
+.md-list {
+  padding: 8px 0;
+  margin: 0;
+  list-style: none;
+}
+
+.md-list-item {
+  min-height: 48px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.md-list-item:hover {
+  background: var(--md-surface-variant);
+}
+
+/* Material icons */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}
+
+/* Layout utilities */
+.md-flex {
+  display: flex;
+}
+
+.md-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.md-items-center {
+  align-items: center;
+}
+
+.md-justify-center {
+  justify-content: center;
+}
+
+.md-justify-between {
+  justify-content: space-between;
+}
+
+.md-gap-s {
+  gap: var(--md-unit);
+}
+
+.md-gap-m {
+  gap: calc(var(--md-unit) * 2);
+}
+
+.md-gap-l {
+  gap: calc(var(--md-unit) * 3);
+}
+
+/* Motion */
+.md-fade-enter-active,
+.md-fade-leave-active {
+  transition: opacity var(--md-transition-duration) var(--md-transition-timing);
+}
+
+.md-fade-enter,
+.md-fade-leave-to {
+  opacity: 0;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .md-hidden-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .md-hidden-desktop {
+    display: none !important;
+  }
+}
+
+/* Animations */
+@keyframes md-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.md-spin {
+  animation: md-spin 1s linear infinite;
+}
+
+/* Typography utilities */
+.md-text-title-large {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0;
+}
+
+.md-text-title {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+}
+
+.md-text-body {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+.md-text-label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+/* Container and Grid */
+.md-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--md-unit);
+  box-sizing: border-box;
+}
+
+.md-grid {
+  display: grid;
+  gap: var(--md-unit);
+}
+
+/* Scrollbars */
+.md-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--md-surface-variant) transparent;
+}
+
+.md-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.md-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.md-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--md-surface-variant);
+  border-radius: 4px;
+  border: 2px solid transparent;
 }

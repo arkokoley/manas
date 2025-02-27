@@ -3,6 +3,7 @@ layout: default
 title: FAQ & Troubleshooting
 nav_order: 6
 permalink: /faq/
+has_toc: true
 ---
 
 # Frequently Asked Questions

@@ -335,6 +335,103 @@ hr {
   text-decoration: none;
 }
 
+/* Container and layout */
+.container {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: var(--md-spacing-m);
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height));
+  position: relative;
+}
+
+.site-sidebar {
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+  background: var(--md-surface);
+  border-right: 1px solid var(--md-outline-variant);
+  z-index: 2;
+}
+
+.site-content {
+  padding: var(--md-spacing-m);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.content-wrapper {
+  background: var(--md-surface);
+  border-radius: 8px;
+  padding: var(--md-spacing-l);
+  margin-bottom: var(--md-spacing-l);
+  box-shadow: var(--md-elevation-1);
+}
+
+/* Page header */
+.page-header {
+  margin-bottom: var(--md-spacing-l);
+}
+
+.page-title {
+  color: var(--md-on-surface);
+  margin: 0 0 var(--md-spacing-s);
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.page-description {
+  color: var(--md-on-surface-variant);
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* Table of contents */
+.table-of-contents {
+  position: sticky;
+  top: calc(var(--header-height) + var(--md-spacing-m));
+  padding: var(--md-spacing-m);
+  margin-left: var(--md-spacing-m);
+  background: var(--md-surface);
+  border-radius: 8px;
+  box-shadow: var(--md-elevation-1);
+  max-height: calc(100vh - var(--header-height) - var(--md-spacing-m) * 2);
+  overflow-y: auto;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .site-sidebar {
+    position: fixed;
+    left: 0;
+    width: 256px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .site-sidebar.show {
+    transform: translateX(0);
+  }
+
+  .site-content {
+    padding: var(--md-spacing-s);
+  }
+
+  .content-wrapper {
+    padding: var(--md-spacing-m);
+  }
+
+  .table-of-contents {
+    display: none;
+  }
+}
+
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
