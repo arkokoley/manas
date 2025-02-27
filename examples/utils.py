@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 def create_ollama_node(
     name: str,
-    model: str = "llama3.2",
+    model: str = "llama2",
     base_url: str = "http://localhost:11434/v1",
     temperature: float = 0.7
 ) -> LLMNode:
@@ -103,8 +103,11 @@ async def read_file(path: str) -> str:
         File contents as string
     """
     try:
+        # Remove any extra quotes that might be in the path
+        path = path.strip("'\"")
+        
         if not os.path.isabs(path):
-            path = os.path.join(get_project_root(), path.strip('"'))
+            path = os.path.join(get_project_root(), path)
         with open(path, 'r') as f:
             return f.read()
     except Exception as e:

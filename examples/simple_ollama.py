@@ -8,11 +8,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 async def main():
-    # Check if Ollama is available first
-    # if not await ensure_ollama_available():
-    #     logger.error("Ollama service is not available. Make sure it's running.")
-    #     return
-
     # Create LLM node with Ollama config using the utility function
     node = create_ollama_node(
         name="ollama_node",
