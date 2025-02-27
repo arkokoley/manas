@@ -1,0 +1,113 @@
+---
+layout: default
+---
+
+<div class="home-hero">
+  <h1 class="home-title">{{ site.title }}</h1>
+  <p class="home-description">{{ site.description }}</p>
+  
+  <div class="home-actions">
+    <a href="{{ '/getting-started/' | relative_url }}" class="md-button">
+      Get Started
+      <span class="material-icons">arrow_forward</span>
+    </a>
+    <a href="https://github.com/arkokoley/manas" class="md-button-outlined" target="_blank" rel="noopener">
+      <span class="material-icons">code</span>
+      GitHub
+    </a>
+  </div>
+</div>
+
+<div class="home-content">
+  {{ content }}
+</div>
+
+<style>
+.home-hero {
+  text-align: center;
+  padding: var(--md-spacing-xl) 0;
+  margin-bottom: var(--md-spacing-xl);
+  background-color: rgba(0,0,0,0.02);
+  border-radius: var(--md-radius-l);
+}
+
+.home-title {
+  font-size: 3rem;
+  margin-bottom: var(--md-spacing-m);
+  background: linear-gradient(45deg, var(--md-primary), #9277FB);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.home-description {
+  font-size: 1.25rem;
+  max-width: 650px;
+  margin: 0 auto var(--md-spacing-l) auto;
+  color: rgba(0,0,0,0.7);
+}
+
+.home-actions {
+  display: flex;
+  gap: var(--md-spacing-m);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.home-content h2 {
+  font-size: 1.75rem;
+  margin-top: var(--md-spacing-xxl);
+}
+
+.home-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--md-spacing-l);
+  margin: var(--md-spacing-xl) 0;
+}
+
+.home-feature-card {
+  padding: var(--md-spacing-l);
+  border-radius: var(--md-radius-m);
+  background: var(--md-surface);
+  box-shadow: var(--md-elevation-1);
+  transition: box-shadow var(--md-transition), transform var(--md-transition);
+}
+
+.home-feature-card:hover {
+  box-shadow: var(--md-elevation-2);
+  transform: translateY(-2px);
+}
+
+.home-feature-icon {
+  color: var(--md-primary);
+  font-size: 2rem;
+  margin-bottom: var(--md-spacing-m);
+}
+
+.home-feature-title {
+  font-size: 1.25rem;
+  margin: 0 0 var(--md-spacing-s) 0;
+}
+
+.home-feature-description {
+  color: rgba(0,0,0,0.7);
+  margin: 0;
+}
+
+.home-cta {
+  text-align: center;
+  margin: var(--md-spacing-xxl) 0;
+}
+
+@media (max-width: 768px) {
+  .home-title {
+    font-size: 2.5rem;
+  }
+  
+  .home-description {
+    font-size: 1.1rem;
+    padding: 0 var(--md-spacing-m);
+  }
+}
+</style>

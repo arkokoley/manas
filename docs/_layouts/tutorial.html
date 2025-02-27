@@ -2,28 +2,91 @@
 layout: default
 ---
 
-<div class="tutorial-container">
+<div class="tutorial-container md-card">
   <div class="tutorial-header">
     {% if page.difficulty %}
-    <span class="label label-{{ page.difficulty | downcase }}">{{ page.difficulty }}</span>
+    <span class="md-chip md-chip-primary">{{ page.difficulty }} Difficulty</span>
     {% endif %}
     
     {% if page.time %}
-    <span class="label">{{ page.time }}</span>
+    <span class="md-chip">
+      <span class="material-icons" style="font-size: 16px; vertical-align: text-bottom; margin-right: 4px;">schedule</span>
+      {{ page.time }}
+    </span>
     {% endif %}
   </div>
   
-  {{ content }}
-  
-  {% if page.next_tutorial or page.prev_tutorial %}
-  <div class="tutorial-nav">
-    {% if page.prev_tutorial %}
-    <a href="{{ site.baseurl }}{{ page.prev_tutorial.url }}" class="btn btn-outline">← {{ page.prev_tutorial.title }}</a>
-    {% endif %}
-    
-    {% if page.next_tutorial %}
-    <a href="{{ site.baseurl }}{{ page.next_tutorial.url }}" class="btn btn-outline">{{ page.next_tutorial.title }} →</a>
-    {% endif %}
+  {% if page.toc != false %}
+  <div class="toc">
+    <h3 class="toc-title">Contents</h3>
+    {% include toc.html html=content %}
   </div>
   {% endif %}
+  
+  <div class="tutorial-content">
+    {{ content }}
+  </div>
 </div>
+  
+{% if page.next_tutorial or page.prev_tutorial %}
+<div class="tutorial-navigation">
+  {% if page.prev_tutorial %}
+  <a href="{{ site.baseurl }}{{ page.prev_tutorial.url }}" class="md-button-outlined">
+    <span class="material-icons">arrow_back</span>
+    {{ page.prev_tutorial.title }}
+  </a>
+  {% endif %}
+  
+  {% if page.next_tutorial %}
+  <a href="{{ site.baseurl }}{{ page.next_tutorial.url }}" class="md-button">
+    {{ page.next_tutorial.title }}
+    <span class="material-icons">arrow_forward</span>
+  </a>
+  {% endif %}
+</div>
+{% endif %}
+
+<style>
+.tutorial-container {
+  margin-bottom: var(--md-spacing-xl);
+}
+
+.tutorial-header {
+  margin-bottom: var(--md-spacing-l);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--md-spacing-s);
+}
+
+.tutorial-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--md-spacing-xl);
+  flex-wrap: wrap;
+  gap: var(--md-spacing-m);
+}
+
+.tutorial-container .toc {
+  margin: var(--md-spacing-l) 0;
+  padding: var(--md-spacing-m);
+  background-color: rgba(0,0,0,0.02);
+  border-radius: var(--md-radius-m);
+}
+
+.tutorial-container .toc-title {
+  margin-top: 0;
+  font-size: 1.1rem;
+  margin-bottom: var(--md-spacing-s);
+}
+
+@media (max-width: 768px) {
+  .tutorial-navigation {
+    flex-direction: column;
+  }
+  
+  .tutorial-navigation a {
+    width: 100%;
+    text-align: center;
+  }
+}
+</style>

@@ -1,0 +1,206 @@
+// Custom color scheme for Just the Docs based on Material Design 3
+// Material Design 3 colors: https://m3.material.io/theme-builder
+
+@import "./color_schemes/light";
+
+$md-primary: #6750A4;       // Primary (Purple)
+$md-on-primary: #FFFFFF;    // Text on primary
+$md-secondary: #B0C4DE;     // Secondary (Light Blue)
+$md-surface: #FFFBFE;       // Surface
+$md-on-surface: #1C1B1F;    // Text on surface
+$md-background: #FFFBFE;    // Background
+$md-error: #B3261E;         // Error
+$md-info: #0288D1;          // Info (Blue)
+$md-success: #2E7D32;       // Success (Green)
+$md-warning: #ED6C02;       // Warning (Orange)
+
+// Link colors
+$link-color: $md-primary;
+$btn-primary-color: $md-primary;
+
+// Navigation colors
+$sidebar-color: $md-surface;
+$nav-child-link-color: darken($md-primary, 15%);
+$nav-width: 264px;
+$content-width: 950px;
+
+// Typography
+$body-font-family: "Google Sans Text", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$mono-font-family: "Roboto Mono", SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Courier New", monospace;
+$root-font-size: 16px;
+$body-line-height: 1.5;
+$body-heading-line-height: 1.25;
+
+// Colors
+$body-background-color: $md-background;
+$body-heading-color: darken($md-primary, 10%);
+$body-text-color: $md-on-surface;
+$code-background-color: mix($md-surface, $md-secondary, 85%);
+$search-background-color: $md-surface;
+$table-background-color: $md-surface;
+$feedback-color: darken($md-secondary, 3%);
+
+// Borders
+$border-color: $grey-lt-100;
+$search-result-preview-color: $md-on-surface;
+$table-border-color: $border-color;
+
+// Material Design elevation
+@mixin md-elevation($level) {
+  @if $level == 0 {
+    box-shadow: none;
+  } @else if $level == 1 {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  } @else if $level == 2 {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  } @else if $level == 3 {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  } @else if $level == 4 {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  } @else if $level == 5 {
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  }
+}
+
+// Button styles
+.btn {
+  @include md-elevation(1);
+  transition: all 0.2s cubic-bezier(.25,.8,.25,1);
+  
+  &:hover {
+    @include md-elevation(2);
+  }
+}
+
+.btn-primary {
+  background-color: $md-primary;
+  background-image: none;
+  
+  &:hover {
+    background-color: darken($md-primary, 5%);
+  }
+}
+
+// Code blocks
+.highlight {
+  border-radius: 8px;
+}
+
+// Navigation
+.site-nav {
+  padding-top: 1rem;
+}
+
+.nav-list .nav-list-item .nav-list-link {
+  transition: all 0.2s ease;
+  border-radius: 0 28px 28px 0;
+  margin-right: 1rem;
+  
+  &:hover {
+    background-color: rgba($md-primary, 0.08);
+  }
+  
+  &.active {
+    background-color: rgba($md-primary, 0.12);
+    color: $md-primary;
+    font-weight: 500;
+  }
+}
+
+.site-header {
+  border-bottom: 1px solid $border-color;
+  @include md-elevation(1);
+  
+  a {
+    transition: all 0.2s ease;
+  }
+}
+
+// Tables
+table {
+  border-radius: 8px;
+  overflow: hidden;
+  @include md-elevation(1);
+  border: none;
+  
+  th {
+    border-bottom: 1px solid $border-color;
+    border-left: none;
+    border-right: none;
+    background-color: rgba($md-secondary, 0.2);
+  }
+  
+  td {
+    border: none;
+  }
+  
+  tr:nth-child(even) {
+    background-color: rgba($md-secondary, 0.05);
+  }
+}
+
+// Other elements
+blockquote {
+  border-left: 4px solid $md-primary;
+  border-radius: 0 8px 8px 0;
+  background-color: rgba($md-secondary, 0.1);
+}
+
+hr {
+  height: 1px;
+  background-color: $border-color;
+}
+
+// Labels and badges
+.label, .label-blue {
+  background-color: $md-info;
+}
+
+.label-green {
+  background-color: $md-success;
+}
+
+.label-purple {
+  background-color: $md-primary;
+}
+
+.label-red {
+  background-color: $md-error;
+}
+
+.label-yellow {
+  background-color: $md-warning;
+}
+
+// Search
+.search-input {
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  
+  &:focus {
+    box-shadow: 0 0 0 3px rgba($md-primary, 0.2);
+    border-color: $md-primary;
+  }
+}
+
+// Scrollbar
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba($md-secondary, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba($md-primary, 0.3);
+  border-radius: 5px;
+  
+  &:hover {
+    background: rgba($md-primary, 0.5);
+  }
+}
+
+// Add Google Sans and Roboto Mono fonts
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');

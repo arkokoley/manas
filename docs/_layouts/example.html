@@ -2,14 +2,14 @@
 layout: default
 ---
 
-<div class="example-container">
-  <div class="example-header">
+<div class="md-card">
+  <div class="example-metadata">
     {% if page.difficulty %}
-    <span class="label label-{{ page.difficulty | downcase }}">{{ page.difficulty }}</span>
+    <span class="md-chip md-chip-primary">{{ page.difficulty }}</span>
     {% endif %}
     
     {% if page.time %}
-    <span class="label">{{ page.time }}</span>
+    <span class="md-chip">{{ page.time }}</span>
     {% endif %}
   </div>
 
@@ -19,42 +19,40 @@ layout: default
   <div class="example-source">
     <h2>Complete Example</h2>
     <p>Find the complete example in our GitHub repository: 
-      <a href="https://github.com/arkokoley/manas/blob/main/examples/{{ page.source_file }}">{{ page.source_file }}</a>
+      <a href="https://github.com/arkokoley/manas/blob/main/examples/{{ page.source_file }}" class="md-button-text" target="_blank" rel="noopener">
+        <span class="material-icons" style="vertical-align: middle; font-size: 1.2em; margin-right: 4px;">code</span>
+        {{ page.source_file }}
+      </a>
     </p>
   </div>
   {% endif %}
+</div>
 
-  <div class="example-nav">
-    {% assign examples = site.examples | sort: "nav_order" %}
-    {% for example in examples %}
-      {% if example.title == page.title %}
-        {% assign currentIndex = forloop.index0 %}
-        {% assign prevIndex = currentIndex | minus: 1 %}
-        {% assign nextIndex = currentIndex | plus: 1 %}
-        
-        <div class="navigation-section">
-          {% if prevIndex >= 0 %}
-            {% assign prevExample = examples[prevIndex] %}
-            <a href="{{ site.baseurl }}{{ prevExample.url }}" class="btn btn-purple">← Previous: {{ prevExample.title }}</a>
-          {% endif %}
-          
-          {% if nextIndex < examples.size %}
-            {% assign nextExample = examples[nextIndex] %}
-            <a href="{{ site.baseurl }}{{ nextExample.url }}" class="btn btn-purple float-right">Next: {{ nextExample.title }} →</a>
-          {% endif %}
-        </div>
-      {% endif %}
-    {% endfor %}
-  </div>
-
-  {% if page.related_docs %}
-  <div class="example-related">
-    <h2>Related Documentation</h2>
-    <ul>
-      {% for doc in page.related_docs %}
-      <li><a href="{{ site.baseurl }}{{ doc.url }}">{{ doc.title }}</a></li>
-      {% endfor %}
-    </ul>
-  </div>
+{% if page.next_example or page.prev_example %}
+<div class="example-navigation">
+  {% if page.prev_example %}
+  <a href="{{ site.baseurl }}{{ page.prev_example.url }}" class="md-button-outlined">
+    <span class="material-icons">arrow_back</span>
+    {{ page.prev_example.title }}
+  </a>
+  {% endif %}
+  
+  {% if page.next_example %}
+  <a href="{{ site.baseurl }}{{ page.next_example.url }}" class="md-button">
+    {{ page.next_example.title }}
+    <span class="material-icons">arrow_forward</span>
+  </a>
   {% endif %}
 </div>
+{% endif %}
+
+{% if page.related_docs %}
+<div class="related-documentation md-card">
+  <h2>Related Documentation</h2>
+  <ul>
+    {% for doc in page.related_docs %}
+    <li><a href="{{ site.baseurl }}{{ doc.url }}">{{ doc.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}

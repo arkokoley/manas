@@ -6,23 +6,27 @@ layout: default
   {% if page.api_metadata %}
   <div class="api-metadata">
     {% if page.api_metadata.since %}
-    <span class="label label-green">Since v{{ page.api_metadata.since }}</span>
+    <span class="md-chip md-chip-primary">Since v{{ page.api_metadata.since }}</span>
     {% endif %}
     
     {% if page.api_metadata.status %}
-    <span class="label label-{{ page.api_metadata.status | downcase }}">{{ page.api_metadata.status }}</span>
+    <span class="md-chip {% if page.api_metadata.status == 'stable' %}md-chip-success{% elsif page.api_metadata.status == 'beta' %}md-chip-warning{% elsif page.api_metadata.status == 'deprecated' %}md-chip-error{% endif %}">
+      {{ page.api_metadata.status }}
+    </span>
     {% endif %}
     
     {% if page.api_metadata.type %}
-    <span class="label">{{ page.api_metadata.type }}</span>
+    <span class="md-chip">{{ page.api_metadata.type }}</span>
     {% endif %}
   </div>
   {% endif %}
 
-  {{ content }}
+  <div class="md-card">
+    {{ content }}
+  </div>
   
   {% if page.see_also %}
-  <div class="reference-see-also">
+  <div class="reference-see-also md-card">
     <h2>See Also</h2>
     <ul>
       {% for item in page.see_also %}
@@ -32,3 +36,62 @@ layout: default
   </div>
   {% endif %}
 </div>
+
+<style>
+/* Additional reference-specific styles */
+.api-metadata {
+  margin-bottom: var(--md-spacing-m);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--md-spacing-s);
+}
+
+.md-chip-success {
+  background-color: rgba(46, 125, 50, 0.1);
+  color: var(--md-success);
+}
+
+.md-chip-warning {
+  background-color: rgba(237, 108, 2, 0.1);
+  color: var(--md-warning);
+}
+
+.md-chip-error {
+  background-color: rgba(179, 38, 30, 0.1);
+  color: var(--md-error);
+}
+
+.reference-container .method-signature {
+  background-color: rgba(0,0,0,0.03);
+  padding: var(--md-spacing-m);
+  border-radius: var(--md-radius-m);
+  font-family: var(--md-mono-font);
+  margin-bottom: var(--md-spacing-l);
+  overflow-x: auto;
+}
+
+.reference-container table {
+  width: 100%;
+  margin: var(--md-spacing-l) 0;
+}
+
+.reference-container .parameter-name,
+.reference-container .return-type {
+  font-family: var(--md-mono-font);
+  font-weight: 500;
+}
+
+.reference-container .parameter-type,
+.reference-container .parameter-default {
+  font-family: var(--md-mono-font);
+  color: rgba(0,0,0,0.6);
+}
+
+.reference-container .parameter-required {
+  color: var(--md-error);
+}
+
+.reference-container .parameter-optional {
+  color: var(--md-info);
+}
+</style>

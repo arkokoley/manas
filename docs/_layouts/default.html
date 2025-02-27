@@ -1,5 +1,179 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ '/assets/css/material.css' | relative_url }}">
+  
+  <!-- Jekyll SEO Tag -->
+  {% seo title=false %}
+</head>
+<body>
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-button" aria-label="Toggle navigation menu" aria-expanded="false">
+    <span class="material-icons">menu</span>
+  </button>
 
-{{ content }}
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="site-sidebar">
+      <header class="site-header">
+        <div class="site-logo">
+          <a href="{{ '/' | relative_url }}">
+            <span class="site-name">{{ site.title }}</span>
+            {% if site.version %}
+              <span class="site-version">v{{ site.version }}</span>
+            {% endif %}
+          </a>
+        </div>
+      </header>
+      
+      <nav class="site-nav">
+        <!-- Main Navigation -->
+        <div class="nav-section">
+          <h3 class="nav-section-title">Documentation</h3>
+          <ul class="nav-list">
+            <li class="nav-item">
+              <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ '/getting-started/' | relative_url }}" class="nav-link {% if page.url contains 'getting-started' %}active{% endif %}">Getting Started</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ '/concepts/' | relative_url }}" class="nav-link {% if page.url contains 'concepts' %}active{% endif %}">Core Concepts</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ '/api/' | relative_url }}" class="nav-link {% if page.url contains 'api' %}active{% endif %}">API Reference</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ '/examples/' | relative_url }}" class="nav-link {% if page.url contains 'examples' %}active{% endif %}">Examples</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ '/benchmarking/' | relative_url }}" class="nav-link {% if page.url contains 'benchmarking' %}active{% endif %}">Benchmarks</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ '/faq/' | relative_url }}" class="nav-link {% if page.url contains 'faq' %}active{% endif %}">FAQ</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ '/contributing/' | relative_url }}" class="nav-link {% if page.url contains 'contributing' %}active{% endif %}">Contributing</a>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- API Navigation -->
+        {% if page.url contains 'api' %}
+        <div class="nav-section">
+          <h3 class="nav-section-title">API Reference</h3>
+          <ul class="nav-list">
+            {% assign api_pages = site.api | sort: "nav_order" %}
+            {% for api_page in api_pages %}
+              <li class="nav-item">
+                <a href="{{ api_page.url | relative_url }}" class="nav-link {% if page.url == api_page.url %}active{% endif %}">
+                  {{ api_page.title }}
+                </a>
+                
+                {% if api_page.has_children and page.url contains api_page.url %}
+                  <ul class="nav-child-list">
+                    {% assign children = site.api | where: "parent", api_page.title | sort: "nav_order" %}
+                    {% for child in children %}
+                      <li class="nav-item">
+                        <a href="{{ child.url | relative_url }}" class="nav-link {% if page.url == child.url %}active{% endif %}">
+                          {{ child.title }}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        
+        <!-- Examples Navigation -->
+        {% if page.url contains 'examples' %}
+        <div class="nav-section">
+          <h3 class="nav-section-title">Examples</h3>
+          <ul class="nav-list">
+            {% assign example_pages = site.examples | sort: "nav_order" %}
+            {% for example in example_pages %}
+              <li class="nav-item">
+                <a href="{{ example.url | relative_url }}" class="nav-link {% if page.url == example.url %}active{% endif %}">
+                  {{ example.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        
+        <!-- Search Box -->
+        {% if site.search_enabled %}
+        <div class="search-container">
+          <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
+          <div id="search-results" class="search-results hidden"></div>
+        </div>
+        {% endif %}
+        
+        <!-- External Links -->
+        <div class="nav-section">
+          <h3 class="nav-section-title">Links</h3>
+          <ul class="nav-list">
+            <li class="nav-item">
+              <a href="https://github.com/arkokoley/manas" class="nav-link" target="_blank" rel="noopener">
+                <span class="material-icons" style="vertical-align: middle; font-size: 1.2em; margin-right: 8px;">code</span>
+                GitHub
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="site-content">
+      <div class="content-wrapper">
+        <!-- Page Header -->
+        {% if page.title %}
+        <header class="page-header">
+          <h1 class="page-title">{{ page.title }}</h1>
+          {% if page.description %}
+            <p class="page-description">{{ page.description }}</p>
+          {% endif %}
+        </header>
+        {% endif %}
+
+        <!-- Main Content -->
+        <div class="page-content">
+          {{ content }}
+        </div>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+          <p>Copyright &copy; {{ site.time | date: '%Y' }} Manas Contributors</p>
+          <p>
+            <a href="https://github.com/arkokoley/manas" target="_blank" rel="noopener">GitHub</a> |
+            <a href="{{ '/contributing/' | relative_url }}">Contributing</a> |
+            <a href="https://github.com/arkokoley/manas/issues" target="_blank" rel="noopener">Issues</a>
+          </p>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <!-- Custom JS -->
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+</html>

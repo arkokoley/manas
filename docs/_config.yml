@@ -4,45 +4,18 @@ url: https://arkokoley.github.io
 baseurl: /manas
 
 # Build settings
-markdown: kramdown
+markdown: GFM
 kramdown:
   input: GFM
   syntax_highlighter: rouge
 
-# Theme settings
-theme: just-the-docs
-remote_theme: just-the-docs/just-the-docs
+# Theme settings - no theme, we'll use our own custom Material theme
 plugins:
-  - jekyll-remote-theme
   - jekyll-seo-tag
   - jekyll-github-metadata
 
-# Just the Docs settings
-color_scheme: light
+# Custom settings
 search_enabled: true
-search:
-  heading_level: 2
-  previews: 3
-  preview_words_before: 5
-  preview_words_after: 10
-
-# Enable or disable heading anchors
-heading_anchors: true
-
-# Sort order for navigation links
-nav_sort: case_sensitive
-
-# Auxiliary links
-aux_links:
-  "Manas on GitHub":
-    - "https://github.com/arkokoley/manas"
-
-# Back to top link
-back_to_top: true
-back_to_top_text: "Back to top"
-
-# Footer content
-footer_content: "Copyright &copy; Manas Contributors. Distributed under an MIT license."
 
 # Collections
 collections:
@@ -78,3 +51,7 @@ exclude:
   - vendor/
   - .sass-cache/
   - .jekyll-cache/
+
+# GitHub metadata
+repository: arkokoley/manas
+github_username: arkokoley
