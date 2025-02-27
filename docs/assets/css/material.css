@@ -31,18 +31,6 @@
   --md-inverse-on-surface: #F4EFF4; /* Text on inverse surface */
   --md-inverse-primary: #D0BCFF;  /* Inverse primary */
   
-  /* Special colors */
-  --md-info: #0288D1;             /* Info (Blue) */
-  --md-success: #2E7D32;          /* Success (Green) */
-  --md-warning: #ED6C02;          /* Warning (Orange) */
-  
-  /* Typography */
-  --md-font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --md-mono-font: "Roboto Mono", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --md-font-weight-regular: 400;
-  --md-font-weight-medium: 500;
-  --md-font-weight-bold: 700;
-  
   /* Spacing */
   --md-spacing-unit: 8px;
   --md-spacing-xs: calc(var(--md-spacing-unit) * 0.5);   /* 4px */
@@ -58,7 +46,7 @@
   --md-content-width: 800px;
   --md-gutter: var(--md-spacing-l);
   
-  /* Elevation (Box shadows) */
+  /* Elevation */
   --md-elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
   --md-elevation-2: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
   --md-elevation-3: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10);
@@ -115,11 +103,6 @@
   --md-inverse-surface: #E6E1E5;  /* Inverse surface */
   --md-inverse-on-surface: #313033; /* Text on inverse surface */
   --md-inverse-primary: #6750A4;  /* Inverse primary */
-  
-  /* Special colors for dark theme */
-  --md-info: #71C4E8;             /* Info (Light Blue) */
-  --md-success: #8DD28A;          /* Success (Light Green) */
-  --md-warning: #F8BB86;          /* Warning (Light Orange) */
 }
 
 /* Base elements */
@@ -420,32 +403,39 @@ tbody tr:last-child td {
 
 /* Theme toggle button */
 .theme-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
-  bottom: var(--md-spacing-l);
-  right: var(--md-spacing-l);
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background-color: var(--md-primary);
-  color: var(--md-on-primary);
-  box-shadow: var(--md-elevation-2);
-  z-index: 100;
-  transition: background-color var(--md-transition), transform var(--md-transition);
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--md-radius-full);
+  color: var(--md-on-surface-variant);
+  cursor: pointer;
+  transition: background-color var(--md-transition), color var(--md-transition);
 }
 
 .theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--md-elevation-3);
+  background-color: var(--md-surface-variant);
+  color: var(--md-on-surface);
 }
 
 .theme-toggle .material-icons {
-  font-size: 24px;
+  font-size: 20px;
+}
+
+.theme-toggle .dark-icon {
+  display: none;
+}
+
+:root.dark .theme-toggle .light-icon {
+  display: none;
+}
+
+:root.dark .theme-toggle .dark-icon {
+  display: block;
 }
 
 /* Page content */
@@ -876,6 +866,25 @@ body.theme-transitioning .md-scrim {
 /* Material elevation transitions */
 .md-elevation-transition {
   transition: box-shadow var(--md-transition);
+}
+
+/* State layer (ripple effect container) */
+.state-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-color: var(--md-on-surface);
+  opacity: 0;
+  border-radius: inherit;
+  transition: opacity var(--md-transition);
+}
+
+:is(button, a):hover .state-layer {
+  opacity: 0.08;
+}
+
+:is(button, a):active .state-layer {
+  opacity: 0.12;
 }
 
 /* Import syntax highlighting */

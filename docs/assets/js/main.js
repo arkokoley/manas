@@ -309,4 +309,68 @@ document.addEventListener('DOMContentLoaded', function() {
             mobileMenuButton.innerHTML = '<span class="material-icons">menu</span>';
         }
     });
+
+    // Theme handling
+    const root = document.documentElement;
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    // Check for saved theme preference or system preference
+    const getPreferredTheme = () => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            return savedTheme;
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+
+    // Apply theme with smooth transition
+    const applyTheme = (theme) => {
+        root.classList.add('theme-transitioning');
+        root.classList.toggle('dark', theme === 'dark');
+        localStorage.setItem('theme', theme);
+        
+        // Remove transition class after animation completes
+        setTimeout(() => {
+            root.classList.remove('theme-transitioning');
+        }, 300);
+    };
+
+    // Initialize theme
+    applyTheme(getPreferredTheme());
+
+    // Toggle theme
+    themeToggle?.addEventListener('click', () => {
+        const newTheme = root.classList.contains('dark') ? 'light' : 'dark';
+        applyTheme(newTheme);
+    });
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            applyTheme(e.matches ? 'dark' : 'light');
+        }
+    });
+
+    // Add ripple effect
+    document.querySelectorAll('.md-button, .nav-link, .theme-toggle').forEach(element => {
+        element.addEventListener('click', (e) => {
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            
+            const rect = element.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            
+            element.appendChild(ripple);
+            
+            ripple.addEventListener('animationend', () => {
+                ripple.remove();
+            });
+        });
+    });
 });

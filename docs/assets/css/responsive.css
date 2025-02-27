@@ -124,6 +124,53 @@
   }
 }
 
+/* Theme transition classes */
+.theme-transition * {
+  transition: background-color var(--md-transition),
+              border-color var(--md-transition),
+              color var(--md-transition),
+              fill var(--md-transition),
+              box-shadow var(--md-transition);
+}
+
+.theme-transitioning {
+  pointer-events: none;
+}
+
+/* Responsive layout updates */
+@media (max-width: 1024px) {
+  :root {
+    --md-sidebar-width: 256px;
+    --md-content-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --md-header-height: 56px;
+    --md-spacing-unit: 6px;
+  }
+
+  .md-button {
+    height: 36px;
+    padding: 0 var(--md-spacing-l);
+  }
+
+  .theme-toggle {
+    position: fixed;
+    right: var(--md-spacing-m);
+    bottom: var(--md-spacing-m);
+    width: 48px;
+    height: 48px;
+    background: var(--md-surface);
+    box-shadow: var(--md-elevation-2);
+  }
+
+  .theme-toggle:hover {
+    box-shadow: var(--md-elevation-3);
+  }
+}
+
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
   :root {

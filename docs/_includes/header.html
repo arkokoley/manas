@@ -1,1 +1,25 @@
-<!-- Just the Docs handles the header through its layout system, so we don't need a custom header -->
+<!-- Site header with dark mode toggle -->
+<header class="site-header">
+  <div class="site-header-content">
+    <div class="site-logo">
+      <a href="{{ site.baseurl }}/" class="logo-text">Manas</a>
+    </div>
+    
+    <nav class="site-nav">
+      {% for item in site.data.navigation %}
+        <a href="{{ site.baseurl }}{{ item.link }}" class="nav-link {% if page.url == item.link %}active{% endif %}">
+          {{ item.name }}
+        </a>
+      {% endfor %}
+      
+      <button class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="material-icons light-icon">light_mode</span>
+        <span class="material-icons dark-icon">dark_mode</span>
+      </button>
+    </nav>
+
+    <button class="mobile-menu-button" aria-label="Toggle mobile menu">
+      <span class="material-icons">menu</span>
+    </button>
+  </div>
+</header>

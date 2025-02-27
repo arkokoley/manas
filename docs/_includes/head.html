@@ -17,8 +17,11 @@
 
   <!-- Material Design Icons -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <link rel="stylesheet" href="{{ '/assets/css/just-the-docs-default.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/material.css">
 
   {% if site.ga_tracking != nil %}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga_tracking }}"></script>
@@ -41,6 +44,14 @@
   {% seo %}
 
   {% include head_custom.html %}
+
+  <!-- Theme transition script -->
+  <script>
+    // Prevent flash of incorrect theme
+    const savedTheme = localStorage.getItem('theme') || 
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+  </script>
 
   <!-- MD3 SVG Icons -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
