@@ -230,7 +230,7 @@ poetry run mkdocs build
 
 ## Next Steps
 
-- Read the [Contributing Guide](/contributing/) for development workflow
-- Explore the [API Reference](/api/) for detailed documentation
-- Check [Examples](/examples/) for practical usage
-- Review [Core Concepts](/concepts/) for architecture details
+- Read the [Contributing Guide]({{ site.baseurl }}/contributing/) for development workflow
+- Explore the [API Reference]({{ site.baseurl }}/api/) for detailed documentation
+- Check [Examples]({{ site.baseurl }}/examples/) for practical usage
+- Review [Core Concepts]({{ site.baseurl }}/concepts/) for architecture details

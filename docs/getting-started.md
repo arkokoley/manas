@@ -156,9 +156,9 @@ print(answer)
 
 Now that you've built your first Manas application, explore:
 
-- [Core Concepts](/concepts/) to understand the architecture
-- [API Reference](/api/) for detailed documentation
-- [Examples](/examples/) for more complex use cases
-- [Project Structure](/structure/) to learn about the codebase organization
+- [Core Concepts]({{ site.baseurl }}/concepts/) to understand the architecture
+- [API Reference]({{ site.baseurl }}/api/) for detailed documentation
+- [Examples]({{ site.baseurl }}/examples/) for more complex use cases
+- [Project Structure]({{ site.baseurl }}/structure/) to learn about the codebase organization
 
-For any issues or questions, check the [FAQ](/faq/) or visit our [GitHub repository](https://github.com/arkokoley/manas).
+For any issues or questions, check the [FAQ]({{ site.baseurl }}/faq/) or visit our [GitHub repository](https://github.com/arkokoley/manas).

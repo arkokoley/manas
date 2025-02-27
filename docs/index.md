@@ -33,59 +33,59 @@ Manas addresses these challenges with a unified framework that lets you define m
 ## Documentation Sections
 
 ### Getting Started
-- [Installation & Setup](/getting-started/#installation)
-- [Quick Start Guide](/getting-started/#quick-start)
-- [Basic Concepts](/getting-started/#basic-concepts)
-- [First Application](/getting-started/#your-first-manas-application)
+- [Installation & Setup]({{ site.baseurl }}/getting-started/#installation)
+- [Quick Start Guide]({{ site.baseurl }}/getting-started/#quick-start)
+- [Basic Concepts]({{ site.baseurl }}/getting-started/#basic-concepts)
+- [First Application]({{ site.baseurl }}/getting-started/#your-first-manas-application)
 
 ### Core Documentation
-- [Architecture Overview](/concepts/#framework-architecture)
-- [Key Components](/concepts/#key-components)
-- [Design Principles](/concepts/#design-principles)
-- [Best Practices](/concepts/#best-practices)
+- [Architecture Overview]({{ site.baseurl }}/concepts/#framework-architecture)
+- [Key Components]({{ site.baseurl }}/concepts/#key-components)
+- [Design Principles]({{ site.baseurl }}/concepts/#design-principles)
+- [Best Practices]({{ site.baseurl }}/concepts/#best-practices)
 
 ### Components
-- [Agents](/api/agent/)
-- [Flows](/api/flow/)
-- [Nodes](/api/nodes/)
-- [Providers](/api/providers/)
-- [Vector Stores](/api/vectorstores/)
+- [Agents]({{ site.baseurl }}/api/agent/)
+- [Flows]({{ site.baseurl }}/api/flow/)
+- [Nodes]({{ site.baseurl }}/api/nodes/)
+- [Providers]({{ site.baseurl }}/api/providers/)
+- [Vector Stores]({{ site.baseurl }}/api/vectorstores/)
 
 ### Features
-- [RAG Implementation](/api/rag/)
-- [Tool Integration](/examples/tool-usage/)
-- [Provider Architecture](/llm-integration/)
-- [Middleware System](/concepts/#middleware-system)
+- [RAG Implementation]({{ site.baseurl }}/api/rag/)
+- [Tool Integration]({{ site.baseurl }}/examples/tool-usage/)
+- [Provider Architecture]({{ site.baseurl }}/llm-integration/)
+- [Middleware System]({{ site.baseurl }}/concepts/#middleware-system)
 
 ### Examples & Tutorials
-- [Basic Examples](/examples/#basic-examples)
-- [Flow Examples](/examples/#flow-examples)
-- [RAG Examples](/examples/#rag-examples)
-- [Advanced Examples](/examples/#advanced-examples)
+- [Basic Examples]({{ site.baseurl }}/examples/#basic-examples)
+- [Flow Examples]({{ site.baseurl }}/examples/#flow-examples)
+- [RAG Examples]({{ site.baseurl }}/examples/#rag-examples)
+- [Advanced Examples]({{ site.baseurl }}/examples/#advanced-examples)
 
 ### Advanced Topics
-- [Performance & Benchmarking](/benchmarking/)
-- [LLM Integration Guide](/llm-integration/)
-- [Project Structure](/structure/)
-- [Custom Components](/api/custom/)
+- [Performance & Benchmarking]({{ site.baseurl }}/benchmarking/)
+- [LLM Integration Guide]({{ site.baseurl }}/llm-integration/)
+- [Project Structure]({{ site.baseurl }}/structure/)
+- [Custom Components]({{ site.baseurl }}/api/custom/)
 
 ### Reference
-- [API Reference](/api/)
-- [Configuration Options](/api/config/)
-- [Error Handling](/api/errors/)
-- [Utility Functions](/api/utils/)
+- [API Reference]({{ site.baseurl }}/api/)
+- [Configuration Options]({{ site.baseurl }}/api/config/)
+- [Error Handling]({{ site.baseurl }}/api/errors/)
+- [Utility Functions]({{ site.baseurl }}/api/utils/)
 
 ### Development
-- [Contributing Guide](/contributing/)
-- [Development Setup](/contributing/#development-setup)
-- [Testing Guidelines](/contributing/#testing)
-- [Documentation Guide](/contributing/#documentation)
+- [Contributing Guide]({{ site.baseurl }}/contributing/)
+- [Development Setup]({{ site.baseurl }}/contributing/#development-setup)
+- [Testing Guidelines]({{ site.baseurl }}/contributing/#testing)
+- [Documentation Guide]({{ site.baseurl }}/contributing/#documentation)
 
 ### Support
-- [FAQ](/faq/)
-- [Troubleshooting](/faq/#troubleshooting)
-- [Known Issues](/faq/#known-issues)
-- [Getting Help](/contributing/#getting-help)
+- [FAQ]({{ site.baseurl }}/faq/)
+- [Troubleshooting]({{ site.baseurl }}/faq/#troubleshooting)
+- [Known Issues]({{ site.baseurl }}/faq/#known-issues)
+- [Getting Help]({{ site.baseurl }}/contributing/#getting-help)
 
 ## Getting Started
 
@@ -130,16 +130,16 @@ pip install "manas-ai[all-gpu]"
 
 ## Next Steps
 
-1. Follow the [Getting Started Guide](/getting-started/) for a complete introduction
-2. Explore [Core Concepts](/concepts/) to understand the architecture
-3. Check out [Examples](/examples/) for practical use cases
-4. Read the [API Reference](/api/) for detailed documentation
+1. Follow the [Getting Started Guide]({{ site.baseurl }}/getting-started/) for a complete introduction
+2. Explore [Core Concepts]({{ site.baseurl }}/concepts/) to understand the architecture
+3. Check out [Examples]({{ site.baseurl }}/examples/) for practical use cases
+4. Read the [API Reference]({{ site.baseurl }}/api/) for detailed documentation
 
 ## Community
 
 - [GitHub Repository](https://github.com/arkokoley/manas)
 - [Issue Tracker](https://github.com/arkokoley/manas/issues)
-- [Contributing Guide](/contributing/)
+- [Contributing Guide]({{ site.baseurl }}/contributing/)
 
 ## License
 

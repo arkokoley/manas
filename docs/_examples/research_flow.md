@@ -1,10 +1,19 @@
 ---
+layout: example
 title: Building a Research Flow
 description: Learn how to create a multi-node research flow that can research, analyze, and summarize topics
 nav_order: 1
 parent: Examples
 difficulty: Intermediate
 time: 30 minutes
+source_file: research_flow_example.py
+related_docs:
+  - title: Flow API Reference
+    url: /api/flow/
+  - title: QANode Reference
+    url: /api/nodes/qa_node/
+  - title: RAG Documentation
+    url: /api/rag/
 ---
 
 # Building a Research Flow
@@ -148,4 +157,5 @@ finally:
 
 ## Complete Example
 
-The complete example with error handling and advanced features is available in the [examples directory](https://github.com/arkokoley/manas/blob/main/examples/research_flow.py).
+A full working example of this research flow is available in our examples repository:
+[research_flow_example.py](https://github.com/arkokoley/manas/blob/main/examples/research_flow_example.py)

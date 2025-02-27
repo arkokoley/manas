@@ -1,0 +1,64 @@
+---
+layout: default
+---
+
+<article class="example-content">
+  <div class="example-header">
+    {% if page.difficulty %}
+    <span class="example-badge {{ page.difficulty | downcase }}">
+      {{ page.difficulty }}
+    </span>
+    {% endif %}
+    
+    {% if page.time %}
+    <span class="example-badge time">
+      {{ page.time }}
+    </span>
+    {% endif %}
+  </div>
+
+  {{ content }}
+
+  {% if page.source_file %}
+  <div class="example-source">
+    <h2>Complete Example</h2>
+    <p>Find the complete example in our GitHub repository: 
+      <a href="https://github.com/arkokoley/manas/blob/main/examples/{{ page.source_file }}">{{ page.source_file }}</a>
+    </p>
+  </div>
+  {% endif %}
+
+  <div class="example-nav">
+    {% assign examples = site.examples | sort: "nav_order" %}
+    {% for example in examples %}
+      {% if example.title == page.title %}
+        {% assign currentIndex = forloop.index0 %}
+        {% assign prevIndex = currentIndex | minus: 1 %}
+        {% assign nextIndex = currentIndex | plus: 1 %}
+        
+        {% if prevIndex >= 0 %}
+          {% assign prevExample = examples[prevIndex] %}
+          <a href="{{ site.baseurl }}{{ prevExample.url }}" class="example-prev">
+            ← Previous: {{ prevExample.title }}
+          </a>
+        {% endif %}
+        
+        {% if nextIndex < examples.size %}
+          {% assign nextExample = examples[nextIndex] %}
+          <a href="{{ site.baseurl }}{{ nextExample.url }}" class="example-next">
+            Next: {{ nextExample.title }} →
+          </a>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="example-related">
+    <h2>Related Documentation</h2>
+    <ul>
+      {% for doc in page.related_docs %}
+      <li><a href="{{ site.baseurl }}{{ doc.url }}">{{ doc.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</article>

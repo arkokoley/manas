@@ -1,10 +1,19 @@
 ---
+layout: example
 title: Working with Tools
 description: Learn how to integrate external tools with Manas agents and flows
 nav_order: 2
 parent: Examples
 difficulty: Beginner
 time: 20 minutes
+source_file: tool_usage_example.py
+related_docs:
+  - title: Agent API Reference
+    url: /api/agent/
+  - title: ToolNode Reference
+    url: /api/nodes/tool_node/
+  - title: Flow Documentation
+    url: /api/flow/
 ---
 
 # Working with Tools

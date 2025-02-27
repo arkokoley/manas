@@ -9,6 +9,12 @@ grand_parent: API Reference
 
 `QANode` is a specialized node for question answering with optional RAG (Retrieval-Augmented Generation) support. It can process questions with or without additional context and maintain conversation history.
 
+For more information on RAG integration, see the [RAG documentation]({{ site.baseurl }}/api/rag/).
+
+For examples of using QANode in flows, check out:
+- [Research Flow Example]({{ site.baseurl }}/examples/research-flow/)
+- [Knowledge Base QA]({{ site.baseurl }}/examples/knowledge-base-qa/)
+
 ## Import
 
 ```python

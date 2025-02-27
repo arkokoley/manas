@@ -422,7 +422,7 @@ flow.add_middleware(PerformanceMonitor())
 
 Now that you understand the core concepts:
 
-1. Follow the [Getting Started Guide](/getting-started/)
-2. Explore [Examples](/examples/)
-3. Review [API Reference](/api/)
-4. Check [FAQ](/faq/) for common questions
+1. Follow the [Getting Started Guide]({{ site.baseurl }}/getting-started/)
+2. Explore [Examples]({{ site.baseurl }}/examples/)
+3. Review [API Reference]({{ site.baseurl }}/api/)
+4. Check [FAQ]({{ site.baseurl }}/faq/) for common questions

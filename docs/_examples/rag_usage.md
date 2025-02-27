@@ -1,10 +1,19 @@
 ---
+layout: example
 title: Working with RAG
 description: Learn how to use Retrieval-Augmented Generation (RAG) with various vector stores
 nav_order: 3
 parent: Examples
 difficulty: Intermediate
 time: 25 minutes
+source_file: rag_usage_example.py
+related_docs:
+  - title: RAG API Reference
+    url: /api/rag/
+  - title: Vector Stores
+    url: /api/vectorstores/
+  - title: QANode with RAG
+    url: /api/nodes/qa_node/
 ---
 
 # Working with RAG
