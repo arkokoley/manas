@@ -1,0 +1,47 @@
+{% comment %}
+  Add custom head content here. This file is included at the end of the head section.
+{% endcomment %}
+<!-- Additional meta tags -->
+<meta name="theme-color" content="{{ site.material_theme.primary | default: '#6750A4' }}">
+<meta name="msapplication-navbutton-color" content="{{ site.material_theme.primary | default: '#6750A4' }}">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Additional stylesheets -->
+<link rel="stylesheet" href="{{ '/assets/css/custom-material.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/api.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/tutorial.css' | relative_url }}">
+
+<!-- Dark mode handling -->
+<script>
+  // Early initialization of dark mode preference
+  try {
+    let prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    let storedTheme = localStorage.getItem('theme');
+    let theme = storedTheme || (prefersDark.matches ? 'dark' : 'light');
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  } catch (e) {
+    console.warn('Dark mode initialization failed:', e);
+  }
+</script>
+
+{% if page.math %}
+<!-- KaTeX for math rendering -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+{% endif %}
+
+{% if page.mermaid %}
+<!-- Mermaid for diagrams -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    mermaid.initialize({ startOnLoad: true });
+  });
+</script>
+{% endif %}
+
+<!-- Custom page-specific head content -->
+{% if page.head_custom %}
+  {{ page.head_custom }}
+{% endif %}
