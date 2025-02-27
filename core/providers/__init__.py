@@ -10,6 +10,8 @@ from .base import BaseLLMProvider
 from .openai import OpenAIProvider
 from .huggingface import HuggingFaceProvider
 from .ollama import OllamaProvider
+# Add the mock provider for testing
+from .mock import MockLLMProvider
 
 # Export all
 __all__ = [
@@ -25,4 +27,5 @@ __all__ = [
     "OpenAIProvider", 
     "HuggingFaceProvider",
     "OllamaProvider",
+    "MockLLMProvider",
 ]

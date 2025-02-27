@@ -4,53 +4,7 @@ import asyncio
 from typing import Dict, Any, Optional
 from core.models import Document
 from core.llm import LLMNode, LLMConfig
-from core.providers.base import BaseLLMProvider
-
-class MockLLMProvider(BaseLLMProvider):
-    """Mock LLM provider for testing."""
-    
-    def __init__(self, responses: Dict[str, str] = None):
-        self.responses = responses or {
-            "default": "This is a mock response"
-        }
-        self.calls = []
-    
-    async def initialize(self):
-        pass
-    
-    async def cleanup(self):
-        pass
-    
-    async def generate(self, 
-        prompt: str, 
-        temperature: float = 0.7,
-        max_tokens: Optional[int] = None,
-        stop_sequences: Optional[list[str]] = None,
-        **kwargs
-    ) -> str:
-        self.calls.append({
-            "prompt": prompt,
-            "temperature": temperature,
-            "max_tokens": max_tokens,
-            "stop_sequences": stop_sequences,
-            "kwargs": kwargs
-        })
-        return self.responses.get(prompt, self.responses["default"])
-    
-    async def stream_generate(self, 
-        prompt: str,
-        temperature: float = 0.7,
-        max_tokens: Optional[int] = None,
-        stop_sequences: Optional[list[str]] = None,
-        **kwargs
-    ):
-        response = self.responses.get(prompt, self.responses["default"])
-        for chunk in response.split():
-            yield chunk + " "
-    
-    async def embed(self, text: str) -> list[float]:
-        """Return mock embeddings."""
-        return [0.1] * 384  # Common embedding dimension
+from core.providers.mock import MockLLMProvider
 
 @pytest.fixture
 def mock_documents():
@@ -67,16 +21,24 @@ def mock_documents():
     ]
 
 @pytest.fixture
-def mock_llm_node():
+async def mock_llm_node():
     """Fixture providing a LLM node with mock provider."""
     config = LLMConfig(
-        provider="mock",
-        provider_config={},
+        provider_name="mock",
+        provider_config={
+            "responses": {
+                "default": "This is a mock response",
+                "What is quantum computing?": "Quantum computing is a type of computing that uses quantum mechanics principles."
+            }
+        },
         temperature=0.7
     )
+    
+    # Create and initialize the node
     node = LLMNode(name="test_llm", config=config)
-    node._provider = MockLLMProvider()
-    return node
+    await node.initialize()
+    yield node
+    await node.cleanup()
 
 @pytest.fixture
 def event_loop():

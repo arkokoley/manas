@@ -1,10 +1,21 @@
 [tool.poetry]
-name = "mas"
+name = "manas"
 version = "0.1.0"
 description = "A framework for building LLM-powered applications with intelligent agents, task decomposition, and RAG"
 authors = ["Your Name <your.email@example.com>"]
 readme = "README.md"
-packages = [{include = "mas"}]
+packages = [{include = "core", from = "."}, {include = "__init__.py", from = "."}]
+license = "MIT"  # Make sure this matches your actual license
+repository = "https://github.com/arkokoley/manas"  # Update with your actual repository URL
+keywords = ["llm", "agents", "rag", "ai", "nlp"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"
