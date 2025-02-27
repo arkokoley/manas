@@ -30,30 +30,81 @@ Manas addresses these challenges with a unified framework that lets you define m
 - **Tool Integration**: Connect agents to external tools and APIs
 - **Extensible Design**: Easily add new capabilities and integrations
 
-## Who Is Manas For?
+## Documentation Sections
 
-Manas is designed for:
+### Getting Started
+- [Installation & Setup](/getting-started/#installation)
+- [Quick Start Guide](/getting-started/#quick-start)
+- [Basic Concepts](/getting-started/#basic-concepts)
+- [First Application](/getting-started/#your-first-manas-application)
 
-- **AI Application Developers**: Building complex LLM-powered applications
-- **Research Engineers**: Experimenting with multi-agent systems
-- **Product Teams**: Creating production-ready AI features
-- **LLM Enthusiasts**: Learning about agent-based AI architecture
+### Core Documentation
+- [Architecture Overview](/concepts/#framework-architecture)
+- [Key Components](/concepts/#key-components)
+- [Design Principles](/concepts/#design-principles)
+- [Best Practices](/concepts/#best-practices)
+
+### Components
+- [Agents](/api/agent/)
+- [Flows](/api/flow/)
+- [Nodes](/api/nodes/)
+- [Providers](/api/providers/)
+- [Vector Stores](/api/vectorstores/)
+
+### Features
+- [RAG Implementation](/api/rag/)
+- [Tool Integration](/examples/tool-usage/)
+- [Provider Architecture](/llm-integration/)
+- [Middleware System](/concepts/#middleware-system)
+
+### Examples & Tutorials
+- [Basic Examples](/examples/#basic-examples)
+- [Flow Examples](/examples/#flow-examples)
+- [RAG Examples](/examples/#rag-examples)
+- [Advanced Examples](/examples/#advanced-examples)
+
+### Advanced Topics
+- [Performance & Benchmarking](/benchmarking/)
+- [LLM Integration Guide](/llm-integration/)
+- [Project Structure](/structure/)
+- [Custom Components](/api/custom/)
+
+### Reference
+- [API Reference](/api/)
+- [Configuration Options](/api/config/)
+- [Error Handling](/api/errors/)
+- [Utility Functions](/api/utils/)
+
+### Development
+- [Contributing Guide](/contributing/)
+- [Development Setup](/contributing/#development-setup)
+- [Testing Guidelines](/contributing/#testing)
+- [Documentation Guide](/contributing/#documentation)
+
+### Support
+- [FAQ](/faq/)
+- [Troubleshooting](/faq/#troubleshooting)
+- [Known Issues](/faq/#known-issues)
+- [Getting Help](/contributing/#getting-help)
 
 ## Getting Started
 
-Ready to build with Manas? Start with our [Getting Started Guide](/getting-started/) or explore our [Examples](/examples/).
+Here's a simple example to get you started:
 
 ```python
-# A simple Manas example
 from core import LLM, Agent
 
 # Initialize a model
-model = LLM.from_provider("openai", model_name="gpt-4")
+model = LLM.from_provider(
+    "openai",
+    model_name="gpt-4",
+    api_key="your-api-key"  # Or use environment variable
+)
 
 # Create an agent
 agent = Agent(llm=model)
 
-# Have a conversation
+# Generate a response
 response = agent.generate("Explain what the Manas framework does")
 print(response)
 ```
@@ -63,6 +114,32 @@ print(response)
 ```bash
 pip install manas-ai
 ```
+
+For specific features:
+
+```bash
+# OpenAI support
+pip install "manas-ai[openai]"
+
+# Full installation with CPU support
+pip install "manas-ai[all-cpu]"
+
+# Full installation with GPU support
+pip install "manas-ai[all-gpu]"
+```
+
+## Next Steps
+
+1. Follow the [Getting Started Guide](/getting-started/) for a complete introduction
+2. Explore [Core Concepts](/concepts/) to understand the architecture
+3. Check out [Examples](/examples/) for practical use cases
+4. Read the [API Reference](/api/) for detailed documentation
+
+## Community
+
+- [GitHub Repository](https://github.com/arkokoley/manas)
+- [Issue Tracker](https://github.com/arkokoley/manas/issues)
+- [Contributing Guide](/contributing/)
 
 ## License
 

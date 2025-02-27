@@ -7,183 +7,422 @@ permalink: /concepts/
 
 # Core Concepts
 
-This page explains the fundamental concepts and architecture of the Manas framework. Understanding these concepts will help you design and build effective applications.
+Manas is built around several key architectural concepts that work together to provide a flexible and powerful framework for building LLM-powered applications.
 
 ## Framework Architecture
 
-Manas is built around a modular architecture that allows components to work together while maintaining separation of concerns:
+At its core, Manas uses a modular, flow-based architecture where different components work together through well-defined interfaces:
 
+```mermaid
+graph TD
+    A[Applications] --> B[Flows]
+    B --> C[Nodes]
+    C --> D[LLM Providers]
+    C --> E[Vector Stores]
+    B --> F[Agents]
+    F --> D
 ```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│    Agents   │◄────┤    Flows    │────►│    Nodes    │
-└─────▲───────┘     └─────────────┘     └─────▲───────┘
-      │                                       │
-      │             ┌─────────────┐           │
-      └─────────────┤    LLMs     ├───────────┘
-                    └─────▲───────┘
-                          │
-                    ┌─────┴───────┐
-                    │  Providers  │
-                    └─────────────┘
-```
+
+### Component Interactions
+
+1. **Applications** define the high-level logic using Flows
+2. **Flows** orchestrate Nodes and Agents
+3. **Nodes** perform specific tasks using Providers
+4. **Providers** interface with LLMs and Vector Stores
 
 ## Key Components
 
-### LLMs (Language Models)
+### 1. Agents
 
-LLMs are the foundation of the framework. They represent the AI models responsible for generating text, reasoning, and decision-making.
-
-- **Providers**: Abstractions for different LLM services (OpenAI, Anthropic, HuggingFace)
-- **Model Management**: Unified interface regardless of the underlying provider
-- **Tokenization**: Built-in handling of token counting and context windows
-
-```python
-# Example of LLM initialization
-from core import LLM
-
-# OpenAI model
-openai_model = LLM.from_provider("openai", model_name="gpt-4")
-
-# Anthropic model
-claude_model = LLM.from_provider("anthropic", model_name="claude-3-opus")
-
-# Local model via Ollama
-local_model = LLM.from_provider("ollama", model_name="llama3")
-```
-
-### Agents
-
-Agents are intelligent entities that use LLMs to perform tasks. They encapsulate:
-
-- **Reasoning**: Processing information and making decisions
-- **Memory**: Maintaining conversational context
-- **Behavior**: Following instructions via system prompts
-- **Tools**: Accessing external functionality
+Agents are autonomous entities that can:
+- Process information
+- Make decisions
+- Take actions
+- Learn from results
 
 ```python
-from core import Agent
+from core import Agent, LLM
 
-# Basic agent
-agent = Agent(llm=model, system_prompt="You are a helpful assistant.")
-
-# Tool-using agent
-calculator_agent = Agent(
-    llm=model,
-    system_prompt="You help with math calculations.",
-    tools=[calculator_tool]
+# Create an agent with specific capabilities
+agent = Agent(
+    llm=LLM.from_provider("openai"),
+    system_prompt="You are a research assistant.",
+    tools=[search_tool, calculator_tool]
 )
+
+# Agent processes input and uses tools as needed
+result = agent.generate("Research quantum computing and calculate its market size")
 ```
 
-### Flows
+#### Agent Lifecycle
 
-Flows orchestrate complex processes by connecting multiple nodes in a directed graph:
+1. **Think**: Process input and plan actions
+2. **Act**: Execute planned actions using tools
+3. **Observe**: Process results and update state
 
-- **Nodes**: Components that perform specific tasks
-- **Edges**: Connections that define how data flows between nodes
-- **Execution**: Managed processing of inputs through the graph
+### 2. Flows
+
+Flows coordinate multiple nodes to accomplish complex tasks:
 
 ```python
 from core import Flow
-from core.nodes import QANode
+from core.nodes import QANode, DocumentNode
 
-# Create a flow
+# Create specialized nodes
+researcher = QANode(name="researcher", llm=model)
+analyst = QANode(name="analyst", llm=model)
+writer = QANode(name="writer", llm=model)
+
+# Create and configure flow
 flow = Flow()
+flow.add_node(researcher)
+flow.add_node(analyst)
+flow.add_node(writer)
 
-# Add nodes
-node1 = QANode(name="researcher", llm=model1)
-node2 = QANode(name="writer", llm=model2)
-
-# Connect nodes
-flow.add_node(node1)
-flow.add_node(node2)
-flow.add_edge(node1, node2)
-
-# Run the flow
-result = flow.process("Research quantum computing")
+# Define node relationships
+flow.add_edge(researcher, analyst)
+flow.add_edge(analyst, writer)
 ```
 
-### Nodes
+#### Flow Features
 
-Nodes are specialized components designed for specific tasks within flows:
+- **Directed Graph**: Nodes connected with directed edges
+- **Parallel Execution**: Independent nodes run concurrently
+- **State Management**: Maintains flow execution state
+- **Error Handling**: Graceful failure handling
 
-- **QANode**: For question-answering tasks
-- **DocumentNode**: For document processing and analysis
-- **ToolNode**: For integrating with external tools and APIs
-- **APINode**: For making API calls and processing responses
+### 3. Nodes
+
+Nodes are specialized components that perform specific tasks:
+
+- **QANode**: Question-answering processing
+- **DocumentNode**: Document processing and analysis
+- **ToolNode**: External tool integration
+- **APINode**: API interaction
 
 ```python
-from core.nodes import DocumentNode, ToolNode
+from core.nodes import ToolNode
 
-# Document processing node
-doc_node = DocumentNode(
-    name="document_processor",
-    llm=model
-)
-
-# Tool integration node
-api_tool = ToolNode(
-    name="weather_api",
-    tool=weather_api_tool
+# Create a tool node
+calculator = ToolNode(
+    name="calculator",
+    tool=calculator_function,
+    description="Performs mathematical calculations"
 )
 ```
 
-### RAG (Retrieval-Augmented Generation)
+### 4. RAG (Retrieval-Augmented Generation)
 
-RAG combines LLMs with information retrieval to enhance responses with external knowledge:
-
-- **Vector Stores**: Efficient storage and retrieval of embeddings
-- **Document Processing**: Conversion, chunking, and embedding of data
-- **Retrieval**: Finding relevant information based on semantic similarity
-- **Generation**: Producing responses informed by retrieved context
+RAG enhances LLM responses with relevant context:
 
 ```python
 from core import RAG
 from core.vectorstores import FaissVectorStore
 
-# Create a vector store
-vector_store = FaissVectorStore(dimension=1536)
-
-# Initialize RAG
-rag_system = RAG(
+# Initialize RAG system
+rag = RAG(
     llm=model,
-    vector_store=vector_store
+    vector_store=FaissVectorStore(dimension=1536)
 )
 
-# Add documents
-rag_system.add_file("knowledge_base.pdf")
+# Add documents to knowledge base
+rag.add_documents([
+    "Document about quantum computing",
+    "Research paper on algorithms"
+])
 
-# Query
-response = rag_system.query("What are the key findings?")
+# Query with context enhancement
+response = rag.query("Explain quantum algorithms")
 ```
+
+#### RAG Components
+
+1. **Document Processing**: Chunking and embedding
+2. **Vector Storage**: Efficient similarity search
+3. **Context Integration**: Enhancing prompts with context
+4. **Response Generation**: Context-aware responses
 
 ## Design Principles
 
-Manas is built on these core design principles:
-
 ### 1. Modularity
 
-Components can be used independently or combined for complex applications.
+Every component is designed to be:
+- Self-contained
+- Independently testable
+- Easily replaceable
+- Well-documented
 
 ### 2. Extensibility
 
-The framework is designed to be extended with new capabilities and integrations.
+The framework supports easy extension through:
+- Provider interfaces
+- Custom node types
+- Tool registration
+- Middleware system
 
-### 3. Provider Agnosticism
+### 3. Asynchronous First
 
-Applications can work with multiple LLM providers seamlessly.
+Built for high performance with:
+- Async/await patterns
+- Concurrent execution
+- Efficient resource use
+- Proper cleanup
 
-### 4. Flow-Based Architecture
+### 4. Type Safety
 
-Complex processes are represented as flows of interconnected nodes.
+Strong typing throughout:
+- Type hints
+- Runtime validation
+- Interface contracts
+- Safe type coercion
 
-### 5. Strong Typing
+## Provider Architecture
 
-Type hints throughout the codebase ensure reliability and enable IDE support.
+### LLM Providers
+
+Support for multiple LLM providers:
+
+```python
+# OpenAI provider
+openai_model = LLM.from_provider("openai", model_name="gpt-4")
+
+# Anthropic provider
+claude_model = LLM.from_provider("anthropic", model_name="claude-3")
+
+# HuggingFace provider
+hf_model = LLM.from_provider("huggingface", model_name="mistral-7b")
+
+# Local provider
+ollama_model = LLM.from_provider("ollama", model_name="llama2")
+```
+
+### Vector Stores
+
+Multiple vector store options:
+
+```python
+# FAISS store
+faiss_store = FaissVectorStore(dimension=1536)
+
+# Chroma store
+chroma_store = ChromaStore(collection_name="docs")
+
+# Pinecone store
+pinecone_store = PineconeStore(index_name="embeddings")
+```
+
+## Middleware System
+
+Middleware enhances provider capabilities:
+
+```python
+from core.providers.middleware import (
+    MemoryMiddleware,
+    LoggingMiddleware,
+    RateLimitingMiddleware
+)
+
+# Configure middleware
+model = LLM.from_provider(
+    "openai",
+    model_name="gpt-4",
+    middleware=[
+        MemoryMiddleware(memory_store),
+        LoggingMiddleware(),
+        RateLimitingMiddleware(max_rpm=60)
+    ]
+)
+```
+
+### Common Middleware
+
+1. **Memory**: Conversation history
+2. **Logging**: Request/response logging
+3. **Rate Limiting**: Request throttling 
+4. **Caching**: Response caching
+5. **Monitoring**: Usage tracking
+
+## Flow Patterns
+
+### 1. Sequential Processing
+
+```
+A → B → C → D
+```
+
+For tasks that need sequential processing:
+- Document analysis
+- Multi-step reasoning
+- Progressive refinement
+
+### 2. Parallel Processing
+
+```
+    B →
+A →     D
+    C →
+```
+
+For independent subtasks:
+- Concurrent research
+- Parallel analysis
+- Independent validations
+
+### 3. Feedback Loops
+
+```
+A → B → C
+↑       ↓
+D ← E ← F
+```
+
+For iterative improvement:
+- Refinement cycles
+- Quality improvement
+- Learning loops
+
+## Best Practices
+
+### 1. Flow Design
+
+- Keep flows focused and simple
+- Use appropriate node types
+- Handle errors gracefully
+- Monitor performance
+
+### 2. Agent Configuration
+
+- Clear system prompts
+- Appropriate tools
+- Proper state management
+- Resource cleanup
+
+### 3. RAG Implementation
+
+- Effective chunking
+- Appropriate embeddings
+- Query optimization
+- Cache management
+
+### 4. Error Handling
+
+- Graceful degradation
+- Proper logging
+- User feedback
+- Recovery strategies
+
+## Practical Examples
+
+### Research Assistant
+
+```python
+from core import Flow
+from core.nodes import QANode, DocumentNode
+
+def create_research_flow(topic):
+    # Create specialized nodes
+    researcher = QANode(
+        name="researcher",
+        system_prompt="Research the given topic thoroughly."
+    )
+    
+    analyst = QANode(
+        name="analyst",
+        system_prompt="Analyze and synthesize research findings."
+    )
+    
+    writer = QANode(
+        name="writer",
+        system_prompt="Create a well-structured report."
+    )
+    
+    # Create flow
+    flow = Flow()
+    flow.add_nodes([researcher, analyst, writer])
+    flow.add_edge(researcher, analyst)
+    flow.add_edge(analyst, writer)
+    
+    return flow
+
+# Use the flow
+flow = create_research_flow("quantum computing")
+report = flow.process("Explain recent advancements")
+```
+
+### Document Analysis
+
+```python
+from core import RAG
+from core.nodes import DocumentNode
+
+def analyze_documents(documents):
+    # Create RAG system
+    rag = RAG(llm=model, vector_store=vector_store)
+    
+    # Add documents
+    rag.add_documents(documents)
+    
+    # Create analysis node
+    analyzer = DocumentNode(
+        name="analyzer",
+        llm=model,
+        rag_system=rag
+    )
+    
+    # Process documents
+    results = analyzer.process("Extract key insights")
+    return results
+```
+
+## Advanced Topics
+
+### 1. Custom Nodes
+
+```python
+from core.nodes import BaseNode
+
+class CustomNode(BaseNode):
+    """Custom node implementation."""
+    
+    async def process(self, input_data):
+        # Custom processing logic
+        result = await self.custom_logic(input_data)
+        return result
+```
+
+### 2. Provider Implementation
+
+```python
+from core.providers import BaseProvider
+
+class CustomProvider(BaseProvider):
+    """Custom LLM provider."""
+    
+    async def generate(self, prompt):
+        # Custom generation logic
+        response = await self.custom_generate(prompt)
+        return response
+```
+
+### 3. Flow Optimization
+
+```python
+# Optimize flow execution
+flow = Flow(
+    parallel_execution=True,
+    max_concurrency=4,
+    timeout=30
+)
+
+# Add performance monitoring
+flow.add_middleware(PerformanceMonitor())
+```
 
 ## Next Steps
 
-Now that you understand the core concepts, explore:
+Now that you understand the core concepts:
 
-- [API Reference](/api/) for detailed documentation
-- [Examples](/examples/) for practical applications
-- [Project Structure](/structure/) to understand the codebase organization
+1. Follow the [Getting Started Guide](/getting-started/)
+2. Explore [Examples](/examples/)
+3. Review [API Reference](/api/)
+4. Check [FAQ](/faq/) for common questions
