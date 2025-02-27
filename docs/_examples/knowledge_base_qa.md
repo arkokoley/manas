@@ -1,10 +1,21 @@
 ---
+layout: example
 title: Building a Knowledge Base QA System
 description: Create a question-answering system with RAG and flow-based document processing
 nav_order: 4
 parent: Examples
 difficulty: Advanced
 time: 45 minutes
+source_file: knowledge_base_qa_example.py
+related_docs:
+  - title: RAG API Reference
+    url: /api/rag/
+  - title: DocumentNode Reference
+    url: /api/nodes/document_node/
+  - title: Flow Documentation
+    url: /api/flow/
+  - title: Vector Stores
+    url: /api/vectorstores/
 ---
 
 # Building a Knowledge Base QA System
