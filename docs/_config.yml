@@ -8,33 +8,20 @@ markdown: kramdown
 kramdown:
   input: GFM
   syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    css_class: highlight
-    span:
-      line_numbers: false
-    block:
-      line_numbers: true
-      start_line: 1
 
 # Theme settings
-theme: null
-remote_theme: pmarsceill/just-the-docs
-color_scheme: light
+remote_theme: pages-themes/primer
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-github-metadata
 
 # Search settings
 search_enabled: true
 search:
-  # Split pages into sections that can be searched individually
-  # Supports 1 - 6, default: 2
   heading_level: 2
-  # Maximum amount of previews per search result
-  # Default: 3
   previews: 3
-  # Maximum amount of words to display before a matched word in the preview
-  # Default: 5
   preview_words_before: 5
-  # Maximum amount of words to display after a matched word in the preview
-  # Default: 10
   preview_words_after: 10
 
 # Enable or disable heading anchors
