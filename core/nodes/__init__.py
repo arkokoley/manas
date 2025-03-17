@@ -16,6 +16,7 @@ from .tool_node import ToolNode, Tool, create_tool
 from .api_node import APINode, APIConfig, create_api_node
 from .qa_node import QANode, QAConfig
 from .document_node import DocumentNode, DocumentProcessorConfig
+from .browser_node import BrowserNode, BrowserConfig, create_browser_node
 
 # Export all
 __all__ = [
@@ -46,5 +47,10 @@ __all__ = [
     
     # Document Node
     "DocumentNode",
-    "DocumentProcessorConfig"
+    "DocumentProcessorConfig",
+    
+    # Browser Node
+    "BrowserNode",
+    "BrowserConfig",
+    "create_browser_node"
 ]
