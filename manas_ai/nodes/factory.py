@@ -1,7 +1,7 @@
 """Factory for creating specialized nodes."""
 from typing import Dict, Callable, Any, Type, Optional
 import logging
-from core.base import Node
+from manas_ai.base import Node
 
 # Set up logging
 logger = logging.getLogger(__name__)

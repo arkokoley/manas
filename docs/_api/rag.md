@@ -12,7 +12,7 @@ The `RAG` class provides functionality for enhancing LLM responses with relevant
 
 ```python
 from core import RAG
-from core.models import Document
+from manas_ai.models import Document
 ```
 
 ## Constructor
@@ -159,7 +159,7 @@ result = await rag.query(
 ### Custom Processing
 
 ```python
-from core.models import Document
+from manas_ai.models import Document
 from typing import List
 
 class CustomRAG(RAG):

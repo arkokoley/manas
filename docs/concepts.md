@@ -67,7 +67,7 @@ Flows coordinate multiple nodes to accomplish complex tasks:
 
 ```python
 from core import Flow
-from core.nodes import QANode, DocumentNode
+from manas_ai.nodes import QANode, DocumentNode
 
 # Create specialized nodes
 researcher = QANode(name="researcher", llm=model)
@@ -102,7 +102,7 @@ Nodes are specialized components that perform specific tasks:
 - **APINode**: API interaction
 
 ```python
-from core.nodes import ToolNode
+from manas_ai.nodes import ToolNode
 
 # Create a tool node
 calculator = ToolNode(
@@ -118,7 +118,7 @@ RAG enhances LLM responses with relevant context:
 
 ```python
 from core import RAG
-from core.vectorstores import FaissVectorStore
+from manas_ai.vectorstores import FaissVectorStore
 
 # Initialize RAG system
 rag = RAG(
@@ -217,7 +217,7 @@ pinecone_store = PineconeStore(index_name="embeddings")
 Middleware enhances provider capabilities:
 
 ```python
-from core.providers.middleware import (
+from manas_ai.providers.middleware import (
     MemoryMiddleware,
     LoggingMiddleware,
     RateLimitingMiddleware
@@ -318,7 +318,7 @@ For iterative improvement:
 
 ```python
 from core import Flow
-from core.nodes import QANode, DocumentNode
+from manas_ai.nodes import QANode, DocumentNode
 
 def create_research_flow(topic):
     # Create specialized nodes
@@ -354,7 +354,7 @@ report = flow.process("Explain recent advancements")
 
 ```python
 from core import RAG
-from core.nodes import DocumentNode
+from manas_ai.nodes import DocumentNode
 
 def analyze_documents(documents):
     # Create RAG system
@@ -380,7 +380,7 @@ def analyze_documents(documents):
 ### 1. Custom Nodes
 
 ```python
-from core.nodes import BaseNode
+from manas_ai.nodes import BaseNode
 
 class CustomNode(BaseNode):
     """Custom node implementation."""
@@ -394,7 +394,7 @@ class CustomNode(BaseNode):
 ### 2. Provider Implementation
 
 ```python
-from core.providers import BaseProvider
+from manas_ai.providers import BaseProvider
 
 class CustomProvider(BaseProvider):
     """Custom LLM provider."""

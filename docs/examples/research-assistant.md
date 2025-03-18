@@ -30,7 +30,7 @@ pip install "manas[all-cpu]"
 ```python
 import os
 from core import Flow, LLM
-from core.nodes import QANode
+from manas_ai.nodes import QANode
 
 # Initialize LLM (use your preferred provider)
 llm = LLM.from_provider(
@@ -137,7 +137,7 @@ research_flow.add_edge(fact_checker_node, analyst_node)
 To incorporate external data sources, you could use a DocumentNode:
 
 ```python
-from core.nodes import DocumentNode
+from manas_ai.nodes import DocumentNode
 
 document_node = DocumentNode(
     name="document_processor",

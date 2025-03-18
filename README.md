@@ -83,7 +83,7 @@ Here's how to create a flow with multiple specialized agents:
 
 ```python
 from core import Flow
-from core.nodes import QANode
+from manas_ai.nodes import QANode
 
 # Initialize a model
 model = LLM.from_provider("openai", model_name="gpt-4")
@@ -148,7 +148,7 @@ Manas provides robust support for Retrieval-Augmented Generation:
 
 ```python
 from core import RAG
-from core.vectorstores import FaissVectorStore
+from manas_ai.vectorstores import FaissVectorStore
 
 # Create a vector store
 vector_store = FaissVectorStore(dimension=1536)
@@ -172,7 +172,7 @@ Create complex workflows with multiple specialized nodes:
 
 ```python
 from core import Flow
-from core.nodes import QANode, ToolNode, DocumentNode
+from manas_ai.nodes import QANode, ToolNode, DocumentNode
 
 # Create nodes
 nodes = [

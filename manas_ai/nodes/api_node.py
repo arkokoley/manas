@@ -5,7 +5,7 @@ import logging
 import aiohttp
 import json
 from dataclasses import dataclass, field
-from core.base import Node
+from manas_ai.base import Node
 from .factory import register_node
 from .protocol import APINodeProtocol
 

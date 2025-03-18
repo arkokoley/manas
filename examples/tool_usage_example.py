@@ -14,8 +14,8 @@ from typing import Dict, Any, List
 from datetime import datetime
 
 from core import LLM, Agent, Tool, Flow
-from core.nodes import ToolNode, QANode
-from core.models import ToolConfig
+from manas_ai.nodes import ToolNode, QANode
+from manas_ai.models import ToolConfig
 
 # Basic Calculator Tool
 def calculator_tool(expression: str) -> str:

@@ -101,7 +101,7 @@ ollama_model = LLM.from_provider(
 
 ```python
 from core import LLM
-from core.providers import ProviderConfig
+from manas_ai.providers import ProviderConfig
 
 config = ProviderConfig(
     name="openai",
@@ -144,8 +144,8 @@ async def handle_stream():
 ### Provider Middleware
 
 ```python
-from core.providers.middleware import MemoryMiddleware, LoggingMiddleware
-from core.chat import SimpleMemory
+from manas_ai.providers.middleware import MemoryMiddleware, LoggingMiddleware
+from manas_ai.chat import SimpleMemory
 
 # Set up memory and logging
 memory = SimpleMemory()
@@ -185,7 +185,7 @@ prompt = "What do you think about this code?"
 ### 2. Token Management
 
 ```python
-from core.tokenizers import count_tokens
+from manas_ai.tokenizers import count_tokens
 
 # Check token count before sending
 text = "Your long input text here..."
@@ -207,7 +207,7 @@ results = await model.batch_generate([
 ], batch_size=3)
 
 # With caching
-from core.cache import LLMCache
+from manas_ai.cache import LLMCache
 
 cache = LLMCache(max_size=1000)
 model = LLM.from_provider(
@@ -222,7 +222,7 @@ model = LLM.from_provider(
 ### Common Errors and Solutions
 
 ```python
-from core.exceptions import (
+from manas_ai.exceptions import (
     ProviderError,
     RateLimitError,
     TokenLimitError,
@@ -252,7 +252,7 @@ except ProviderError as e:
 ### Retry Strategies
 
 ```python
-from core.utils.retry import retry_with_exponential_backoff
+from manas_ai.utils.retry import retry_with_exponential_backoff
 
 @retry_with_exponential_backoff(
     max_retries=3,
@@ -340,7 +340,7 @@ async def generate_with_retry(model, prompt):
 ### Load Balancing
 
 ```python
-from core.providers import ProviderPool
+from manas_ai.providers import ProviderPool
 
 # Create provider pool
 pool = ProviderPool([
@@ -371,7 +371,7 @@ def select_provider(task_type, input_length, priority):
 ## Monitoring and Analytics
 
 ```python
-from core.monitoring import LLMMetrics
+from manas_ai.monitoring import LLMMetrics
 
 # Initialize metrics
 metrics = LLMMetrics()

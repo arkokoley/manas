@@ -4,8 +4,8 @@ import asyncio
 from openai import AsyncOpenAI
 from pydantic import Field
 
-from core.providers.base import BaseLLMProvider
-from core.models import ModelProviderConfig
+from manas_ai.providers.base import BaseLLMProvider
+from manas_ai.models import ModelProviderConfig
 
 class OpenAIConfig(ModelProviderConfig):
     """Configuration for OpenAI provider."""

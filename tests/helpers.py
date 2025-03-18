@@ -2,9 +2,9 @@
 import pytest
 import asyncio
 from typing import Dict, Any, Optional
-from core.models import Document
-from core.llm import LLMNode, LLMConfig
-from core.providers.mock import MockLLMProvider
+from manas_ai.models import Document
+from manas_ai.llm import LLMNode, LLMConfig
+from manas_ai.providers.mock import MockLLMProvider
 
 @pytest.fixture
 def mock_documents():

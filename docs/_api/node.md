@@ -12,7 +12,7 @@ The `Node` class is the foundational building block for all specialized nodes in
 ## Import
 
 ```python
-from core.base import Node
+from manas_ai.base import Node
 ```
 
 ## Constructor

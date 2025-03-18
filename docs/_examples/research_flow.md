@@ -38,7 +38,7 @@ pip install "manas-ai[openai]"  # Or your preferred provider
 ```python
 import os
 from core import Flow, LLM
-from core.nodes import QANode, RAGConfig
+from manas_ai.nodes import QANode, RAGConfig
 
 # Initialize LLM (using OpenAI as example)
 model = LLM.from_provider(

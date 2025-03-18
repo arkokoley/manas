@@ -1,8 +1,8 @@
 """Example implementation of a tool-using agent."""
 import asyncio
 from typing import Dict, Any, List, Callable, Optional
-from core.agent import Agent
-from core.llm import LLMNode, LLMConfig
+from manas_ai.agent import Agent
+from manas_ai.llm import LLMNode, LLMConfig
 from .utils import Tool, logger, create_ollama_node, get_common_tools
 
 class ToolUsingAgent(Agent):

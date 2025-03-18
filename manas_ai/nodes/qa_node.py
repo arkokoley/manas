@@ -2,9 +2,9 @@
 from typing import Dict, Any, Optional, List, Union
 import logging
 from dataclasses import dataclass, field
-from core.base import Node
-from core.llm import LLMNode, LLMConfig
-from core.rag import RAGNode, RAGConfig
+from manas_ai.base import Node
+from manas_ai.llm import LLMNode, LLMConfig
+from manas_ai.rag import RAGNode, RAGConfig
 from .factory import register_node
 from .protocol import QANodeProtocol
 
@@ -74,7 +74,7 @@ class QANode(Node):
             
             # Create RAG node if enabled and not provided
             if self.config.use_rag and self.rag_node is None and self.config.rag_config:
-                from core.vectorstores.factory import create_vectorstore
+                from manas_ai.vectorstores.factory import create_vectorstore
                 
                 # Create embedding node if needed
                 embedding_node = LLMNode(

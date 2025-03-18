@@ -17,7 +17,7 @@ The `Flow` class manages the orchestration and execution of nodes in a directed 
 
 ```python
 from core import Flow
-from core.base import Edge
+from manas_ai.base import Edge
 ```
 
 ## Constructor

@@ -2,10 +2,10 @@
 from typing import Any, Dict, List, Optional, Type, Union, Callable
 from uuid import UUID
 import logging
-from core.base import Node
-from core.llm import LLMNode
-from core.vectorstores import VECTORSTORES
-from core.models import Document
+from manas_ai.base import Node
+from manas_ai.llm import LLMNode
+from manas_ai.vectorstores import VECTORSTORES
+from manas_ai.models import Document
 
 # Set up logging
 logger = logging.getLogger(__name__)

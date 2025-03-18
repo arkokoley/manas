@@ -41,8 +41,8 @@ pip install "manas-ai[all]" "python-magic" "chardet"
 ### 1. Document Processing Node
 
 ```python
-from core.nodes import DocumentNode
-from core.models import Document
+from manas_ai.nodes import DocumentNode
+from manas_ai.models import Document
 import magic
 import chardet
 from pathlib import Path
@@ -101,9 +101,9 @@ class DocumentProcessorNode(DocumentNode):
 ### 2. Knowledge Base Node
 
 ```python
-from core.nodes import QANode
-from core.models import RAGConfig
-from core.vectorstores import ChromaStore
+from manas_ai.nodes import QANode
+from manas_ai.models import RAGConfig
+from manas_ai.vectorstores import ChromaStore
 
 class KnowledgeBaseNode(QANode):
     """Node for maintaining and querying a knowledge base."""

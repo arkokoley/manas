@@ -40,7 +40,7 @@ import os
 import aiohttp
 import json
 from core import LLM, Agent, Tool
-from core.nodes import ToolNode
+from manas_ai.nodes import ToolNode
 
 # Define a calculator tool
 def calculator_tool(expression: str) -> str:
@@ -134,7 +134,7 @@ For more complex applications, you can create dedicated tool nodes in a flow:
 
 ```python
 from core import Flow
-from core.nodes import QANode, ToolNode
+from manas_ai.nodes import QANode, ToolNode
 
 # Create nodes
 qa_node = QANode(

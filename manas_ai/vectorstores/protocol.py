@@ -1,7 +1,7 @@
 """Protocol definition for vector store providers."""
 from typing import Protocol, Dict, Any, List, Optional, runtime_checkable
 from uuid import UUID
-from core.models import Document
+from manas_ai.models import Document
 
 @runtime_checkable
 class VectorStoreProtocol(Protocol):

@@ -27,8 +27,8 @@ All custom nodes should inherit from appropriate base classes:
 ### Example: Custom QA Node
 
 ```python
-from core.nodes import QANode
-from core.models import Document
+from manas_ai.nodes import QANode
+from manas_ai.models import Document
 from typing import Dict, Any, List
 
 class CustomQANode(QANode):
@@ -63,8 +63,8 @@ class CustomQANode(QANode):
 ### Example: Custom Document Node
 
 ```python
-from core.nodes import DocumentNode
-from core.models import Document
+from manas_ai.nodes import DocumentNode
+from manas_ai.models import Document
 from typing import List
 
 class CustomDocumentNode(DocumentNode):
@@ -105,8 +105,8 @@ class CustomDocumentNode(DocumentNode):
 Custom vector stores should inherit from `BaseVectorStore`:
 
 ```python
-from core.vectorstores import BaseVectorStore
-from core.models import Document
+from manas_ai.vectorstores import BaseVectorStore
+from manas_ai.models import Document
 from typing import List, Tuple
 
 class CustomVectorStore(BaseVectorStore):
@@ -167,8 +167,8 @@ class CustomVectorStore(BaseVectorStore):
 Custom LLM providers should inherit from `BaseProvider`:
 
 ```python
-from core.providers import BaseProvider
-from core.models import ChatMessage
+from manas_ai.providers import BaseProvider
+from manas_ai.models import ChatMessage
 from typing import List, Dict, Any
 
 class CustomProvider(BaseProvider):
@@ -272,7 +272,7 @@ custom_tool = Tool(
 
 ```python
 import pytest
-from core.models import Document
+from manas_ai.models import Document
 
 async def test_custom_node():
     # Create node
@@ -317,7 +317,7 @@ async def test_custom_store():
 
 ```python
 import pytest
-from core.models import ChatMessage
+from manas_ai.models import ChatMessage
 
 async def test_custom_provider():
     # Create provider

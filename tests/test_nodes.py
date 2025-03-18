@@ -3,11 +3,11 @@ import pytest
 import asyncio
 from typing import Dict, Any
 
-from core.nodes.tool_node import ToolNode, Tool, create_tool
-from core.nodes.api_node import APINode, APIConfig
-from core.nodes.qa_node import QANode, QAConfig
-from core.nodes.document_node import DocumentNode, DocumentProcessorConfig
-from core.llm import LLMNode, LLMConfig
+from manas_ai.nodes.tool_node import ToolNode, Tool, create_tool
+from manas_ai.nodes.api_node import APINode, APIConfig
+from manas_ai.nodes.qa_node import QANode, QAConfig
+from manas_ai.nodes.document_node import DocumentNode, DocumentProcessorConfig
+from manas_ai.llm import LLMNode, LLMConfig
 from tests.helpers import MockLLMProvider
 
 @pytest.fixture
@@ -159,7 +159,7 @@ async def test_document_node(mock_llm_node):
 @pytest.mark.asyncio
 async def test_node_factory():
     """Test node factory functionality."""
-    from core.nodes.factory import register_node, create_node
+    from manas_ai.nodes.factory import register_node, create_node
     
     # Register a test node
     @register_node("test")

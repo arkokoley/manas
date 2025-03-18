@@ -44,7 +44,7 @@ MANAS_LOG_FORMAT=detailed   # simple, detailed, json
 Configuration for language models:
 
 ```python
-from core.models import LLMConfig
+from manas_ai.models import LLMConfig
 
 config = LLMConfig(
     provider="openai",           # Provider name
@@ -69,7 +69,7 @@ config = LLMConfig(
 Base configuration for all nodes:
 
 ```python
-from core.models import NodeConfig
+from manas_ai.models import NodeConfig
 
 config = NodeConfig(
     name="my_node",            # Node name
@@ -89,7 +89,7 @@ config = NodeConfig(
 Configuration for QA nodes:
 
 ```python
-from core.models import QAConfig
+from manas_ai.models import QAConfig
 
 config = QAConfig(
     system_prompt="You are...",  # System instructions
@@ -111,7 +111,7 @@ config = QAConfig(
 Configuration for document processing:
 
 ```python
-from core.models import DocumentConfig
+from manas_ai.models import DocumentConfig
 
 config = DocumentConfig(
     chunk_size=500,            # Chunk size
@@ -138,7 +138,7 @@ config = DocumentConfig(
 Configuration for flows:
 
 ```python
-from core.models import FlowConfig
+from manas_ai.models import FlowConfig
 
 config = FlowConfig(
     name="my_flow",             # Flow name
@@ -164,7 +164,7 @@ config = FlowConfig(
 Configuration for RAG systems:
 
 ```python
-from core.models import RAGConfig
+from manas_ai.models import RAGConfig
 
 config = RAGConfig(
     chunk_size=500,            # Chunk size
@@ -194,7 +194,7 @@ config = RAGConfig(
 Configuration for vector stores:
 
 ```python
-from core.models import VectorStoreConfig
+from manas_ai.models import VectorStoreConfig
 
 config = VectorStoreConfig(
     store_type="faiss",        # Store backend
@@ -220,7 +220,7 @@ config = VectorStoreConfig(
 Configuration for LLM providers:
 
 ```python
-from core.models import ProviderConfig
+from manas_ai.models import ProviderConfig
 
 config = ProviderConfig(
     api_key="your-key",        # API key
@@ -245,7 +245,7 @@ config = ProviderConfig(
 Configuration for tools:
 
 ```python
-from core.models import ToolConfig
+from manas_ai.models import ToolConfig
 
 config = ToolConfig(
     name="my_tool",            # Tool name

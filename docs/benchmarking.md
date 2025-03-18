@@ -83,7 +83,7 @@ Concurrent Flows | Average Latency (ms) | Memory Usage (MB)
 
 2. **Vector Store Configuration**
    ```python
-   from core.vectorstores import FaissVectorStore
+   from manas_ai.vectorstores import FaissVectorStore
    
    # Optimize for memory usage
    vector_store = FaissVectorStore(
@@ -120,7 +120,7 @@ Concurrent Flows | Average Latency (ms) | Memory Usage (MB)
 
 2. **Caching Strategy**
    ```python
-   from core.cache import RAGCache
+   from manas_ai.cache import RAGCache
    
    # Configure RAG with caching
    cache = RAGCache(max_size=1000)

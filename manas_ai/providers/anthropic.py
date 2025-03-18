@@ -3,8 +3,8 @@ from typing import Any, Dict, Optional, Union, AsyncIterator, List
 import anthropic
 from anthropic import Anthropic, AsyncAnthropic
 
-from core.providers.base import BaseLLMProvider, register_provider
-from core.models import ModelProviderConfig
+from manas_ai.providers.base import BaseLLMProvider, register_provider
+from manas_ai.models import ModelProviderConfig
 
 class AnthropicConfig(ModelProviderConfig):
     """Configuration for Anthropic provider."""

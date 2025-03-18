@@ -12,8 +12,8 @@ from typing import List, Tuple, Dict, Any
 from pathlib import Path
 
 from core import RAG, LLM
-from core.models import Document, RAGConfig
-from core.vectorstores import (
+from manas_ai.models import Document, RAGConfig
+from manas_ai.vectorstores import (
     FaissVectorStore,
     ChromaStore, 
     PineconeStore

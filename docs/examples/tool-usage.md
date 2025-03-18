@@ -32,7 +32,7 @@ import os
 import requests
 import json
 from core import LLM, Agent
-from core.nodes import ToolNode
+from manas_ai.nodes import ToolNode
 from typing import Callable, Dict, Any
 
 # Define a simple calculator tool
@@ -123,7 +123,7 @@ In more complex applications, you can create specialized ToolNodes within a flow
 
 ```python
 from core import Flow
-from core.nodes import QANode, ToolNode
+from manas_ai.nodes import QANode, ToolNode
 
 # Create a QA node for general questions
 qa_node = QANode(
@@ -168,7 +168,7 @@ print(result)
 For more complex tools, you can specify additional metadata:
 
 ```python
-from core.models import Tool
+from manas_ai.models import Tool
 
 # Define a weather API tool with more structured metadata
 weather_tool = Tool(

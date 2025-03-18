@@ -2,9 +2,9 @@
 from typing import Dict, Any, List, Optional, Union, Callable
 import logging
 from dataclasses import dataclass, field
-from core.base import Node
-from core.llm import LLMNode, LLMConfig
-from core.models import Document
+from manas_ai.base import Node
+from manas_ai.llm import LLMNode, LLMConfig
+from manas_ai.models import Document
 from .factory import register_node
 from .protocol import DocumentNodeProtocol
 

@@ -5,9 +5,9 @@ import os
 from typing import Dict, Any, Optional, Callable, List
 from pathlib import Path
 
-from core.llm import LLMNode, LLMConfig
-from core.flow import Flow
-from core.base import Node, Edge
+from manas_ai.llm import LLMNode, LLMConfig
+from manas_ai.flow import Flow
+from manas_ai.base import Node, Edge
 
 # Configure logging
 logging.basicConfig(

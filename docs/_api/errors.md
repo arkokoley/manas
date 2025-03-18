@@ -20,7 +20,7 @@ This guide explains error handling in Manas and documents all available exceptio
 Base exception for all Manas errors:
 
 ```python
-from core.errors import ManasError
+from manas_ai.errors import ManasError
 
 class CustomError(ManasError):
     """Custom error implementation."""
@@ -37,7 +37,7 @@ class CustomError(ManasError):
 Errors related to nodes:
 
 ```python
-from core.errors import NodeError
+from manas_ai.errors import NodeError
 
 # Node initialization error
 raise NodeError("Failed to initialize node: invalid configuration")
@@ -51,7 +51,7 @@ raise NodeError("Error processing input", cause=original_error)
 Flow-related errors:
 
 ```python
-from core.errors import FlowError
+from manas_ai.errors import FlowError
 
 # Invalid flow structure
 raise FlowError("Cycle detected in flow graph")
@@ -65,7 +65,7 @@ raise FlowError("Node execution failed", node_id="processor")
 Provider-related errors:
 
 ```python
-from core.errors import ProviderError
+from manas_ai.errors import ProviderError
 
 # API authentication error
 raise ProviderError("Invalid API key")
@@ -79,7 +79,7 @@ raise ProviderError("Rate limit exceeded", retry_after=60)
 RAG system errors:
 
 ```python
-from core.errors import RAGError
+from manas_ai.errors import RAGError
 
 # Embedding generation failed
 raise RAGError("Failed to generate embeddings")
@@ -95,7 +95,7 @@ raise RAGError("Vector similarity search failed")
 Input validation errors:
 
 ```python
-from core.errors import ValidationError
+from manas_ai.errors import ValidationError
 
 # Invalid parameter
 raise ValidationError("temperature must be between 0 and 1")
@@ -109,7 +109,7 @@ raise ValidationError("system_prompt is required")
 Configuration-related errors:
 
 ```python
-from core.errors import ConfigurationError
+from manas_ai.errors import ConfigurationError
 
 # Missing configuration
 raise ConfigurationError("API key not found in environment")
@@ -123,7 +123,7 @@ raise ConfigurationError("Invalid vector store configuration")
 Resource management errors:
 
 ```python
-from core.errors import ResourceError
+from manas_ai.errors import ResourceError
 
 # Resource not found
 raise ResourceError("Document not found: doc1.pdf")
@@ -137,7 +137,7 @@ raise ResourceError("Memory limit exceeded")
 Timeout-related errors:
 
 ```python
-from core.errors import TimeoutError
+from manas_ai.errors import TimeoutError
 
 # Operation timeout
 raise TimeoutError("Node execution timed out after 30s")
@@ -151,7 +151,7 @@ raise TimeoutError("API request timed out")
 ### Try-Except Patterns
 
 ```python
-from core.errors import ManasError, NodeError, TimeoutError
+from manas_ai.errors import ManasError, NodeError, TimeoutError
 
 async def process_with_retries(node, input_data):
     """Process with error handling and retries."""
@@ -180,7 +180,7 @@ async def process_with_retries(node, input_data):
 ### Error Recovery
 
 ```python
-from core.errors import FlowError
+from manas_ai.errors import FlowError
 from typing import Dict, Any
 
 class RecoverableFlow:
@@ -214,7 +214,7 @@ class RecoverableFlow:
 ### Custom Error Handlers
 
 ```python
-from core.errors import ErrorHandler
+from manas_ai.errors import ErrorHandler
 from typing import Optional
 
 class CustomErrorHandler(ErrorHandler):
@@ -255,7 +255,7 @@ class CustomErrorHandler(ErrorHandler):
 ### Input Validation
 
 ```python
-from core.errors import ValidationError
+from manas_ai.errors import ValidationError
 from typing import Dict, Any
 
 def validate_config(config: Dict[str, Any]) -> None:
@@ -278,7 +278,7 @@ def validate_config(config: Dict[str, Any]) -> None:
 ### Resource Management
 
 ```python
-from core.errors import ResourceError
+from manas_ai.errors import ResourceError
 from contextlib import asynccontextmanager
 
 class ResourceManager:

@@ -8,9 +8,9 @@ Working together in a coordinated flow
 """
 
 import asyncio
-from core.flow import Flow
-from core.base import Edge
-from core.nodes import create_browser_node, QANode, QAConfig
+from manas_ai.flow import Flow
+from manas_ai.base import Edge
+from manas_ai.nodes import create_browser_node, QANode, QAConfig
 
 async def create_research_flow():
     """Create a flow with multiple browser nodes for different research aspects."""

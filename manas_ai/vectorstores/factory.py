@@ -1,7 +1,7 @@
 """Factory for creating and managing vector stores."""
 from typing import Dict, Callable, Any, Type
 import logging
-from core.llm import LLMNode
+from manas_ai.llm import LLMNode
 from .protocol import VectorStoreProtocol
 
 # Set up logging

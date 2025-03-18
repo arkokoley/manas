@@ -1,11 +1,11 @@
 """
 Manas - Multi-Agent System Framework for LLM Applications
 """
-from core.llm import *
-from core.flow import Flow
-from core.agent import Agent
-from core.rag import *
-from core.nodes import QANode, BrowserNode, APINode, DocumentNode, ToolNode
+from manas_ai.llm import *
+from manas_ai.flow import Flow
+from manas_ai.agent import Agent
+from manas_ai.rag import *
+from manas_ai.nodes import QANode, BrowserNode, APINode, DocumentNode, ToolNode
 
 __version__ = "0.1.0"
 

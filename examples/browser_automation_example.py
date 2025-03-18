@@ -4,7 +4,7 @@ Demonstrates browser automation with deepseek-r1 model.
 """
 
 import asyncio
-from core.nodes import create_browser_node
+from manas_ai.nodes import create_browser_node
 
 async def browser_agent_example():
     """Demonstrate browser automation using Agent."""

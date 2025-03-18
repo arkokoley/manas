@@ -11,9 +11,9 @@ from typing import Dict, Any, List
 from pathlib import Path
 
 from core import Flow, LLM
-from core.nodes import QANode
-from core.models import RAGConfig, Document
-from core.vectorstores import ChromaStore
+from manas_ai.nodes import QANode
+from manas_ai.models import RAGConfig, Document
+from manas_ai.vectorstores import ChromaStore
 
 class ResearchFlow:
     """A flow for researching topics and generating reports."""

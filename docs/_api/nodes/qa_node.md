@@ -18,7 +18,7 @@ For examples of using QANode in flows, check out:
 ## Import
 
 ```python
-from core.nodes import QANode, QAConfig
+from manas_ai.nodes import QANode, QAConfig
 ```
 
 ## Configuration

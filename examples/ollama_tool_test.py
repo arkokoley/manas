@@ -1,8 +1,8 @@
 """Example demonstrating a dynamic Ollama-based task execution system."""
 import asyncio
 from typing import Dict, Any, List
-from core.llm import LLMNode, LLMConfig
-from core.flow import Flow
+from manas_ai.llm import LLMNode, LLMConfig
+from manas_ai.flow import Flow
 from .tool_using_agent import ToolUsingAgent, Tool
 
 class OllamaQueryNode:

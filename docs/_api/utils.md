@@ -18,7 +18,7 @@ This page documents utility functions and helper classes provided by Manas.
 ### Tokenization
 
 ```python
-from core.tokenizers import count_tokens, split_by_tokens
+from manas_ai.tokenizers import count_tokens, split_by_tokens
 
 # Count tokens in text
 token_count = count_tokens("Your text here")
@@ -34,7 +34,7 @@ chunks = split_by_tokens(
 ### Text Cleaning
 
 ```python
-from core.utils.text import (
+from manas_ai.utils.text import (
     clean_text,
     remove_extra_whitespace,
     normalize_line_endings
@@ -55,7 +55,7 @@ fixed = normalize_line_endings("Mixed\r\nline\nends")
 ### Document Loading
 
 ```python
-from core.utils.docs import load_document, detect_format
+from manas_ai.utils.docs import load_document, detect_format
 
 # Detect document format
 format_info = detect_format("document.pdf")
@@ -74,7 +74,7 @@ doc = load_document(
 ### Document Chunking
 
 ```python
-from core.utils.docs import chunk_document, merge_chunks
+from manas_ai.utils.docs import chunk_document, merge_chunks
 
 # Split document into chunks
 chunks = chunk_document(
@@ -97,7 +97,7 @@ merged = merge_chunks(
 ### Concurrency Helpers
 
 ```python
-from core.utils.async_utils import (
+from manas_ai.utils.async_utils import (
     run_concurrently,
     with_timeout,
     retry_async
@@ -126,7 +126,7 @@ result = await retry_async(
 ### Resource Management
 
 ```python
-from core.utils.async_utils import (
+from manas_ai.utils.async_utils import (
     AsyncResourceManager,
     cleanup_resources
 )
@@ -148,7 +148,7 @@ await cleanup_resources([resource1, resource2])
 ### Memory Cache
 
 ```python
-from core.utils.cache import (
+from manas_ai.utils.cache import (
     MemoryCache,
     TTLCache,
     LRUCache
@@ -171,7 +171,7 @@ cache.set("key", "value")
 ### Disk Cache
 
 ```python
-from core.utils.cache import DiskCache
+from manas_ai.utils.cache import DiskCache
 
 # Initialize disk cache
 cache = DiskCache(
@@ -191,7 +191,7 @@ await cache.delete("key")
 ### Environment Helpers
 
 ```python
-from core.utils.config import (
+from manas_ai.utils.config import (
     load_env,
     get_env,
     parse_bool
@@ -209,7 +209,7 @@ port = get_env("PORT", default="8080", cast=int)
 ### Config Loading
 
 ```python
-from core.utils.config import (
+from manas_ai.utils.config import (
     load_config,
     merge_configs,
     validate_config
@@ -230,7 +230,7 @@ errors = validate_config(config, schema)
 ### Logging Setup
 
 ```python
-from core.utils.logging import setup_logging
+from manas_ai.utils.logging import setup_logging
 
 # Configure logging
 setup_logging(
@@ -244,7 +244,7 @@ setup_logging(
 ### Log Formatting
 
 ```python
-from core.utils.logging import (
+from manas_ai.utils.logging import (
     format_error,
     format_request,
     format_response
@@ -263,7 +263,7 @@ resp_log = format_response(response)
 ### Type Checking
 
 ```python
-from core.utils.types import (
+from manas_ai.utils.types import (
     is_coroutine,
     is_generator,
     is_async_generator
@@ -284,7 +284,7 @@ if is_async_generator(obj):
 ### Type Conversion
 
 ```python
-from core.utils.types import (
+from manas_ai.utils.types import (
     to_bool,
     to_int,
     to_float,
@@ -303,7 +303,7 @@ list_val = to_list("a,b,c")    # ["a", "b", "c"]
 ### Performance Monitoring
 
 ```python
-from core.utils.debug import (
+from manas_ai.utils.debug import (
     timer,
     memory_usage,
     profile_function
@@ -326,7 +326,7 @@ stats = profile_function(target_function)
 ### Debug Information
 
 ```python
-from core.utils.debug import (
+from manas_ai.utils.debug import (
     get_stack_trace,
     object_info,
     memory_snapshot

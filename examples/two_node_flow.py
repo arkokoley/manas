@@ -1,8 +1,8 @@
 """Example demonstrating a two-node flow using Ollama."""
 import asyncio
-from core.llm import LLMNode, LLMConfig
-from core.flow import Flow
-from core.base import Edge
+from manas_ai.llm import LLMNode, LLMConfig
+from manas_ai.flow import Flow
+from manas_ai.base import Edge
 
 async def main():
     # Create first LLM node for question answering

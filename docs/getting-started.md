@@ -93,7 +93,7 @@ Let's create a simple flow with two agents that collaborate:
 
 ```python
 from core import Flow
-from core.nodes import QANode
+from manas_ai.nodes import QANode
 
 # Create two specialized nodes
 research_node = QANode(
@@ -127,7 +127,7 @@ Let's enhance our application with RAG (Retrieval-Augmented Generation):
 
 ```python
 from core import RAG
-from core.vectorstores import FaissVectorStore
+from manas_ai.vectorstores import FaissVectorStore
 
 # Create a vector store
 vector_store = FaissVectorStore(dimension=1536)  # OpenAI embeddings dimension

@@ -4,7 +4,7 @@ import asyncio
 import logging
 import inspect
 from dataclasses import dataclass
-from core.base import Node
+from manas_ai.base import Node
 from .factory import register_node
 from .protocol import ToolNodeProtocol
 

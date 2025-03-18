@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Optional, Callable, Set, Type
 import logging
 import inspect
 from uuid import UUID
-from core.base import Node
+from manas_ai.base import Node
 
 # Set up logging
 logger = logging.getLogger(__name__)

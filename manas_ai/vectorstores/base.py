@@ -4,8 +4,8 @@ from abc import ABC, abstractmethod
 import logging
 from contextlib import asynccontextmanager
 
-from core.models import Document
-from core.llm import LLMNode
+from manas_ai.models import Document
+from manas_ai.llm import LLMNode
 from .protocol import VectorStoreError
 
 # Set up logging

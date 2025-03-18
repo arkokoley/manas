@@ -4,9 +4,9 @@ import pinecone
 from pinecone import Pinecone, Config
 import uuid
 
-from core.vectorstores.base import VectorStoreProvider
-from core.models import Document
-from core.llm import LLMNode
+from manas_ai.vectorstores.base import VectorStoreProvider
+from manas_ai.models import Document
+from manas_ai.llm import LLMNode
 from .factory import register_vectorstore
 
 @register_vectorstore("pinecone")

@@ -10,9 +10,9 @@ import json
 import signal
 from contextlib import contextmanager
 
-from core.flow import Flow
-from core.base import Node, Edge
-from core.llm import LLMNode, LLMConfig
+from manas_ai.flow import Flow
+from manas_ai.base import Node, Edge
+from manas_ai.llm import LLMNode, LLMConfig
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

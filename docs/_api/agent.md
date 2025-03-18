@@ -12,7 +12,7 @@ The `Agent` class extends the base `Node` class to implement autonomous agents t
 
 ```python
 from core import Agent
-from core.models import Tool
+from manas_ai.models import Tool
 ```
 
 ## Constructor

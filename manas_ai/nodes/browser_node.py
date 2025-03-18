@@ -6,7 +6,7 @@ from browser_use import Agent
 from langchain_openai import ChatOpenAI
 from pydantic import SecretStr
 
-from core.base import Node
+from manas_ai.base import Node
 from .factory import register_node
 
 # Set up logging

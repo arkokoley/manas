@@ -15,9 +15,9 @@ from functools import lru_cache
 import time
 
 from core import Flow, LLM, RAG
-from core.nodes import DocumentNode, QANode
-from core.models import Document, RAGConfig
-from core.vectorstores import ChromaStore
+from manas_ai.nodes import DocumentNode, QANode
+from manas_ai.models import Document, RAGConfig
+from manas_ai.vectorstores import ChromaStore
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 

@@ -45,7 +45,7 @@ pip install "manas-ai[pinecone]"  # For Pinecone support
 ```python
 import os
 from core import RAG, LLM
-from core.vectorstores import FaissVectorStore
+from manas_ai.vectorstores import FaissVectorStore
 
 # Initialize LLM
 model = LLM.from_provider(
@@ -89,7 +89,7 @@ for source in result["sources"]:
 ### Chroma
 
 ```python
-from core.vectorstores import ChromaStore
+from manas_ai.vectorstores import ChromaStore
 
 store = ChromaStore(
     collection_name="research_docs",
@@ -106,7 +106,7 @@ rag = RAG(
 ### Pinecone
 
 ```python
-from core.vectorstores import PineconeStore
+from manas_ai.vectorstores import PineconeStore
 
 store = PineconeStore(
     api_key=os.environ.get("PINECONE_API_KEY"),
@@ -122,7 +122,7 @@ rag = RAG(llm=model, vector_store=store)
 ### QANode with RAG
 
 ```python
-from core.nodes import QANode, RAGConfig
+from manas_ai.nodes import QANode, RAGConfig
 
 # Create QA node with RAG support
 qa_node = QANode(
@@ -160,7 +160,7 @@ result = await qa_node.process({
 ### Custom Document Processing
 
 ```python
-from core.models import Document
+from manas_ai.models import Document
 from typing import List
 
 class CustomRAG(RAG):

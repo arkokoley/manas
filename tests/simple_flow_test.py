@@ -3,9 +3,9 @@ import asyncio
 from typing import Dict, Any
 from uuid import UUID
 
-from core.flow import Flow
-from core.base import Node, Edge
-from core.llm import LLMNode, LLMConfig
+from manas_ai.flow import Flow
+from manas_ai.base import Node, Edge
+from manas_ai.llm import LLMNode, LLMConfig
 
 from tests.utils import (
     logger, check_ollama_availability, create_llm_node, 
