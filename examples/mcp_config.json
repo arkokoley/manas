@@ -1,0 +1,87 @@
+{
+  "mcpServers": {
+    "mcp-installer": {
+      "command": "npx",
+      "args": [
+        "@anaisbetts/mcp-installer"
+      ]
+    },
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory",
+        "--port=3000"
+      ]
+    },
+    "youtube-transcript": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@kimtaeyoon83/mcp-server-youtube-transcript",
+        "--port=3001"
+      ]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking",
+        "--port=3002"
+      ]
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-brave-search",
+        "--port=3003"
+      ],
+      "env": {
+        "BRAVE_API_KEY": "BSA8P72tMn3_PBe27ZyuPiUQbHp2AUW"
+      }
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-puppeteer",
+        "--port=3004"
+      ]
+    },
+    "arxiv-mcp-server": {
+      "command": "uv",
+      "args": [
+        "run",
+        "arxiv-mcp-server",
+        "--port=3005"
+      ]
+    },
+    "x_mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-x",
+        "--port=3006"
+      ],
+      "env": {
+        "TWITTER_API_KEY": "CKEXZkIhykywuYb4kGPIRQP1Z",
+        "TWITTER_API_SECRET": "xnS3cYlK1Vpu8TZOzb1mAJSjf9JHXeEfdVHMRnT9sdnYh8JjzT",
+        "TWITTER_ACCESS_TOKEN": "273839958-kUlGMRNKbFWQ0Ev3TlpmOVt4eKqx16XdfVa8CElM",
+        "TWITTER_ACCESS_TOKEN_SECRET": "3y3ujPO6an60u5ODOPhFQOIo4c11JfiVDMlsDZqyjjNvL"
+      }
+    },
+    "zotero": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-zotero",
+        "--port=3007"
+      ],
+      "env": {
+        "ZOTERO_API_KEY": "ARWqKVFXrsNoNlHDyhYmNN5X",
+        "ZOTERO_USER_ID": "10222791"
+      }
+    }
+  }
+}

@@ -167,6 +167,9 @@ class LLMNode(Node):
             # Don't cleanup here automatically to allow for retry
             raise
 
+    def get_provider(self):
+        """Get the underlying provider instance."""
+        return self._provider
 
 class PromptTemplate:
     """Template for structured prompts."""

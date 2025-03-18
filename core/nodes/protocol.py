@@ -47,3 +47,12 @@ class DocumentNodeProtocol(Protocol):
     ) -> Dict[str, Any]:
         """Generate a new document with specified parameters."""
         ...
+
+@runtime_checkable
+class MCPNodeProtocol(Protocol):
+    """Protocol for Model Context Protocol nodes."""
+    async def process(self,
+        inputs: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """Process an action using the configured MCP servers."""
+        ...

@@ -2,10 +2,11 @@
 
 # Import protocols
 from .protocol import (
-    ToolNodeProtocol, 
-    APINodeProtocol, 
-    QANodeProtocol, 
-    DocumentNodeProtocol
+    ToolNodeProtocol,
+    APINodeProtocol,
+    QANodeProtocol,
+    DocumentNodeProtocol,
+    MCPNodeProtocol
 )
 
 # Import factory
@@ -16,6 +17,7 @@ from .tool_node import ToolNode, Tool, create_tool
 from .api_node import APINode, APIConfig, create_api_node
 from .qa_node import QANode, QAConfig
 from .document_node import DocumentNode, DocumentProcessorConfig
+from .mcp_node import MCPNode, MCPConfig
 
 # Export all
 __all__ = [
@@ -24,6 +26,7 @@ __all__ = [
     "APINodeProtocol",
     "QANodeProtocol",
     "DocumentNodeProtocol",
+    "MCPNodeProtocol",
     
     # Factory
     "register_node",
@@ -46,5 +49,9 @@ __all__ = [
     
     # Document Node
     "DocumentNode",
-    "DocumentProcessorConfig"
+    "DocumentProcessorConfig",
+    
+    # MCP Node
+    "MCPNode",
+    "MCPConfig"
 ]
